@@ -2,7 +2,7 @@ import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
-import { getUserClients, getMyBilling } from "../controllers/UserControllers"
+import { getUserClients, getMyBilling, getMonthlyJobs, getDayJobs } from "../controllers/UserControllers"
 
 const router = Router()
 
@@ -18,6 +18,20 @@ router.get("/myBilling/:userId",
         handleInputErrors,
         validateUserExist,
         getMyBilling  
+)
+
+router.get("/myJobs/:userId/:month/:year", 
+        param("userId").isMongoId().withMessage("El id no es valido"),
+        handleInputErrors,
+        validateUserExist,
+        getMonthlyJobs  
+)
+
+router.get("/myJobs/:userId/:day/:month/:year", 
+        param("userId").isMongoId().withMessage("El id no es valido"),
+        handleInputErrors,
+        validateUserExist,
+        getDayJobs  
 )
 
 export default router
