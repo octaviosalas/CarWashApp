@@ -4,7 +4,7 @@ import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
 import { validateClientExist } from "../middlewares/ClientValidation"
 import { validateVehicleExistInUserClientsVehicles, validateJobExist, validateJobIsUserJob } from "../middlewares/JobsValidation"
-import { createJob, updateJobStatus, deleteJob, markJobAsPaid, deleteJobPaid } from "../controllers/JobsControllers"
+import { createJob, updateJobStatus, deleteJob, markJobAsPaid, deleteJobPaid,  notifyEndOfWashingByEmail} from "../controllers/JobsControllers"
 
 
 const router = Router()
@@ -61,6 +61,20 @@ router.delete("/deletePaid/:jobId/:userId",
     validateJobIsUserJob,
     deleteJobPaid
 )
+
+router.post("/sendEmail/:jobId/:userId",
+    param("jobId").isMongoId().withMessage("El Id del lavado al que intentas asignar no es valido"),
+    param("userId").isMongoId().withMessage("El estado que deseas actualizar es obligatorio"), 
+    body("addressee").isEmail().withMessage("El email del cliente no es valido"), 
+    body("title").notEmpty().withMessage("El titulo es obligatorio"), 
+    body("message").notEmpty().withMessage("El mensaje es obligatorio"), 
+    body("date").notEmpty().withMessage("La fecha es obligatoria"), 
+    handleInputErrors,
+    validateUserExist,
+    validateJobExist,
+    notifyEndOfWashingByEmail
+)
+
 
 
 

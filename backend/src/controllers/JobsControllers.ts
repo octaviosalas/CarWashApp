@@ -1,6 +1,11 @@
 import CollectionModel from "../models/Collections"
 import JobsModel from "../models/Jobs";
 import { Request, Response } from "express";
+import nodemailer from 'nodemailer';
+import EmailModel, { EmailType, NewEmailType } from "../models/Emails";
+import { sendEmailToClient } from "../utils/SendEmailToClient";
+import { ObjectId } from 'mongodb';
+
 
 export const createJob = async (req: Request, res: Response) => { 
    
@@ -99,4 +104,33 @@ export const deleteJobPaid = async (req: Request, res: Response) => {
 
     }
 }
+
+export const notifyEndOfWashingByEmail = async (req: Request, res: Response) => { 
+
+    const {jobId, userId} = req.params
+    
+    try {
+        const { addressee, message, date, title } = req.body;
+
+        const data: NewEmailType = {
+            sender: new ObjectId(userId),
+            title: title,
+            message: message,
+            addressee: addressee,
+            date: date,
+            jobReference: new ObjectId(jobId)
+        };
+        
+        await sendEmailToClient({data})
+
+        const jobSelected = await JobsModel.findByIdAndUpdate(jobId, {
+            notified: true
+         }, {new: true})
+
+         await jobSelected.save()
+         res.status(200).json("Email enviado")
+    } catch (error) {
+        console.log(error)
+    }
+};
 

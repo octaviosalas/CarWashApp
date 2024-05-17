@@ -63,6 +63,10 @@ const JobsSchema: Schema = new Schema ({
     paid: { 
         type: Boolean,
         default: false
+    },
+    notified: { 
+        type: Boolean,
+        default: false
     }
 })
 

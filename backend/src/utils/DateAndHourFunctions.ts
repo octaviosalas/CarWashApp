@@ -1,4 +1,4 @@
-function obtenerFechaExacta() {
+export function obtenerFechaExacta() {
     const ahora = new Date();
     let offsetUTC = -3; 
     const offsetVerano = -2; 
@@ -19,7 +19,7 @@ function obtenerFechaExacta() {
 console.log(obtenerFechaExacta());
 
 
-function obtenerHoraExacta() {
+export function obtenerHoraExacta() {
     const ahora = new Date();
     let offsetUTC = -3; 
     const offsetVerano = -2; 
@@ -53,6 +53,7 @@ console.log(`Hoy es ${fechaFormateada}.`);
 
 
 const horaLocal = new Date(obtenerHoraExacta());
+horaLocal.setHours(horaLocal.getHours() + 3); 
 const horaFormatter = new Intl.DateTimeFormat('es-AR', {
     hour: '2-digit',
     minute: '2-digit',
