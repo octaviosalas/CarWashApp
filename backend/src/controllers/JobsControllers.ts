@@ -1,10 +1,10 @@
 import CollectionModel from "../models/Collections"
 import JobsModel from "../models/Jobs";
 import { Request, Response } from "express";
-import nodemailer from 'nodemailer';
-import EmailModel, { EmailType, NewEmailType } from "../models/Emails";
+import {NewEmailType } from "../models/Emails";
 import { sendEmailToClient } from "../utils/SendEmailToClient";
 import { ObjectId } from 'mongodb';
+import { Types } from "mongoose";
 
 
 export const createJob = async (req: Request, res: Response) => { 
@@ -113,12 +113,12 @@ export const notifyEndOfWashingByEmail = async (req: Request, res: Response) => 
         const { addressee, message, date, title } = req.body;
 
         const data: NewEmailType = {
-            sender: new ObjectId(userId),
+            sender: new Types.ObjectId(userId),
             title: title,
             message: message,
             addressee: addressee,
             date: date,
-            jobReference: new ObjectId(jobId)
+            jobReference: new Types.ObjectId(jobId)
         };
         
         await sendEmailToClient({data})
