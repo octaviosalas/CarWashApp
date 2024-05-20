@@ -10,7 +10,11 @@ export const getUserClients = async (req: Request, res: Response) => {
     const {userId} = req.params
     
     try {
-        const userClients = await ClientModel.find({clientOf: userId})
+        const userClients = await ClientModel.find({clientOf: userId}).populate({
+            path: 'client',
+            model: ClientModel,
+            select: 'name' 
+        });
         if(!userClients) { 
             res.status(200).json("No se encontraron clientes registrados desde tu cuenta")
         } else { 
@@ -40,6 +44,29 @@ export const getMyBilling = async (req: Request, res: Response) => {
     }
 }
 
+export const getEveryJobs = async (req: Request, res: Response) => { 
+    
+    const {  userId } = req.params;
+    
+    try {
+        const jobs = await JobsModel.find({user: userId}).populate({
+            path: "client",
+            model: ClientModel,
+            select: "name"
+        }).populate({
+            path: "vehicle",
+            model: VehicleModel,
+            select: "description patent typeOfVehicle"
+        });
+        res.status(200).json({detail: jobs})
+
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message: "error", error})
+    }
+}
+
 export const getMonthlyJobs = async (req: Request, res: Response) => { 
     
     const { month, year, userId } = req.params;
@@ -63,6 +90,14 @@ export const getMonthlyJobs = async (req: Request, res: Response) => {
                 $gte: startDate,
                 $lt: endDate
             }
+        }).populate({
+            path: "client",
+            model: ClientModel,
+            select: "name"
+        }).populate({
+            path: "vehicle",
+            model: VehicleModel,
+            select: "description patent typeOfVehicle"
         })
 
         const totalAmountFactured = jobs.reduce((acc, el) => acc + el.amount, 0)
@@ -107,7 +142,7 @@ export const getDayJobs = async (req: Request, res: Response) => {
         }).populate({
             path: "vehicle",
             model: VehicleModel,
-            select: "description patent"
+            select: "description patent typeOfVehicle"
         })
 
         const jobsPaid = jobs.filter((job) => job.paid === true)
@@ -125,11 +160,3 @@ export const getDayJobs = async (req: Request, res: Response) => {
 }
 
 
-export const hellu = async (req: Request, res: Response) => { 
-    
-     try {
-        res.send("sahdoasid")
-     } catch (error) {
-        console.log(error)
-     }
-}

@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react'
 import './App.css'
-import apiBackendUrl from './lib/axios'
+import MainCleaningData from './components/Main/MainCleaningData';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
 
-      const getData = async () => { 
-          try {
-            const respuesta = await apiBackendUrl.get('/users/hola');
-            console.log(respuesta.data); 
-          } catch (error) {
-            console.error('Error al obtener el usuario:', error);
-          }
-      } 
-
-  useEffect(() => { 
-    getData()
-  }, [])
+     
 
   return (
     
-      <div className='flex items-center justify-center text-center'>
-         <p>App Car Wash</p> 
+      <div className='flex flex-col items-center  h-screen justify-center text-center w-full'>
+          <div className='w-[1400px]'>
+                 <Navbar/>
+            </div>
+          <MainCleaningData/>
       </div>
   )
 }

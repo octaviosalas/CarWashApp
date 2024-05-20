@@ -5,6 +5,13 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": "src", //esto es para que typescript sepa que que el import con @ de los componentes apunte a la carpeta src
+    "paths": { 
+      "@/components/*" : ["components/*"], //cuando tengas @components en alguna importacion, lee la carpeta src y entra en la carpeta components.,
+      "@/views/*" : ["views/*"], //cuando tengas @views en alguna importacion, lee la carpeta src y entra en la carpeta views.
+      "@/layouts/*" : ["layouts/*"], //cuando tengas @views en alguna importacion, lee la carpeta src y entra en la carpeta layouts.
+
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
