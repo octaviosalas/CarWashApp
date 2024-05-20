@@ -125,5 +125,11 @@ export const getDayJobs = async (req: Request, res: Response) => {
 }
 
 
-
-
+export const hellu = async (req: Request, res: Response) => { 
+    
+     try {
+        res.send("sahdoasid")
+     } catch (error) {
+        console.log(error)
+     }
+}
