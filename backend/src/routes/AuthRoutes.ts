@@ -22,11 +22,13 @@ router.post("/register",
         createNewAcount
 )
 
+
 router.post("/confirmAccount",
     body("token").notEmpty().withMessage("El token no puede ir vacio"),
     handleInputErrors,
     confirmAccountWithToken
 )
+
 
 router.post("/login",
         body("email").notEmpty().withMessage("El nombre es obligatorio"),
@@ -36,16 +38,19 @@ router.post("/login",
         login
 )
 
+
 router.get("/:userId",
         param("userId").isMongoId().withMessage("El id no es valido"),
         handleInputErrors,
         validateUserExist,
 )
 
+
 router.put("/updateData/:userId",   
         validateUserExist,
         updateUserData
 )
+
 
 router.delete("/deleteAccount/:userId",
        validateUserExist,
