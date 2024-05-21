@@ -1,6 +1,41 @@
 import mongoose,  {Schema, Document, Types} from "mongoose"
 
 
+export interface jobServicesType {
+    _id: Types.ObjectId,
+    service: string,
+    user: Types.ObjectId,
+    price: number,
+    __v: number
+}
+
+
+const JobServicesSchema: Schema = new Schema({
+    _id: { 
+        type: Types.ObjectId,
+        ref: "ServicesModel",
+        required: true,
+    },
+    service: {
+        type: String,
+        required: true
+    },
+    user: { 
+        type: Types.ObjectId,
+        ref: "UserModel",
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    __v: {
+        type: Number,
+        required: true
+    }
+});
+
+
 const jobStatus = { 
     PENDING: "pending",
     COMPLETED: "completed",
@@ -17,8 +52,8 @@ export interface JobsType extends Document {
     user: Types.ObjectId,
     vehicle: Types.ObjectId, 
     status: JobStatus,
-    whatsappNotice: boolean,
-    typeOfJob: string,
+    notified: boolean,
+    typeOfJob: jobServicesType[],
     amount: number,
     paid: boolean
 }
@@ -53,7 +88,7 @@ const JobsSchema: Schema = new Schema ({
         default: jobStatus.PENDING
     },
     typeOfJob: { 
-        type: String,
+        type: [JobServicesSchema],  
         required: true
     },
     amount: { 
@@ -71,6 +106,7 @@ const JobsSchema: Schema = new Schema ({
 })
 
 const JobsModel = mongoose.model<JobsType>("JobsModel", JobsSchema)
+
 
 export default JobsModel
 

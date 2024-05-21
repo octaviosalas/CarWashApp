@@ -14,11 +14,9 @@ const Services = () => {
   const [load, setLoad] = useState<boolean>(false)
   const [showCreateNew, setShowCreateNew] = useState<boolean>(false)
 
-
-  const handleOpen = async () => { 
+  const getMyServices = async () => {
     setLoad(true)
-     try {
-        onOpen()
+    try {
         const {data} = await apiBackendUrl.get(`/services/myServices/6644b816b732651683c01b26`) //cambiar por id del contexto
         const response = data
         console.log("servicios", response)
@@ -30,9 +28,17 @@ const Services = () => {
           setWithOutServices(true)
           setLoad(false)
         }
-     } catch (error) {
+      } catch (error) {
         console.log(error)
-     }
+      }
+  
+  }
+
+
+  const handleOpen = async () => { 
+        onOpen()
+        getMyServices()
+       
   }
 
   const closeModalNow = () => { 
@@ -82,7 +88,7 @@ const Services = () => {
                   </div>
                 :
                   <div>
-                    <CreateService closeModal={closeModalNow}/>
+                    <CreateService closeModal={closeModalNow} updateServices={getMyServices}/>
                   </div> 
                 }
               </ModalFooter>

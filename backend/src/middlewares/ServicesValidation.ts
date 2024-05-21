@@ -37,3 +37,21 @@ export const validateServiceExist = async (req: Request, res: Response, next: Ne
         res.status(500).json("Hubo un error en el midddleware")
     }
 }
+
+export const validateServicePrice= async (req: Request, res: Response, next: NextFunction) => { 
+     
+  const {price} = req.body
+
+  try {
+  
+     if(price <= 0 ) { 
+      res.status(400).json("El precio del servicio no puede ser 0 o menos de 0.")
+     } else { 
+       next()
+     }
+  } catch (error) {   
+      console.log(error)
+      res.status(500).json("Hubo un error en el midddleware")
+  }
+}
+

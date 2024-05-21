@@ -2,7 +2,7 @@ import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
-import { validateServiceNotExist, validateServiceExist } from "../middlewares/ServicesValidation"
+import { validateServiceNotExist, validateServiceExist, validateServicePrice } from "../middlewares/ServicesValidation"
 import { getServices, createService } from "../controllers/ServicesControllers"
 
 const router = Router()
@@ -14,6 +14,7 @@ router.post("/createService/:userId",
         handleInputErrors,
         validateUserExist,
         validateServiceNotExist,
+        validateServicePrice,
         createService
 )
 

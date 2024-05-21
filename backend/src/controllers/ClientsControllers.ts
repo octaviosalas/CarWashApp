@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ClientModel from "../models/Clients";
 import VehicleModel from "../models/Vehicles";
+import ServicesModel from "../models/Services";
 
 export const createClient = async (req: Request, res: Response) => { 
     
@@ -31,11 +32,12 @@ export const getClientDataWithVehicles = async (req: Request, res: Response) => 
 
         const userSelected = await ClientModel.findById(clientId)
         const clientsVehicles = await VehicleModel.find({client: clientId, user: userId})
+        const userServices = await ServicesModel.find({user: userId})
         
         if (!userSelected) {
             res.status(404).json("No se encontro el cliente");
         } else {
-            res.status(200).json({clientData: userSelected, clientVehicles: clientsVehicles});
+            res.status(200).json({clientData: userSelected, clientVehicles: clientsVehicles, services: userServices});
         }
 
     } catch (error) {

@@ -11,8 +11,8 @@ export const createJob = async (req: Request, res: Response) => {
    
     const {userId, clientId} = req.params
     const {date, hour, vehicle, typeOfJob, amount} = req.body
-    
-    try {
+
+   try {
         const newJobToBeCreated = new JobsModel({ 
             date: date,
             hour: hour,
@@ -58,7 +58,6 @@ export const deleteJob = async (req: Request, res: Response) => {
 }
 
 export const markJobAsPaid = async (req: Request, res: Response) => { 
-    console.log("el id recibido", req.jobData.id)
     const {date, paymentMethod} = req.body
    
     try {
@@ -80,6 +79,27 @@ export const markJobAsPaid = async (req: Request, res: Response) => {
         console.log(error)
         res.status(400).json("error")
 
+    }
+}
+
+export const updateJobDetailData = async (req: Request, res: Response) => { 
+    const {date, hour, vehicle, typeOfJob, amount} = req.body
+    const {jobId, clientId, userId} = req.params
+    try {
+        const newJobData = await JobsModel.findByIdAndUpdate(jobId, { 
+            date: date,
+            hour: hour,
+            vehicle: vehicle,
+            typeOfJob: typeOfJob,
+            amount: amount
+        }, {new: true})
+
+        await newJobData.save()
+        res.status(200).send("Los datos del lavado fueron actualizados")
+
+        
+    } catch (error) {
+        
     }
 }
 

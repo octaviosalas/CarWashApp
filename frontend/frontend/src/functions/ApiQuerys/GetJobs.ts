@@ -1,7 +1,7 @@
 import apiBackendUrl from "../../lib/axios";
 import { JobType } from "types/JobsTypes";
 
-const userId : string = "6644b816b732651683c01b26" 
+const userId : string = "6644b816b732651683c01b26" //id del contexto
 
 const getMyJobs = async (): Promise<JobType[]> => {
   try {

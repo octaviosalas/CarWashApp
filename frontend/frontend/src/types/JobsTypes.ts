@@ -1,3 +1,5 @@
+import { ServiceType } from "./ServicesTypes"
+
 export type JobVehicleType = { 
     patent: string,
     description: string, 
@@ -10,7 +12,6 @@ export type JobClientType = {
    _id: string,
 }
 
-
 export type JobType = { 
     amount: number,
     client: JobClientType,
@@ -19,12 +20,22 @@ export type JobType = {
     notified: boolean,
     paid: boolean,
     status: string,
-    typeOfJob: string,
+    typeOfJob: ServiceType[],
     user: string,
     vehicle: JobVehicleType,
     __v?: number,
     _id: string,
 }
+
+
+export type newJobType = { 
+    date: Date,
+    hour: string,
+    typeOfJob: ServiceType[],
+    amount: number,
+    vehicle: string | undefined
+}
+
 
 
 

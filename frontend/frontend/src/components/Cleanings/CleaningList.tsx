@@ -13,31 +13,26 @@ const CleaningList = () => {
     const [userClients, setUserClients] = useState<ClientType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
-    useEffect(() => {
-        const fetchJobs = async () => {
-            const jobs : JobType[] = await getMyJobs();
-            setEveryJobsList(jobs); 
-        };
+    const fetchJobs = async () => {
+      const jobs : JobType[] = await getMyJobs();
+      setEveryJobsList(jobs); 
+    };
+
+    const fetchClients = async () => {
+      const clients : ClientType[] = await getMyClients();
+      setUserClients(clients); 
+  };
+
+    useEffect(() => {   
         fetchJobs(); 
+        fetchClients(); 
         setLoading(false)
-    
     }, []);
-
-    useEffect(() => {
-      const fetchClients = async () => {
-          const clients : ClientType[] = await getMyClients();
-          setUserClients(clients); 
-      };
-      fetchClients(); 
-  }, []);
-
-    
-
 
    
   return (
     <div >
-       {loading ? <Loading/> :  <CleaningDetailCard jobsData={everyJobsList} userClientsData={userClients}/>}
+       {loading ? <Loading/> :  <CleaningDetailCard jobsData={everyJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
     </div>
   )
 }

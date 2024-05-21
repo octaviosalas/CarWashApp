@@ -3,7 +3,8 @@ import './App.css'
 import MainCleaningData from './components/Main/MainCleaningData';
 import Navbar from './components/Navbar/Navbar';
 import MainClientsDetail from './components/Main/MainClientsDetail';
-
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
   
@@ -25,7 +26,7 @@ function App() {
   return (
     
       <div className='flex flex-col items-center h-screen justify-center text-center w-full'>
-          <div className=' xl:w-[1180px] 2xl:w-[1200px] 3xl:w-[1400px]'>
+          <div className='xl:w-[1180px] 2xl:w-[1200px] 3xl:w-[1600px] '>
                  <Navbar showClients={showClientsMenu} showJobs={showJobsMenu}/>
           </div>
 
@@ -39,7 +40,7 @@ function App() {
 
             ) : null
           }
-
+        <ToastContainer />
       </div>
   )
 }
