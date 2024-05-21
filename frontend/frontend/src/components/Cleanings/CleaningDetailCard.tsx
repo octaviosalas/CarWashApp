@@ -6,26 +6,39 @@ import email from "../../images/email.png"
 import notified from "../../images/notified.png"
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
 import JobDetail from '../JobDetail/JobDetail';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import AddNewJobButton from './AddNewJobButton';
+import AddNewJobForm from './AddNewJobForm';
+import { ClientType } from 'types/ClientsTypes';
 
 interface Props {
     jobsData: JobType[];
+    userClientsData: ClientType[]
 }
 
-const CleaningDetailCard = ({jobsData}: Props) => {
+const CleaningDetailCard = ({jobsData, userClientsData}: Props) => {
 
     const [jobSelected, setJobSelected] = useState<JobType>()
+    const [showNewJob, setShowNewJob] = useState<boolean>(false)
+    
+   const addNewJobNow = () => { 
+    setShowNewJob(true)
+   }
 
-    useEffect(() => { 
-      console.log(jobSelected)
-    }, [jobSelected])
+   const viwJobDetail = (item: JobType) => { 
+    setShowNewJob(false)
+    setJobSelected(item)
+   }
 
   return (
 
     <div className='flex gap-4'>
-            <div className=' max-h-[645px] overflow-y-auto flex flex-col items-start justify-start w-2/5 ml-2'>
+            <div className=' max-h-[500px] 2xl:max-h-[645px] overflow-y-auto flex flex-col items-start justify-start w-2/5 ml-2'>
+                <div className='mt-2 w-full flex justify-start'>
+                   <AddNewJobButton add={addNewJobNow}/>
+                </div>
                 {jobsData.map((job: JobType) => ( 
-                    <div className='mt-4 w-full' onClick={() => setJobSelected(job)}>
+                    <div className='mt-4 w-full cursor-pointer' onClick={() => viwJobDetail(job)}>
                             <div className='flex items-start text-start justify-start' key={job._id}>
                                 <p className='font-medium text-sm text-blue-500'>{job.client.name.toUpperCase()}</p>
                             </div>
@@ -56,7 +69,7 @@ const CleaningDetailCard = ({jobsData}: Props) => {
            </div>
 
            <div className=' h-full w-4/5'>
-               <JobDetail detail={jobSelected}/>
+               {!showNewJob ? <JobDetail detail={jobSelected}/> : <AddNewJobForm clients={userClientsData}/>}
            </div>
     </div>
    

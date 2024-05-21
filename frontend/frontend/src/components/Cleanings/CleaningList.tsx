@@ -4,11 +4,13 @@ import { useEffect } from 'react'
 import getMyJobs from '../../functions/ApiQuerys/GetJobs'
 import { JobType } from '../../types/JobsTypes'
 import CleaningDetailCard from './CleaningDetailCard'
-
+import getMyClients from '../../functions/ApiQuerys/MyClients'
+import { ClientType } from 'types/ClientsTypes'
 
 const CleaningList = () => {
 
     const [everyJobsList, setEveryJobsList] = useState<JobType[]>([])
+    const [userClients, setUserClients] = useState<ClientType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -21,13 +23,21 @@ const CleaningList = () => {
     
     }, []);
 
-    useEffect(() => { 
-        console.log(everyJobsList)
-    }, [everyJobsList])
+    useEffect(() => {
+      const fetchClients = async () => {
+          const clients : ClientType[] = await getMyClients();
+          setUserClients(clients); 
+      };
+      fetchClients(); 
+  }, []);
+
+    
+
+
    
   return (
     <div >
-       {loading ? <Loading/> :  <CleaningDetailCard jobsData={everyJobsList}/>}
+       {loading ? <Loading/> :  <CleaningDetailCard jobsData={everyJobsList} userClientsData={userClients}/>}
     </div>
   )
 }

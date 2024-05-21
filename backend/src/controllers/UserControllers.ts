@@ -10,11 +10,7 @@ export const getUserClients = async (req: Request, res: Response) => {
     const {userId} = req.params
     
     try {
-        const userClients = await ClientModel.find({clientOf: userId}).populate({
-            path: 'client',
-            model: ClientModel,
-            select: 'name' 
-        });
+        const userClients = await ClientModel.find({clientOf: userId})
         if(!userClients) { 
             res.status(200).json("No se encontraron clientes registrados desde tu cuenta")
         } else { 

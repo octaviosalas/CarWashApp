@@ -1,14 +1,10 @@
 export type ClientType = { 
-    amount: number,
-    date: string,
-    hour: string,
-    notified: boolean,
-    paid: boolean,
-    status: string,
-    typeOfJob: string,
-    user: string,
+    clientOf: string;
+    dni: number,
+    name: string,
+    telephone: number,
     __v?: number,
-    _id: string,
+    _id: string
 }
 
 
