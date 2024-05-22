@@ -17,7 +17,7 @@ const ClientsDetailCard = ({clientsData}: Props) => {
   return (
 
     <div className='flex gap-4'>
-            <div className=' max-h-[645px] overflow-y-auto flex flex-col items-start justify-start w-2/5 ml-2'>
+            <div className=' max-h-[500px] 3xl:max-h-[645px] overflow-y-auto flex flex-col items-start justify-start w-2/5 ml-2'>
                 {clientsData.map((client: ClientType) => ( 
                     <div className='mt-4 w-full' onClick={() => setClientSelected(client)}>
                             <div className='flex items-start text-start justify-start' key={client._id}>

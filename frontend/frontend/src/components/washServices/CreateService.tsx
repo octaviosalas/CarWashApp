@@ -75,7 +75,7 @@ const CreateService = ({closeModal, updateServices}: Props) => {
        <Input className='w-full' type="number" variant="underlined" label="Precio del Servicio" value={price?.toString()} onChange={handleInputPrice}></Input>
        <div className='flex items-center justify-center text-center mt-4 gap-2'>
           <Button className="bg-blue-500 text-white font-medium text-sm w-40 h-10" onClick={() => sendNewService()}>Crear</Button>
-          <Button className="bg-blue-500 text-white font-medium text-sm w-40 h-10" onPress={closeModal}>Cancelar</Button>
+          <Button className="bg-gray-400 text-white font-medium text-sm w-40 h-10" onPress={closeModal}>Cancelar</Button>
        </div>
 
         {load ? <div className='flex items-center justify-center mt-4 mb-2'> <Spinner/> </div>: null}

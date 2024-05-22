@@ -4,8 +4,6 @@ import { JobType } from 'types/JobsTypes'
 import { ClientType } from 'types/ClientsTypes'
 import arrowBack from "../../images/arrowBack.png"
 import { useState } from 'react'
-import { getDate } from '../../functions/TransformDateHour/HourAndDate'
-import { getHour } from '../../functions/TransformDateHour/HourAndDate'
 
 interface Props { 
   detail: JobType,
@@ -19,14 +17,14 @@ interface Props {
 const EditJobForm = ({detail, clients, goBack}: Props) => {
 
   const [selectedClient, setSelectedClient] = useState<string>(detail.client.name);
-  const [hour, setHour] = useState(getHour())
-  const [date, setDate] = useState(getDate())
   const [vehicle, setVehicle] = useState(detail.vehicle._id)
   const [amount, setAmount] = useState(detail.amount)
   const [typeOfJob, setTypeOfJob] = useState(detail.typeOfJob)
   //parametro clientId es detail.client._id
   //parametro userId es la const
   //parametro job id es detail._id
+  
+  console.log(detail)
   
 
 

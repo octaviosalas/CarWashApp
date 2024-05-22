@@ -29,8 +29,9 @@ const AddNewJobForm = ({clients, updateJobs}: Props) => {
     const [servicesSelected, setServicesSelected] = useState<ServiceType[]>([]);
     const [date, setDate] = useState<Date>(getDate())
     const [hour, setHour] = useState<string>(getHour().toString())
+    const [loading, setLoading] = useState<boolean>(false)
 
-    const userId: string = "6644b816b732651683c01b26";//id contexto
+    const userId: string = "6644b816b732651683c01b26" //id contexto
 
     const findClientVehicles = async (clientId: string) => { 
         setLoad(true)
@@ -77,6 +78,7 @@ const AddNewJobForm = ({clients, updateJobs}: Props) => {
     }
 
     const createJob = async () => {
+        setLoading(true)
         if(servicesSelected.length === 0) { 
             
         }
@@ -94,8 +96,10 @@ const AddNewJobForm = ({clients, updateJobs}: Props) => {
             updateJobs()
                 toast.success("El lavado se guardó correctamente", {
                     style: { backgroundColor: 'white', color: 'blue' },
-                    pauseOnHover: false
+                    pauseOnHover: false,
+                    autoClose: 1500
                 });
+                setLoading(false)
                 setTimeout(() => { 
                     setServicesSelected([])
                     setClientSelected("")
@@ -166,11 +170,13 @@ const AddNewJobForm = ({clients, updateJobs}: Props) => {
                                   {servicesSelected.length > 0 ? 
                                     <div className='flex items-center gap-6 mt-5'>
                                          <Button className='bg-blue-500 font-medium text-white w-32' onClick={() => createJob()}>Confirmar</Button>
-                                         <Button className='bg-blue-500 font-medium text-white w-32' onClick={() => cancelJob()}>Cancelar</Button>
+                                         <Button className='bg-gray-400 font-medium text-white w-32' onClick={() => cancelJob()}>Cancelar</Button>
                                     </div>
                                      : 
                                     null
                                   }
+
+                                  {loading ? <div className='flex items-center justify-center mt-4 mb-2'> <Loading/> </div> : null}
                                   
                               </div>
                             }

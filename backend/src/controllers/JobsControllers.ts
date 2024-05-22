@@ -49,8 +49,19 @@ export const deleteJob = async (req: Request, res: Response) => {
     console.log("el id para elmininar", req.jobData.id)
    
     try {
-         await JobsModel.findByIdAndDelete(req.jobData.id)
-         res.status(200).json("El lavado fue eliminado con exito")
+         if(req.jobData.paid === false) { 
+            console.log("Job Inpago")
+            await JobsModel.findByIdAndDelete(req.jobData.id)
+            res.status(200).json("El lavado fue eliminado con exito")
+         } else { 
+            console.log("Job Pagado")
+           const deleteJob = await JobsModel.findByIdAndDelete(req.jobData.id)
+           const deletePaid =  await CollectionModel.findOneAndDelete({jobReference: req.jobData.id})
+             if(deletePaid && deleteJob) { 
+                res.status(200).json("El lavado y el cobro fueron eliminados con exito")
+             }
+         }
+       
     } catch (error) {
        console.log(error)
        res.status(200).json("El lavado fue eliminado con exito")
@@ -59,6 +70,7 @@ export const deleteJob = async (req: Request, res: Response) => {
 
 export const markJobAsPaid = async (req: Request, res: Response) => { 
     const {date, paymentMethod} = req.body
+    console.log(date, paymentMethod)
    
     try {
         const jobSelected =  req.jobData
@@ -83,12 +95,10 @@ export const markJobAsPaid = async (req: Request, res: Response) => {
 }
 
 export const updateJobDetailData = async (req: Request, res: Response) => { 
-    const {date, hour, vehicle, typeOfJob, amount} = req.body
+    const {vehicle, typeOfJob, amount} = req.body
     const {jobId, clientId, userId} = req.params
     try {
-        const newJobData = await JobsModel.findByIdAndUpdate(jobId, { 
-            date: date,
-            hour: hour,
+        const newJobData = await JobsModel.findByIdAndUpdate(jobId, {        
             vehicle: vehicle,
             typeOfJob: typeOfJob,
             amount: amount
@@ -132,6 +142,12 @@ export const notifyEndOfWashingByEmail = async (req: Request, res: Response) => 
     try {
         const { addressee, message, date, title } = req.body;
 
+        const job = await JobsModel.findByIdAndUpdate(jobId, { 
+            status: "completed"
+        }, {new: true})
+
+        await job.save()
+ 
         const data: NewEmailType = {
             sender: new Types.ObjectId(userId),
             title: title,
@@ -148,7 +164,7 @@ export const notifyEndOfWashingByEmail = async (req: Request, res: Response) => 
          }, {new: true})
 
          await jobSelected.save()
-         res.status(200).json("Email enviado")
+         res.status(200).json("Lavado finalizado y Correo Electronico enviado")
     } catch (error) {
         console.log(error)
     }
