@@ -4,7 +4,8 @@ export interface ClientType extends Document {
     name: string,
     telephone: number,
     dni: number,
-    clientOf: Types.ObjectId 
+    clientOf: Types.ObjectId ,
+    email: string
 }
 
 const ClientSchema: Schema = new Schema ({ 
@@ -15,6 +16,9 @@ const ClientSchema: Schema = new Schema ({
     telephone: { 
         type: Number,
         required: true
+    },
+    email: { 
+        type: String,
     },
     dni: { 
         type: Number,

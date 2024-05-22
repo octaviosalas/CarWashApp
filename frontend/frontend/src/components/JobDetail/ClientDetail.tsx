@@ -14,9 +14,7 @@ const ClientDetail = ({ detail }: Props) => {
 
         return (
             <div className="flex flex-col items-center justify-center ">
-
-           lala
-
+              lala  
             </div>
             
           );

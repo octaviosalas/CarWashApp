@@ -25,7 +25,7 @@ const ClientsList = () => {
     }, [myClients])
    
   return (
-    <div>
+    <div className='h-full'>
        {loading ? <Loading/> :  <ClientsDetailCard clientsData={myClients}/>}
     </div>
   )

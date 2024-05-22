@@ -145,7 +145,7 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
             </div>
         ) : ( 
             <div>
-            <div> 
+            <div className="flex flex-col items-center justify-center"> 
                 <div className='flex flex-col items-center justify-center'>
                     <p className='font-medium text-black text-md'>El lavado ya se encuentra finalizado y el cliente fue notificado por correo electronico</p>
                 </div>

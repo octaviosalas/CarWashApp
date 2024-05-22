@@ -28,7 +28,6 @@ const CleaningDetailCard = ({jobsData, userClientsData, updateJobs}: Props) => {
     }
 
     const viwJobDetail = (item: JobType) => { 
-        console.log(item)
         setShowNewJob(false)
         setJobSelected(item)
     }
@@ -48,7 +47,7 @@ const CleaningDetailCard = ({jobsData, userClientsData, updateJobs}: Props) => {
                 {jobsData.map((job: JobType) => ( 
                     <div className='mt-8 w-full cursor-pointer' onClick={() => viwJobDetail(job)}>
                             <div className='flex items-start text-start justify-start' key={job._id}>
-                                <p className='font-medium text-sm text-blue-500'>{job.client.name.toUpperCase()}</p>
+                                <p className='font-medium text-sm text-blue-500'>{job.client.name}</p>
                             </div>
                             <div className='flex items-center gap-2'>
                                 {job.vehicle.typeOfVehicle === "Auto" ? 

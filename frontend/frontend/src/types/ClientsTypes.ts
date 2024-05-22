@@ -4,7 +4,8 @@ export type ClientType = {
     name: string,
     telephone: number,
     __v?: number,
-    _id: string
+    _id: string,
+    email: string
 }
 
 
