@@ -2,8 +2,8 @@ import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
-import { validateClientNotExist, validateClientExist } from "../middlewares/ClientValidation"
-import { createClient, getClientDataWithVehicles, updateClientData } from "../controllers/ClientsControllers"
+import { validateClientNotExist, validateClientExist, validateClientNotExistWithVehicle } from "../middlewares/ClientValidation"
+import { createClient, getClientDataWithVehicles, updateClientData, createClientWithVehicle } from "../controllers/ClientsControllers"
 import { validateUserAccountIsConfirmed } from "../middlewares/AuthValidations"
 
 const router = Router()
@@ -18,6 +18,15 @@ router.post("/create/:userId",
        validateUserExist,
        validateUserAccountIsConfirmed,
        createClient
+)
+
+router.post("/createWithVehicle/:userId",
+       param("userId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),
+       handleInputErrors,
+       validateClientNotExistWithVehicle,
+       validateUserExist,
+       validateUserAccountIsConfirmed,
+       createClientWithVehicle
 )
 
 router.get("/clientData/:clientId/:userId",

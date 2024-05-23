@@ -11,14 +11,17 @@ import transformPrice from '../../functions/TransformDateHour/TransformPrice'
 import { getDate, getHour } from '../../functions/TransformDateHour/HourAndDate'
 import { newJobType } from 'types/JobsTypes'
 import {toast} from "react-toastify"
+import arrowBack from "../../images/arrowBack.png"
+
 
 interface Props { 
     clients: ClientType[],
-    updateJobs: () => void
+    updateJobs: () => void,
+    goBack: () => void
 }
 
 
-const AddNewJobForm = ({clients, updateJobs}: Props) => {
+const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
 
     const [clientSelected, setClientSelected] = useState<string>("")
     const [clientSelectedVehicles, setClientSelectedVehicles] = useState<ClientVehiclesType[]>([])
@@ -116,6 +119,9 @@ const AddNewJobForm = ({clients, updateJobs}: Props) => {
 
   return (
     <div>
+         <div className='ml-4 mt-0 2xl:mt-3'>
+            <img src={arrowBack} className='w-5 h-5 2xl:w-6 2xl:h-6 cursor-pointer' onClick={() => goBack()}/>
+          </div>
          <div className='flex flex-col text-start justify-start mt-12'>
              <p className='font-medium text-black text-md ml-2'>Cliente</p>
              <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de tus clientes">

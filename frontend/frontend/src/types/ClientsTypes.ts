@@ -8,6 +8,16 @@ export type ClientType = {
     email: string
 }
 
+export type newClientType = { 
+    dni: number | undefined,
+    name: string,
+    telephone:  number | undefined,
+    email: string,
+}
+
+
+
+
 
 
 

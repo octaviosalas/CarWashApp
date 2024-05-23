@@ -10,5 +10,25 @@ export type ClientVehiclesType = {
 }
 
 
+export type newClientVehicleType = { 
+    description: string,
+    patent: string,
+    typeOfVehicle: string,
+}
+
+export type clientVehiclesData = { 
+    description: string,
+    patent: string,
+    typeOfVehicle: string,
+    client: string,
+    user: string,
+    __v: number,
+    _id: string
+}
+
+
+
+
+
 
 

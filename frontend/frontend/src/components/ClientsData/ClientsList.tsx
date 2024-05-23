@@ -10,11 +10,13 @@ const ClientsList = () => {
     const [myClients, setMyClients] = useState<ClientType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
+    const fetchClients = async () => {
+      const clients : ClientType[] = await getMyClients();
+      setMyClients(clients); 
+    };
+
     useEffect(() => {
-        const fetchClients = async () => {
-            const clients : ClientType[] = await getMyClients();
-            setMyClients(clients); 
-        };
+       
         fetchClients(); 
         setLoading(false)
 
@@ -26,7 +28,7 @@ const ClientsList = () => {
    
   return (
     <div className='h-full'>
-       {loading ? <Loading/> :  <ClientsDetailCard clientsData={myClients}/>}
+       {loading ? <Loading/> :  <ClientsDetailCard clientsData={myClients} update={fetchClients}/>}
     </div>
   )
 }

@@ -7,7 +7,7 @@ const userId : string = "6644b816b732651683c01b26"  //cambiar por id del context
 const getMyClients = async (): Promise<ClientType[]> => {
   try {
       const response = await apiBackendUrl.get(`/users/myClients/${userId}`);
-      const clients: ClientType[] = response.data
+      const clients: ClientType[] = response.data.reverse();
       console.log(clients)
       return clients;
   } catch (error) {

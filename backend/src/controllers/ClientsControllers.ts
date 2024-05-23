@@ -12,6 +12,7 @@ export const createClient = async (req: Request, res: Response) => {
             name: req.body.name,
             telephone: req.body.telephone,
             dni: req.body.dni,
+            email: req.body.email,
             clientOf: userId
         })
 
@@ -23,6 +24,40 @@ export const createClient = async (req: Request, res: Response) => {
         res.status(500).json({message:"Error", error})
     }
 }
+
+export const createClientWithVehicle = async (req: Request, res: Response) => { 
+    
+    const {userId} = req.params
+    
+    try {
+        const user = new ClientModel({
+            name: req.body.client.name,
+            telephone: req.body.client.telephone,
+            dni: req.body.client.dni,
+            email: req.body.client.email,
+            clientOf: userId
+        })
+
+        await user.save()
+
+        const newVehicle = new VehicleModel({ 
+           client: user._id,
+           typeOfVehicle: req.body.vehicle.typeOfVehicle,
+           patent: req.body.vehicle.patent,
+           description: req.body.vehicle.description,
+           user: userId
+        })
+
+        await newVehicle.save()
+
+        res.status(200).send("El cliente fue almacenado con exito")
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"Error", error})
+    }
+}
+
 
 export const getClientDataWithVehicles = async (req: Request, res: Response) => { 
     

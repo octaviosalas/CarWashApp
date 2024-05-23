@@ -30,7 +30,6 @@ export const getVehiclesByClient = async (req: Request, res: Response) => {
         const vehicles = await VehicleModel.find({user: userId, client: clientId})
         
         if (vehicles.length === 0) { 
-
             res.status(404).json("No hay vehículos registrados de este cliente");
         } else { 
 
