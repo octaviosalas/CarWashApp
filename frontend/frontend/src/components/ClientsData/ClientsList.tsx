@@ -11,8 +11,10 @@ const ClientsList = () => {
     const [loading, setLoading] = useState<boolean>(true)
 
     const fetchClients = async () => {
+      setLoading(true)
       const clients : ClientType[] = await getMyClients();
       setMyClients(clients); 
+      setLoading(false)
     };
 
     useEffect(() => {
@@ -28,7 +30,7 @@ const ClientsList = () => {
    
   return (
     <div className='h-full'>
-       {loading ? <Loading/> :  <ClientsDetailCard clientsData={myClients} update={fetchClients}/>}
+       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :  <ClientsDetailCard clientsData={myClients} update={fetchClients}/>}
     </div>
   )
 }

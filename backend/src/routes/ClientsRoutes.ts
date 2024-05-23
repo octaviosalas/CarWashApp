@@ -3,7 +3,7 @@ import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
 import { validateClientNotExist, validateClientExist, validateClientNotExistWithVehicle } from "../middlewares/ClientValidation"
-import { createClient, getClientDataWithVehicles, updateClientData, createClientWithVehicle } from "../controllers/ClientsControllers"
+import { createClient, getClientDataWithVehicles, updateClientData, createClientWithVehicle, deleteClient } from "../controllers/ClientsControllers"
 import { validateUserAccountIsConfirmed } from "../middlewares/AuthValidations"
 
 const router = Router()
@@ -41,17 +41,22 @@ router.put("/updateClientData/:clientId/:userId",
    param("clientId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),
    body("name").notEmpty().withMessage("El nombre es obligatorio"),
    body("dni").notEmpty().withMessage("El dni es obligatorio"),
+   body("email").notEmpty().withMessage("El email es obligatorio"),
    body("telephone").notEmpty().withMessage("El telefono es obligatorio"),
    handleInputErrors,
    validateClientExist,
    updateClientData
-
-
 )
 
 router.post("/updateClientData/:clientId/:userId")
 
-router.delete("/deleteClient/:clientId/:userId")
+router.delete("/deleteClient/:clientId/:userId",
+   param("userId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),
+   param("clientId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),
+   handleInputErrors,
+   validateClientExist,
+   deleteClient
+)
 
 
 

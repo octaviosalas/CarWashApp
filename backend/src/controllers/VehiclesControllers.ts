@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import VehicleModel from "../models/Vehicles";
 import ClientModel from "../models/Clients";
+import JobsModel from "../models/Jobs";
 
 export const createNewVehicle = async (req: Request, res: Response) => { 
     
@@ -57,6 +58,39 @@ export const getVehicleData = async (req: Request, res: Response) => {
         } else {
             res.status(200).json(vehicles);
         }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error al obtener los vehículos del cliente.", error });
+    }
+};
+
+export const addClientVehicle = async (req: Request, res: Response) => {
+
+    const { clientId, userId } = req.params;
+
+    try {
+        const newVehicleToBeSaved = new VehicleModel({ 
+            client: clientId,
+            typeOfVehicle: req.body.typeOfVehicle,
+            patent: req.body.patent,
+            description: req.body.description,
+            user: userId
+        })
+        await newVehicleToBeSaved.save()
+        res.status(200).json("El vehiculo fue correctamente asignado al cliente")
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error al obtener los vehículos del cliente.", error });
+    }
+};
+
+export const getLastWashed = async (req: Request, res: Response) => {
+
+    const { vehicleId, userId } = req.params;
+
+    try {
+        const getVehicleJobs = await JobsModel.find({vehicle: vehicleId})
+        res.status(200).json(getVehicleJobs)
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Error al obtener los vehículos del cliente.", error });

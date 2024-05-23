@@ -5,7 +5,7 @@ import { Button } from '@nextui-org/react'
 import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
-
+import axios from 'axios'
 
 
 interface Props { 
@@ -42,7 +42,20 @@ const DeleteJob = ({detail, goBack, updateJobs, restart}: Props) => {
             }, 2000)
             }
         } catch (error) {
-            console.log(error)
+            setLoad(false)
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                setLoad(false)
+                toast.success(error.response.data, {
+                    style: { backgroundColor: 'white', color: 'blue' },
+                    pauseOnHover: false,
+                    autoClose: 2000
+                });
+            } else {
+                console.log('Unexpected error:', error);
+                setLoad(false)
+            }
+          }
         }
     }
 

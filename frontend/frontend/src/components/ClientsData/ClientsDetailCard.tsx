@@ -8,6 +8,7 @@ import axios from "axios";
 import apiBackendUrl from '../../lib/axios';
 import { ClientVehiclesType } from "types/VehiclesTypes";
 import {toast} from "react-toastify"
+import Loading from '../Spinner/Loading';
 
 
 interface Props {
@@ -58,13 +59,14 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
   return (
 
     <div className='flex gap-4 h-full '>
+              {clientsData ? 
               <div className='flex flex-col '>
                   <div className='mt-2 w-full flex justify-start'>
                       <AddNewClient add={addNewJobClient}/>
                   </div>
                   <div className='max-h-[420px] 2xl:max-h-[645px] overflow-y-auto w-full '>  
                     {clientsData.map((client: ClientType) => ( 
-                        <div className='mt-4 w-full' key={client._id} onClick={() => selectClientAndGetVehicles(client)}>
+                        <div className='mt-4 w-full cursor-pointer hover:bg-blue-100' key={client._id} onClick={() => selectClientAndGetVehicles(client)}>
                                 <div className='flex items-start text-start justify-between' key={client._id}>
                                     <p className='font-medium text-md text-blue-500'>{client.name}</p>                             
                                 </div>
@@ -78,14 +80,14 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
                         </div>  
                      ))}
                 </div>
-              </div>
+              </div> : <Loading/>}
            
 
            <div className='w-4/5  h-full'>
                {showNewClient ? 
                 <AddNewClientForm update={update} goBack={goBack}/>
                 :
-                <ClientDetail detail={clientSelected} clientVehicles={clientVehicles}/>}
+                <ClientDetail detail={clientSelected} clientVehicles={clientVehicles} update={update} updateVehicles={selectClientAndGetVehicles}/>}
            </div>
     </div>
    

@@ -14,7 +14,9 @@ const CleaningList = () => {
     const [loading, setLoading] = useState<boolean>(true)
 
     const fetchJobs = async () => {
+      setLoading(true)
       const jobs : JobType[] = await getMyJobs();
+      setLoading(false)
       setEveryJobsList(jobs); 
     };
 
@@ -32,7 +34,7 @@ const CleaningList = () => {
    
   return (
     <div >
-       {loading ? <Loading/> :  <CleaningDetailCard jobsData={everyJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
+       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :  <CleaningDetailCard jobsData={everyJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
     </div>
   )
 }

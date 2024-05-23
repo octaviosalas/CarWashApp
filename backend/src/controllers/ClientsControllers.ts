@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import ClientModel from "../models/Clients";
 import VehicleModel from "../models/Vehicles";
 import ServicesModel from "../models/Services";
+import JobsModel from "../models/Jobs";
 
 export const createClient = async (req: Request, res: Response) => { 
     
@@ -112,10 +113,11 @@ export const updateClientData = async (req: Request, res: Response) => {
             name: req.body.name,
             telephone: req.body.telephone,
             dni: req.body.dni,
+            email: req.body.email
         }, { new: true });
 
         await updatedClient.save()
-        res.status(200).send("Los datos del cliente fueron actualizadosss")
+        res.status(200).send("Los datos del cliente fueron actualizados")
 
     } catch (error) {
         console.log(error);
@@ -124,3 +126,38 @@ export const updateClientData = async (req: Request, res: Response) => {
 };
 
 
+export const deleteClient = async (req: Request, res: Response) => { //AGREGAR ELIMINACION DE COBRO
+
+    const { clientId, userId } = req.params;
+
+    try {
+
+         const findClientVehicles = await VehicleModel.find({client: clientId, user: userId})
+         const findClientJobs = await VehicleModel.find({client: clientId, user: userId})
+
+         console.log("Vehiculos encontrados", findClientVehicles)
+         console.log("Lavados encontrados",findClientJobs)
+
+         if(findClientVehicles.length > 0 && findClientJobs.length === 0) { 
+
+           await VehicleModel.deleteMany({client: clientId, user: userId})
+
+         } else if (findClientJobs.length > 0 && findClientVehicles.length > 0 ) { 
+
+            await JobsModel.deleteMany({client: clientId, user: userId})
+            await VehicleModel.deleteMany({client: clientId, user: userId})
+
+         } else if (findClientVehicles.length === 0 && findClientJobs.length > 0) { 
+
+            await JobsModel.deleteMany({client: clientId, user: userId})
+         }
+
+         await ClientModel.findByIdAndDelete(clientId)
+ 
+         res.status(200).send("Los datos del cliente fueron actualizados") 
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error al obtener los vehículos del cliente.", error });
+    }
+};

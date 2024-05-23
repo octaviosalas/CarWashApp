@@ -3,8 +3,8 @@ import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateClientExist } from "../middlewares/ClientValidation"
 import { validateUserExist } from "../middlewares/AuthValidations"
-import { validateVehicleNotExist, validateVehicleIsYours, validateVehicleExist  } from "../middlewares/VehiclesValidation"
-import { createNewVehicle , getVehiclesByClient, getVehicleData} from "../controllers/VehiclesControllers"
+import { validateVehicleNotExist, validateVehicleIsYours, validateVehicleExist, validateVehicleData  } from "../middlewares/VehiclesValidation"
+import { createNewVehicle , getVehiclesByClient, getVehicleData, addClientVehicle, getLastWashed} from "../controllers/VehiclesControllers"
 import { validateVehicleExistInUserClientsVehicles } from "../middlewares/JobsValidation"
 
 
@@ -36,6 +36,24 @@ router.get("/vehicleData/:vehicleId/:userId",
    validateVehicleExist,
    validateVehicleIsYours,
    getVehicleData
+)
+
+router.post("/addClientVehicle/:clientId/:userId",    
+   param("clientId").isMongoId().withMessage("El Id del client al que intentas asignarle un vehiculo no es valido"),
+   param("userId").isMongoId().withMessage("El Id del client al que intentas asignarle un vehiculo no es valido"),
+   validateUserExist,
+   validateVehicleNotExist,
+   validateVehicleData,
+   addClientVehicle
+)
+
+router.get("/getLastWashed/:vehicleId/:userId",    
+   param("vehicleId").isMongoId().withMessage("El Id del client al que intentas asignarle un vehiculo no es valido"),
+   param("userId").isMongoId().withMessage("El Id del client al que intentas asignarle un vehiculo no es valido"),
+   validateUserExist,
+   validateVehicleExist,
+   validateVehicleIsYours,
+   getLastWashed
 )
 
 export default router;

@@ -3,6 +3,7 @@ import formatDate from '../../functions/TransformDateHour/TransformDate';
 import formatHourToText from '../../functions/TransformDateHour/TransformHour';
 import car from "../../images/car.png"
 import moto from "../../images/moto.png"
+import camioneta from "../../images/camioneta.png"
 import email from "../../images/email.png"
 import notified from "../../images/notified.png"
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
@@ -41,6 +42,8 @@ const CleaningDetailCard = ({jobsData, userClientsData, updateJobs}: Props) => {
         setJobSelected(undefined)
     }
 
+    console.log(jobsData)
+
   return (
 
     <div className='flex gap-4'>
@@ -50,14 +53,19 @@ const CleaningDetailCard = ({jobsData, userClientsData, updateJobs}: Props) => {
                 </div>
                 <div className='max-h-[420px] 2xl:max-h-[645px] overflow-y-auto w-full '>  
                 {jobsData.map((job: JobType) => ( 
-                    <div className='mt-8 w-full cursor-pointer' key={job._id} onClick={() => viwJobDetail(job)}>
+                    <div className='mt-8 w-full cursor-pointer hover:bg-blue-100' key={job._id} onClick={() => viwJobDetail(job)}>
                             <div className='flex items-start text-start justify-start' key={job._id}>
                                 <p className='font-medium text-sm text-blue-500'>{job.client.name}</p>
                             </div>
                             <div className='flex items-center gap-2'>
                                 {job.vehicle.typeOfVehicle === "Auto" ? 
                                     <img className='w-6 h-8' src={car}/> : 
-                                    <img className='w-6 h-8' src={moto}/>
+                                     job.vehicle.typeOfVehicle === "Moto" ? ( 
+                                        <img className='w-6 h-8' src={moto} />
+                                    ) : (
+                                     <img className='w-6 h-8' src={camioneta} />
+                                    ) 
+                                   
                                 } 
                                 <p className='font-medium text-black text-sm'>{job.vehicle.description}</p>
                             </div>
