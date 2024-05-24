@@ -18,9 +18,10 @@ interface Props {
     detail: ClientType | undefined,
     update: () => void,
     updateVehicles: (item: ClientType) => Promise<void>;
+    showArrow: string
 }
 
-const AddVehicle = ({cancel, detail, update, updateVehicles}: Props) => {
+const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) => {
 
 
     const [description, setDescription] = useState("")
@@ -92,9 +93,10 @@ const AddVehicle = ({cancel, detail, update, updateVehicles}: Props) => {
 
   return (
     <div>
+       {showArrow !== "false" ? 
         <div className='w-full justify-start text-start'>
             <img src={arrow} className='w-5 h-5 2xl:w-7 2xl:h-7 cursor-pointer' title="Volver" onClick={() => cancel()}/>
-        </div>
+        </div> : null}
          <div className='flex items-center gap-8 mt-3 2xl:mt-8'>
             <div className='flex flex-col justify-start items-start'>
                 <p className='font-medium text-black text-md'>Modelo</p>

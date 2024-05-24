@@ -64,7 +64,7 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
                   <div className='mt-2 w-full flex justify-start'>
                       <AddNewClient add={addNewJobClient}/>
                   </div>
-                  <div className='max-h-[420px] 2xl:max-h-[645px] overflow-y-auto w-full '>  
+                  <div className='max-h-[420px] 2xl:max-h-[645px] overflow-y-auto w-full ml-2'>  
                     {clientsData.map((client: ClientType) => ( 
                         <div className='mt-4 w-full cursor-pointer hover:bg-blue-100' key={client._id} onClick={() => selectClientAndGetVehicles(client)}>
                                 <div className='flex items-start text-start justify-between' key={client._id}>

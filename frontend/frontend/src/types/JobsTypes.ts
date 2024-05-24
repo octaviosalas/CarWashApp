@@ -28,6 +28,7 @@ export type JobType = {
 }
 
 
+
 export type newJobType = { 
     date: Date,
     hour: string,

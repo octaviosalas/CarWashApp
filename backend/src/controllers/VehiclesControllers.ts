@@ -89,7 +89,11 @@ export const getLastWashed = async (req: Request, res: Response) => {
     const { vehicleId, userId } = req.params;
 
     try {
-        const getVehicleJobs = await JobsModel.find({vehicle: vehicleId})
+        const getVehicleJobs = await JobsModel.find({vehicle: vehicleId}).populate({
+            path: "vehicle",
+            model: VehicleModel,
+            select: "description patent _id typeOfVehicle"
+        })
         res.status(200).json(getVehicleJobs)
     } catch (error) {
         console.log(error);

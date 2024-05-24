@@ -109,7 +109,12 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
                     setClientSelectedVehicles([])
             }, 2000)
         } catch (error) {
-            console.error('Error al crear el lavado:', error);
+            setLoading(false)
+            toast.error("El lavado no guardó correctamente", {
+                style: { backgroundColor: 'white', color: 'blue' },
+                pauseOnHover: false,
+                autoClose: 1500
+            });
             return []; 
         } 
     };

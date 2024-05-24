@@ -73,27 +73,27 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                {showClientDetail ? 
                    <div className="w-full justify-start items-start"> 
                  <div className=" w-full">
-                    <div className="flex flex-col items-start justify-start text-start w-full mt-8 ">                    
+                    <div className="flex flex-col items-start justify-start text-start w-full mt-1 2xl:mt-8 ">                    
                             <div className="flex flex-col items-start text-start mt-2">
                                 <p className="text-md font-medium text-black">Cliente</p>
                                 <p className="">{detail.name.toUpperCase()}</p>
                             </div>
-                            <div className="flex flex-col items-start text-start mt-3">
+                            <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
                                 <p className="text-md font-medium text-black underline">Dni:</p>
                                 <p>{detail.dni}</p>
                             </div>
-                            <div className="flex flex-col items-start text-start mt-3">
+                            <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
                                 <p className="text-md font-medium text-black underline">Telefono:</p>
                                 <p>{detail.telephone}</p>
                             </div>
-                            <div className="flex flex-col items-start text-start mt-3">
+                            <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
                                 <p className="text-md font-medium text-black underline">Email:</p>
                                 <p>{detail.email}</p>
                             </div>   
                     </div>
                 </div>
 
-                <div className="mt-6 w-full">
+                <div className="2xl:mt-6 w-full">
 
                     {clientVehicles.length === 0  && showAddVehicle === false ?
 
@@ -107,14 +107,14 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                       ) : null
                     }
 
-                    {showAddVehicle ? <div className="flex items-center justify-center"> <AddVehicle cancel={comeBackToDetail} detail={detail} update={update} updateVehicles={updateVehicles}/> </div> : null}
+                    {showAddVehicle ? <div className="flex items-center justify-center"> <AddVehicle showArrow="false" cancel={comeBackToDetail} detail={detail} update={update} updateVehicles={updateVehicles}/> </div> : null}
                 </div>
                    </div> 
                : null}
 
                {showEditClient ? <div className="w-full"> <EditClientData detail={detail}  goBack={comeBackToDetail} update={update}/> </div> : null}
                {showDeleteClient ? <div className="w-full"> <DeleteClient detail={detail}  goBack={comeBackToDetail} update={update}/> </div> : null}
-               {showAddVehicleComponent ? <div className="w-full"> <AddVehicle  cancel={comeBackToDetail} detail={detail} update={update} updateVehicles={updateVehicles}/> </div> : null}
+               {showAddVehicleComponent ? <div className="w-full"> <AddVehicle showArrow="true" cancel={comeBackToDetail} detail={detail} update={update} updateVehicles={updateVehicles}/> </div> : null}
 
 
                

@@ -31,10 +31,16 @@ const CleaningList = () => {
         setLoading(false)
     }, []);
 
+    const filterJobsByInput = (value: string) => { 
+       console.log(value)
+      // const findJob = everyJobsList.filter((job) => job.vehicle.description.includes(value));
+      // console.log("aca", findJob)    
+    } 
+
    
   return (
     <div >
-       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :  <CleaningDetailCard jobsData={everyJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
+       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :  <CleaningDetailCard filter={filterJobsByInput} jobsData={everyJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
     </div>
   )
 }

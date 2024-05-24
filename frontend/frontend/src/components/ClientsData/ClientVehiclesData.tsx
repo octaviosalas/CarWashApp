@@ -1,10 +1,14 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { ClientVehiclesType } from 'types/VehiclesTypes'
 import carBlack from "../../images/carBlack.png"
 import camioneta from "../../images/camioneta.png"
 import motorbike from "../../images/motorBike.png"
 import Loading from "../Spinner/Loading";
 import apiBackendUrl from '../../lib/axios'
+import { JobType } from 'types/JobsTypes'
+import formatDate from '../../functions/TransformDateHour/TransformDate'
+import formatHourToText from '../../functions/TransformDateHour/TransformHour'
+import transformPrice from '../../functions/TransformDateHour/TransformPrice'
 
 interface Props { 
     clientVehicles: ClientVehiclesType[]
@@ -16,15 +20,33 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
     const userId: string = "6644b816b732651683c01b26";//id contexto
     const [loadVehicles, setLoadVehicles] = useState<boolean>(false)
     const [viewLastWashed, setViewLastWashed] = useState<boolean>(false)
+    const [lastWashed, setLastWashed] = useState<JobType>()
+    const [load, setLoad] = useState<boolean>(false)
 
     const getLastWashed = async (vehicleId: string) => { 
+        setLoad(true)
+        setViewLastWashed(false)
         try {
             const {status, data} = await apiBackendUrl.get(`/vehicles/getLastWashed/${vehicleId}/${userId}`)
-            console.log(status, data)
+            if(status === 200 && data) { 
+                const sortedData = data.sort((a: JobType, b: JobType) => new Date(b.date).getTime() - new Date(a.date).getTime());
+                const lastWash = sortedData[0]
+                setLastWashed(lastWash); 
+                console.log("lastWash", lastWash);
+                setLoad(false)
+                setViewLastWashed(true)
+            } else if (status === 200 && lastWashed === undefined) { 
+                console.log("nada")
+            }
         } catch (error) {
             console.log(error)
+            setViewLastWashed(true)
         }
     }
+
+    useEffect(() => { 
+        setViewLastWashed(false)
+    }, [clientVehicles])
 
   return (
     <div className='w-full flex flex-col'>
@@ -50,6 +72,28 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
                 </div>
             ))}
          </div>: <div className='flex items-center justify-center mt-8'><Loading /></div>}
+
+        { load === true && viewLastWashed === false ? 
+            <div className='flex items-center justify-center mt-4'>
+                <Loading/>
+            </div> : load === false && viewLastWashed === true &&  lastWashed !== undefined ? ( 
+                <> 
+                    <div className='w-full bg-blue-500 flex items-center justify-start text-start h-12 rounded-md mt-4'>
+                        <h4 className='font-medium text-white text-lg ml-2'>Ultimo Lavado - <span className='text-md'>{lastWashed.vehicle.description}</span></h4>
+                    </div>
+                    <div className='flex flex-col items-start justify-start w-full mt-2'>
+                        <p className='font-medium text-black text-md'>Fecha: {formatDate(lastWashed.date)}</p> 
+                        <p className='font-medium text-black text-md'>Horario: {formatHourToText(lastWashed.hour)}</p>
+                        <p className='font-medium text-black text-md'>Total Lavado: {transformPrice(lastWashed.amount)}</p>
+                    </div>
+            </>
+         ) : load === false && viewLastWashed === false && load === false ?  (
+            null
+         ) :  
+         <div className='w-full bg-red-500 flex items-center justify-center text-center h-12 rounded-md mt-4'>
+              <h4 className='font-medium text-white text-lg ml-2'>No hay lavados registrados para este vehiculo</h4>
+         </div>
+        }
     </div>
   )
 }

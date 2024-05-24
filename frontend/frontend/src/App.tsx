@@ -25,8 +25,8 @@ function App() {
 
   return (
     
-      <div className='flex flex-col items-center justify-center text-center w-full mt-6 h-full'>
-          <div className='xl:w-[1180px] 2xl:w-[1200px] 3xl:w-[1600px] '>
+      <div className='flex flex-col items-center justify-center text-center w-full  h-full'>
+          <div className=' xl:w-[1280px] 2xl:w-[1350px] 3xl:w-[1600px] '>
                  <Navbar showClients={showClientsMenu} showJobs={showJobsMenu}/>
           </div>
 
