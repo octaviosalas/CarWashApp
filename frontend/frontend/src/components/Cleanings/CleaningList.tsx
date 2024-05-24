@@ -37,6 +37,13 @@ const CleaningList = () => {
       // console.log("aca", findJob)    
     } 
 
+  /*  const filteredData = everyJobsList.filter((item) => {
+      return Object.values(item).some((value) => {
+         if (value === null) return false;
+         return value.toString().toLowerCase().includes(inputValue.toLowerCase());
+      });
+     }); */
+
    
   return (
     <div >
