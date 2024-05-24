@@ -10,6 +10,11 @@ import { ClientType } from 'types/ClientsTypes'
 const CleaningList = () => {
 
     const [everyJobsList, setEveryJobsList] = useState<JobType[]>([])
+    const [originalEveryJobsList, setOriginalEveryJobsList] = useState<JobType[]>([])
+    const [pendingCollections, setPendingCollections] = useState<JobType[]>([])
+    const [paidJobs, setPaidJobs] = useState<JobType[]>([])
+    const [finishedJobs, setFinishedJobs] = useState<JobType[]>([])
+    const [pendingJobs, setPendingJobs] = useState<JobType[]>([])
     const [userClients, setUserClients] = useState<ClientType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -18,12 +23,21 @@ const CleaningList = () => {
       const jobs : JobType[] = await getMyJobs();
       setLoading(false)
       setEveryJobsList(jobs); 
+      setOriginalEveryJobsList(jobs)
+      const pendingJobsCollections = jobs.filter((job) => job.paid === false)
+      const paidJobsCollections = jobs.filter((job) => job.paid === true)
+      const jobsFinished = jobs.filter((job) => job.status === "completed")
+      const jobsInProcess = jobs.filter((job) => job.status === "pending")
+      setPendingCollections(pendingJobsCollections)
+      setPaidJobs(paidJobsCollections)
+      setFinishedJobs(jobsFinished)
+      setPendingJobs(jobsInProcess)
     };
 
     const fetchClients = async () => {
       const clients : ClientType[] = await getMyClients();
       setUserClients(clients); 
-  };
+    };
 
     useEffect(() => {   
         fetchJobs(); 
@@ -32,22 +46,33 @@ const CleaningList = () => {
     }, []);
 
     const filterJobsByInput = (value: string) => { 
-       console.log(value)
-      // const findJob = everyJobsList.filter((job) => job.vehicle.description.includes(value));
-      // console.log("aca", findJob)    
-    } 
+      if (!value.trim()) {
+        setEveryJobsList(originalEveryJobsList);
+      } else {
+        const lowerCaseValue = value.toLowerCase();
+        const filteredJobs = everyJobsList.filter((job) => 
+          job.vehicle.description.toLowerCase().includes(lowerCaseValue) ||
+          job.client.name.toLowerCase().includes(lowerCaseValue)
+        );
+        setEveryJobsList(filteredJobs);
+      }
+    };
+    
+   const change = (data: JobType[] | []) => { 
+     setEveryJobsList(data)
+   }
 
-  /*  const filteredData = everyJobsList.filter((item) => {
-      return Object.values(item).some((value) => {
-         if (value === null) return false;
-         return value.toString().toLowerCase().includes(inputValue.toLowerCase());
-      });
-     }); */
+
+  
 
    
   return (
     <div >
-       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :  <CleaningDetailCard filter={filterJobsByInput} jobsData={everyJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
+       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :
+         <CleaningDetailCard  
+          filter={filterJobsByInput} change={change} inProcess={pendingJobs} 
+          finished={finishedJobs}  jobsData={everyJobsList} pendingCollections={pendingCollections}  
+          paid={paidJobs} every={originalEveryJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
     </div>
   )
 }

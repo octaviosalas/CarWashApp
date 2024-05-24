@@ -18,15 +18,11 @@ const ClientsList = () => {
     };
 
     useEffect(() => {
-       
         fetchClients(); 
         setLoading(false)
-
     }, []);
 
-    useEffect(() => { 
-        console.log(myClients)
-    }, [myClients])
+
    
   return (
     <div className='h-full'>

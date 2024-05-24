@@ -118,7 +118,7 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
     }
 
   return (
-    <div className='mt-24 flex flex-col items-center justify-center '>
+    <div className='mt-24 flex flex-col items-center justify-center w-full'>
        {detail.status === "pending" && detail.notified === false? 
             <div> 
                 <div className='flex flex-col items-center justify-center'>
@@ -144,10 +144,10 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
                 </div> 
             </div>
         ) : ( 
-            <div>
-            <div className="flex flex-col items-center justify-center"> 
-                <div className='flex flex-col items-center justify-center'>
-                    <p className='font-medium text-black text-md'>El lavado ya se encuentra finalizado y el cliente fue notificado por correo electronico</p>
+            <div className='w-full'>
+            <div className="flex flex-col items-center justify-center w-full"> 
+                <div className='flex flex-col items-center justify-center bg-red-500 w-full h-12 rounded-lg'>
+                    <p className='font-medium text-white text-md'>El lavado ya se encuentra finalizado y el cliente fue notificado por correo electronico</p>
                 </div>
                 <div className='flex items-center gap-4 mt-6'>
                     <Button className='bg-gray-400 text-white font-medium text-sm w-52' onClick={() => goBack()}>Volver</Button>

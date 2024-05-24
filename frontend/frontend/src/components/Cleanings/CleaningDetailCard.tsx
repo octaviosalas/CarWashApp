@@ -15,16 +15,23 @@ import { ClientType } from 'types/ClientsTypes';
 
 interface Props {
     jobsData: JobType[];
+    every: JobType[];
+    finished: JobType[];
+    inProcess: JobType[];
+    paid: JobType[];
+    pendingCollections: JobType[];
+    change: (value: JobType[]) => void[]; 
     userClientsData: ClientType[];
     updateJobs: () => void;
-    filter: () => void
+    filter: (value: string) => void[]; 
 }
 
-const CleaningDetailCard = ({jobsData, userClientsData, updateJobs, filter}: Props) => {
+const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, paid, every, pendingCollections, change, updateJobs, filter}: Props) => {
 
     const [jobSelected, setJobSelected] = useState<JobType | undefined>()
     const [showNewJob, setShowNewJob] = useState<boolean>(false)
     const [inputValue, setInputValue] = useState<string>("")
+    
 
     const addNewJobNow = () => { 
         setShowNewJob(true)
@@ -45,11 +52,11 @@ const CleaningDetailCard = ({jobsData, userClientsData, updateJobs, filter}: Pro
     }
 
     const handleChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => { 
-        setInputValue(e.target.value)
-       // filter(e.target.value)
-    }
+        setInputValue(e.target.value);
+        filter(e.target.value); 
+    };
 
-    console.log(jobsData)
+ 
 
   return (
 
@@ -64,9 +71,16 @@ const CleaningDetailCard = ({jobsData, userClientsData, updateJobs, filter}: Pro
                     onChange={handleChangeInputValue}
                    />
                 </div>
-                <div className='max-h-[420px] 2xl:max-h-[645px] overflow-y-auto w-full'>  
+                <div className='flex w-full justify-start items-center gap-12 mt-4 ml-1'>
+                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(every)}>Todos</p>
+                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(finished)}>Finalizados</p>
+                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(inProcess)}>Sin Finalizar</p>
+                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(pendingCollections)}>Sin Abonar</p>
+                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(paid)}>Abonados</p>
+                </div>
+                <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[715px] overflow-y-auto w-full'>  
                 {jobsData.map((job: JobType) => ( 
-                    <div className='mt-8 w-full cursor-pointer hover:bg-blue-100' key={job._id} onClick={() => viwJobDetail(job)}>
+                    <div className='mt-2 2xl:mt-4 w-full cursor-pointer hover:bg-blue-100' key={job._id} onClick={() => viwJobDetail(job)}>
                             <div className='flex items-start text-start justify-start' key={job._id}>
                                 <p className='font-medium text-md text-blue-500'>{job.client.name}</p>
                             </div>
