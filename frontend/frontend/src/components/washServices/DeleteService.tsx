@@ -3,6 +3,11 @@ import { ServiceType } from 'types/ServicesTypes'
 import Loading from '../Spinner/Loading'
 import { Button } from '@nextui-org/react'
 import arrow from "../../images/arrowBack.png"
+import apiBackendUrl from '../../lib/axios'
+import {toast} from "react-toastify"
+import axios from 'axios'
+
+//router.delete("/deleteService/:userId/:serviceId",
 
 
 interface Props { 
@@ -16,6 +21,39 @@ interface Props {
 const DeleteService = ({detail, goBack, update}: Props) => {
 
     const [load, setLoad] = useState<boolean>(false)
+    const userId = "6644b816b732651683c01b26" //reemplazar por id del contexto
+
+    const deleteService = async () => { 
+        setLoad(true)
+        try {
+            const {status, data} = await apiBackendUrl.delete(`/services/deleteService/${userId}/${detail?._id}`)
+            if(status === 200) { 
+                toast.success(data, {
+                    style: { backgroundColor: 'white', color: 'blue' },
+                    pauseOnHover: false,
+                    autoClose: 1500
+                });
+                update()
+                setLoad(false)
+                goBack()
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    toast.error(error.response.data, {
+                        style: { backgroundColor: 'white', color: 'red' },
+                        pauseOnHover: false,
+                        autoClose: 2500
+                    });
+                setLoad(false)
+            } else {
+                console.log('Unexpected error:', error);
+                setLoad(false)
+            }
+          }
+        }
+    }
+
 
   return (
     <div>
@@ -27,7 +65,7 @@ const DeleteService = ({detail, goBack, update}: Props) => {
         <p className='text-md mt-3'>Ten en cuenta que se eliminaran los lavados y cobros vinculados al mismo </p>
     </div>
     <div className='mt-4 2xl:mt-8 flex justify-center items-center gap-4 2xl:gap-8'>
-        <Button className='bg-blue-500 text-white font-medium text-sm w-1/4' >Eliminar</Button>
+        <Button className='bg-blue-500 text-white font-medium text-sm w-1/4' onClick={() => deleteService()}>Eliminar</Button>
         <Button className='bg-zinc-400 text-white font-medium text-sm w-1/4'>Cancelar</Button>
     </div>
     {load ? <div className='flex items-center justify-center mt-4 mb-2'> <Loading /> </div> : null}

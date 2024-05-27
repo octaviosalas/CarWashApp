@@ -39,7 +39,7 @@ const ServiceDetail = ({serviceData, update}: Props) => {
          <div className="mt-4 w-full border-b">
                    <NavbarServices showEditService={showNowEdit} showDeleteService={showNowDelete}/>
                 </div>
-        {showService && serviceData  ? 
+        {showService && serviceData !== undefined ? 
          <div className='flex flex-col'>
             <div className='flex items-center jsutify-center gap-24 mt-6'>
                 <div className='flex flex-col items-start justify-start'>
@@ -60,9 +60,7 @@ const ServiceDetail = ({serviceData, update}: Props) => {
             </div>
           </div>
              :
-            <div className='flex flex-col items-center justify-center w-full'>
-                 <p className='mt-24 text-zinc-600'>No hay ningun elemento para mostrar</p>
-            </div>}
+           null}
 
             {showEditService ? <div className="w-full"> <EditService detail={serviceData}  goBack={showDetail} update={update}/> </div> : null}
             {showDeleteService ? <div className="w-full"> <DeleteService detail={serviceData}  goBack={showDetail} update={update}/> </div> : null}

@@ -82,6 +82,7 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
 
     const createJob = async () => {
         setLoading(true)
+        console.log(date)
         if(servicesSelected.length === 0) { 
             
         }

@@ -42,9 +42,13 @@ export const deleteService = async (req: Request, res: Response) => {
     const {userId, serviceId} = req.params
     
     try {
-     
+        await ServicesModel.findOneAndDelete({_id: serviceId, user: userId})
+        res.status(200).json("El servicio fue correctamente eliminado")
+       
     } catch (error) {
-      
+      console.log(error)
+      res.status(500).json("El servicio no pudo ser eliminado")
+
     }
 }
 
@@ -53,8 +57,16 @@ export const updateService = async (req: Request, res: Response) => {
     const {userId, serviceId} = req.params
     
     try {
-     
+       const service = await ServicesModel.findOneAndUpdate({_id: serviceId, user: userId}, { 
+        service: req.body.name,
+        price: req.body.price
+       }, {new: true})
+
+       await service.save()
+       res.status(200).json("El servicio fue actualizado correctamente")
+
     } catch (error) {
-      
+      res.status(500).json("Error al actualizar el servicio")
+
     }
 }

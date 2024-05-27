@@ -83,7 +83,7 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
               </div> : <Loading/>}
            
 
-           <div className='w-4/5 border h-full'>
+           <div className='w-4/5  h-full'>
                {showNewClient ? 
                 <AddNewClientForm update={update} goBack={goBack}/>
                 :

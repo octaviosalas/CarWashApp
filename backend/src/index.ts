@@ -10,7 +10,7 @@ import jobsRoutes  from "./routes/JobsRoutes"
 import vehiclesRoutes from "./routes/VehiclesRoutes"
 import servicesRoutes from "./routes/ServicesRoutes"
 import collectionRoutes from "./routes/CollectionRoutes"
-
+import estadisticsRoutes from "./routes/EstadisticsRoutes"
 
 const port = process.env.PORT || 4000
 
@@ -28,6 +28,7 @@ app.use("/api/jobs", jobsRoutes)
 app.use("/api/vehicles", vehiclesRoutes)
 app.use("/api/services", servicesRoutes)
 app.use("/api/collections", collectionRoutes)
+app.use("/api/estadistics", estadisticsRoutes)
 
 app.listen(port, () => { 
     console.log(`REST API LavaderosApp - Practica con TypeScript funcionando en el puerto ${port}`)

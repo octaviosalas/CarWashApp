@@ -2,6 +2,9 @@ import { Button } from '@nextui-org/react'
 import React, {useState} from 'react'
 import { ServiceType } from 'types/ServicesTypes'
 import arrow from "../../images/arrowBack.png"
+import apiBackendUrl from '../../lib/axios'
+import axios from 'axios'
+import {toast} from "react-toastify"
 
 interface Props { 
     detail: ServiceType | undefined,
@@ -9,10 +12,17 @@ interface Props {
     update: () => void
 }
 
+interface newServiceData { 
+    name: string,
+    price: number
+}
+
 const EditService = ({detail, goBack, update}: Props) => {
 
     const [name, setName] = useState<string>(detail?.service || "");
     const [price, setPrice] = useState<number>(detail?.price || 0);
+    const [load, setLoad] = useState<boolean>(false);
+    const userId = "6644b816b732651683c01b26" //reemplazar por id del contexto
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setName(e.target.value)
@@ -22,6 +32,49 @@ const EditService = ({detail, goBack, update}: Props) => {
         const dniNumber = parseFloat(e.target.value);
         if (!isNaN(dniNumber)) {
             setPrice(dniNumber);
+        }
+    }
+
+    const editServiceData = async () => { 
+        if(name.length === 0 || price <= 0) { 
+            toast.error("Debes completar todos los campos", {
+                style: { backgroundColor: 'white', color: 'blue' },
+                pauseOnHover: false,
+                autoClose: 1500
+            });
+        } else { 
+            setLoad(true)
+            const newDataService : newServiceData = ({
+                name: name,
+                price: price
+            })
+            try {
+                const {data, status} = await apiBackendUrl.put(`/services/updateServicePrice/${userId}/${detail?._id}`, newDataService)
+                if(status === 200) { 
+                    toast.success(data, {
+                        style: { backgroundColor: 'white', color: 'blue' },
+                        pauseOnHover: false,
+                        autoClose: 1500
+                    });
+                    update()
+                    setLoad(false)
+                    goBack()
+                }
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    if (error.response) {
+                        toast.error(error.response.data, {
+                            style: { backgroundColor: 'white', color: 'red' },
+                            pauseOnHover: false,
+                            autoClose: 2500
+                        });
+                    setLoad(false)
+                } else {
+                    console.log('Unexpected error:', error);
+                    setLoad(false)
+                }
+              }
+            }
         }
     }
 
@@ -48,7 +101,7 @@ const EditService = ({detail, goBack, update}: Props) => {
                 </div>
         </div>
         <div className='flex items-center justify-start gap-8 mt-12'>
-           <Button className= "bg-blue-500 text-white font-medium tex-md w-96">Guardar Cambios</Button>
+           <Button className= "bg-blue-500 text-white font-medium tex-md w-96" onClick={() => editServiceData()}>Guardar Cambios</Button>
            <Button className= "bg-gray-400 text-white font-medium tex-md w-96">Cancelar</Button>
         </div>
     </div>
