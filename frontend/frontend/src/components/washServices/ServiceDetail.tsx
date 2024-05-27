@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { ServiceType } from 'types/ServicesTypes'
 import EditService from './EditService'
 import DeleteService from './DeleteService'
+import { Button } from '@nextui-org/react'
 
 interface Props { 
     serviceData: ServiceType | undefined;
@@ -38,7 +39,8 @@ const ServiceDetail = ({serviceData, update}: Props) => {
          <div className="mt-4 w-full border-b">
                    <NavbarServices showEditService={showNowEdit} showDeleteService={showNowDelete}/>
                 </div>
-        {showService ? 
+        {showService && serviceData  ? 
+         <div className='flex flex-col'>
             <div className='flex items-center jsutify-center gap-24 mt-6'>
                 <div className='flex flex-col items-start justify-start'>
                     <p className='font-bold text-black'>Nombre del Servicio</p>
@@ -52,7 +54,15 @@ const ServiceDetail = ({serviceData, update}: Props) => {
                     value={serviceData?.price} disabled
                     />
                 </div>
-            </div> : null}
+            </div>
+            <div className='mt-6 flex items-center justify-center w-full border'>
+               <Button className='bg-blue-500 text-white w-full text-md font-medium'>Ver Detalles</Button>
+            </div>
+          </div>
+             :
+            <div className='flex flex-col items-center justify-center w-full'>
+                 <p className='mt-24 text-zinc-600'>No hay ningun elemento para mostrar</p>
+            </div>}
 
             {showEditService ? <div className="w-full"> <EditService detail={serviceData}  goBack={showDetail} update={update}/> </div> : null}
             {showDeleteService ? <div className="w-full"> <DeleteService detail={serviceData}  goBack={showDetail} update={update}/> </div> : null}
