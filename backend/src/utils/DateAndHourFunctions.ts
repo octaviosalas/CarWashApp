@@ -62,3 +62,13 @@ const horaFormatter = new Intl.DateTimeFormat('es-AR', {
 
 const horaFormateada = horaFormatter.format(horaLocal);
 console.log(`La hora es ${horaFormateada}.`);
+
+export const actualMonth = ()  => {
+    const fecha = new Date();
+    return fecha.getMonth() + 1; // getMonth() devuelve un índice basado en cero, por lo que se suma 1 para obtener el mes correcto.
+}
+
+
+export const transformPrice = (value: number) => {
+    return `$${value.toLocaleString('de-DE')}`;
+  }

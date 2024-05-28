@@ -47,3 +47,15 @@ export function obtenerFechaHoyArgentinaConObjeto() {
         fechaObjeto: adjustedDate
     };
 }
+
+
+export const actualMonthName = (numeroMes: number): string => {
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    return meses[numeroMes - 1];
+};
+
+
+export const actualMonthNow = ()  => {
+    const fecha = new Date();
+    return fecha.getMonth() + 1; 
+}

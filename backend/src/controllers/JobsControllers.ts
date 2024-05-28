@@ -3,9 +3,8 @@ import JobsModel from "../models/Jobs";
 import { Request, Response } from "express";
 import {NewEmailType } from "../models/Emails";
 import { sendEmailToClient } from "../utils/SendEmailToClient";
-import { ObjectId } from 'mongodb';
 import { Types } from "mongoose";
-
+import { actualMonth, transformPrice } from "../utils/DateAndHourFunctions";
 
 export const createJob = async (req: Request, res: Response) => { 
    
@@ -70,8 +69,9 @@ export const deleteJob = async (req: Request, res: Response) => {
 
 export const markJobAsPaid = async (req: Request, res: Response) => { 
     const {date, paymentMethod} = req.body
-    console.log(date, paymentMethod)
-   
+    const {userId} = req.params
+    const month = actualMonth();
+
     try {
         const jobSelected =  req.jobData
         jobSelected.paid = true
@@ -86,7 +86,19 @@ export const markJobAsPaid = async (req: Request, res: Response) => {
         })
         await jobSelected.save()
         await createNewCollection.save()
-        res.status(200).json("El lavado quedo asentado como abonado")
+        
+        const collections = await CollectionModel.find({user: userId})
+        const filteredCollectionsByMonth = collections.filter(dato => {
+            const dateData = new Date(dato.date);
+            const actualYear = dateData.getFullYear();
+            const monthData = dateData.getMonth() + 1;
+            const yearData = dateData.getFullYear();
+            return monthData === month && yearData === actualYear;
+        });
+
+        const totalMonthFactured =  filteredCollectionsByMonth.reduce((acc, el) => acc + el.amount, 0)
+
+        res.status(200).json(`Se guardo correctamente el cobro. LLevas ${transformPrice(totalMonthFactured)} facturados en el mes.`)
     } catch (error) {
         console.log(error)
         res.status(400).json("error")
@@ -169,4 +181,8 @@ export const notifyEndOfWashingByEmail = async (req: Request, res: Response) => 
         console.log(error)
     }
 };
+
+
+
+
 

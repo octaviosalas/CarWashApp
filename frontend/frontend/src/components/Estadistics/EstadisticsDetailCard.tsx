@@ -9,7 +9,7 @@ const EstadisticsDetailCard = () => {
 
  
     const [showData, setShowData] = useState(true)
-    const [showDayEstadistic, setShowDayEstadistic] = useState(true)
+    const [showDayEstadistic, setShowDayEstadistic] = useState(false)
     const [showMonthEstadistic, setShowMonthEstadistic] = useState(false)
     const [showYearEstadistic, setShowYearEstadistic] = useState(false)
 
@@ -31,6 +31,9 @@ const EstadisticsDetailCard = () => {
         setShowYearEstadistic(true)
     }
 
+   
+
+    
 
   return (
     <div className='flex gap-4 h-full w-full'>
@@ -64,7 +67,9 @@ const EstadisticsDetailCard = () => {
                  <MonthEstadistics/>
              ) :  showYearEstadistic === true ?  ( 
                    <YearEstadistics/>
-             ) : <p>No has seleccionado ninguna estadistica</p>
+             ) : <div> 
+                   <p >No has seleccionado ninguna estadistica</p> 
+                 </div>
           }
 
     </div>

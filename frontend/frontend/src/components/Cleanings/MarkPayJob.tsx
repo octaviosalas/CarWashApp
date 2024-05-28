@@ -43,7 +43,7 @@ const MarkPayJob = ({goBack, updateJobs, detail, restart}: Props) => {
                     toast.success(data, {
                     style: { backgroundColor: 'white', color: 'blue' },
                     pauseOnHover: false,
-                    autoClose: 2000
+                    autoClose: 3500
                     });
                     updateJobs()
                     setLoad(false)
