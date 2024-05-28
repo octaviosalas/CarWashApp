@@ -154,7 +154,7 @@ export const deleteClient = async (req: Request, res: Response) => { //AGREGAR E
 
          await ClientModel.findByIdAndDelete(clientId)
  
-         res.status(200).send("Los datos del cliente fueron actualizados") 
+         res.status(200).send("Los datos del cliente fueron eliminados") 
 
     } catch (error) {
         console.log(error);

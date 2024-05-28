@@ -11,7 +11,7 @@ const router = Router()
 router.post("/create/:userId",
        param("userId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),
        body("name").notEmpty().withMessage("El nombre del cliente es obligatorio"),
-       body("telephone").notEmpty().withMessage("El nombre del cliente es obligatorio"),
+       body("telephone").notEmpty().withMessage("El telefono del cliente es obligatorio"),
        body("dni").notEmpty().withMessage("El DNI del cliente es obligatorio"),
        handleInputErrors,
        validateClientNotExist,

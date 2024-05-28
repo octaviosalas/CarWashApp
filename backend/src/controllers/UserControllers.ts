@@ -54,8 +54,8 @@ export const getEveryJobs = async (req: Request, res: Response) => {
             model: VehicleModel,
             select: "description patent typeOfVehicle"
         });
+        
         res.status(200).json({detail: jobs})
-
 
     } catch (error) {
         console.log(error)

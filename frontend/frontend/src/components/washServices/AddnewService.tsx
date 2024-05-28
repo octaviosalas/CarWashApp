@@ -64,7 +64,6 @@ const AddnewService = ({update}: Props) => {
                     });      
                     setService("")
                     setPrice(0)               
-                     
                   } else {
                     console.log('Unexpected error:', error);
                     setLoad(false)
