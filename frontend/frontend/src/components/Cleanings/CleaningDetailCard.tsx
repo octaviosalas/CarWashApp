@@ -20,10 +20,10 @@ interface Props {
     inProcess: JobType[];
     paid: JobType[];
     pendingCollections: JobType[];
-    change: (value: JobType[]) => void[]; 
+    change: (value: JobType[]) => void; 
     userClientsData: ClientType[];
     updateJobs: () => void;
-    filter: (value: string) => void[]; 
+    filter: (value: string) => void; 
 }
 
 const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, paid, every, pendingCollections, change, updateJobs, filter}: Props) => {

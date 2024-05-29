@@ -1,12 +1,13 @@
 import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
-import { validateUserExist, validateUserNotExist, validateEmailExist } from "../middlewares/AuthValidations"
+import { validateUserExist, validateUserNotExist, validateEmailExist, validateAccountNotExist } from "../middlewares/AuthValidations"
 import { createNewAcount, updateUserData, deleteUserAccount, confirmAccountWithToken, login } from "../controllers/AuthControllers"
 
 const router = Router()
 
 router.post("/register",
+        
         body("email").isEmail().withMessage("El email debe ser un email valido"),
         body("name").notEmpty().withMessage("El nombre de usuario es obligatorio"),
         body("password").notEmpty().withMessage("La contraseña de tu futura cuenta es obligatoria"),
@@ -14,11 +15,12 @@ router.post("/register",
         body("password").isLength({min: 6}).withMessage("La contraseña debe tener mas de 6 caracteres"),
         body("password_confirmation").custom((value, {req}) => { 
             if(value !== req.body.password) {
-                throw new Error("Los password no son iguales")
+                throw new Error("Las contraseñas deben ser iguales")
             }
             return true
         }),
         handleInputErrors,
+        validateAccountNotExist,
         createNewAcount
 )
 
