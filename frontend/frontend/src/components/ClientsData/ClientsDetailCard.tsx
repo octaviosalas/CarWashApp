@@ -9,7 +9,7 @@ import apiBackendUrl from '../../lib/axios';
 import { ClientVehiclesType } from "types/VehiclesTypes";
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading';
-
+import { userStore } from '../../store/store';
 
 interface Props {
    clientsData: ClientType[];
@@ -21,7 +21,7 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
     const [clientSelected, setClientSelected] = useState<ClientType>()
     const [showNewClient, setShowNewClient] = useState<boolean>(false)
     const [clientVehicles, setClientVehicles] = useState<ClientVehiclesType[]>([]);
-    const userId: string = "6644b816b732651683c01b26";//id contexto
+    const user = userStore(state => state.user)
 
     const addNewJobClient = () => { 
       setShowNewClient(true)
@@ -35,7 +35,7 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
     const selectClientAndGetVehicles = async  (item: ClientType) => { 
        setClientSelected(item)
        try {
-            const {status, data} = await apiBackendUrl.get(`/vehicles/clientVehicles/${item?._id}/${userId}`)
+            const {status, data} = await apiBackendUrl.get(`/vehicles/clientVehicles/${item?._id}/${user?._id}`)
             if(status === 200) { 
               console.log(data)
               setClientVehicles(data)

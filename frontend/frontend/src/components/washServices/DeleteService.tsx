@@ -6,7 +6,7 @@ import arrow from "../../images/arrowBack.png"
 import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import axios from 'axios'
-
+import { userStore } from '../../store/store'
 //router.delete("/deleteService/:userId/:serviceId",
 
 
@@ -21,12 +21,12 @@ interface Props {
 const DeleteService = ({detail, goBack, update}: Props) => {
 
     const [load, setLoad] = useState<boolean>(false)
-    const userId = "6644b816b732651683c01b26" //reemplazar por id del contexto
+    const user = userStore(state => state.user)
 
     const deleteService = async () => { 
         setLoad(true)
         try {
-            const {status, data} = await apiBackendUrl.delete(`/services/deleteService/${userId}/${detail?._id}`)
+            const {status, data} = await apiBackendUrl.delete(`/services/deleteService/${user?._id}/${detail?._id}`)
             if(status === 200) { 
                 toast.success(data, {
                     style: { backgroundColor: 'white', color: 'blue' },

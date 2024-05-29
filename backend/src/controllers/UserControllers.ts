@@ -8,6 +8,7 @@ import JobsModel from "../models/Jobs";
 export const getUserClients = async (req: Request, res: Response) => { 
     
     const {userId} = req.params
+    console.log(userId)
     
     try {
         const userClients = await ClientModel.find({clientOf: userId})

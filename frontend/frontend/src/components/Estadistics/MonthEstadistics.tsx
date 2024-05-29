@@ -10,6 +10,7 @@ import transformPrice from '../../functions/TransformDateHour/TransformPrice';
 import { CollectionsType } from 'types/CollectionsType';
 import { JobType } from 'types/JobsTypes';
 import servicess from "../../images/servicess.jpg"
+import { userStore } from '../../store/store';
 
 interface agroupType {
   price: number,
@@ -28,7 +29,7 @@ type ServicesArray = {
 
 const MonthEstadistics = () => {
 
-  const userId: string = "6644b816b732651683c01b26";//id contexto
+  const user = userStore(state => state.user)
   const [load, setLoad] = useState<boolean>(false)
   const [everyJobs, setEveryJobs] = useState<JobType[] | []>()
   const [everyCollections, setEveryCollections] = useState<CollectionsType[] | []>()
@@ -40,7 +41,7 @@ const MonthEstadistics = () => {
   const getMonthEstadistic = async () => { 
      setLoad(true)
       try {
-        const {status, data} = await apiBackendUrl.get(`/estadistics/monthEstadistics/${userId}`)
+        const {status, data} = await apiBackendUrl.get(`/estadistics/monthEstadistics/${user?._id}`)
         console.log(status, data)
           if(status === 200) { 
             setEveryCollections(data.collections)

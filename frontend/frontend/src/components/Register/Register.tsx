@@ -5,6 +5,7 @@ import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import { NewUserType, errorRegisterMissedDataType } from 'types/UserTypes'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const Register = () => {
 
@@ -14,6 +15,7 @@ const Register = () => {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [confirmedPassword, setConfirmedPassword] = useState<string>("")
+    const navigate = useNavigate()
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setName(e.target.value)
@@ -46,14 +48,15 @@ const Register = () => {
                 toast.success(data, {
                     style: { backgroundColor: 'white', color: 'blue' },
                     pauseOnHover: false,
-                    autoClose: 1500
+                    autoClose: 4000
                 });
+                navigate("/token")
              }
              
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 console.log(error)
-                if (error.response) {              
+                if (error.response && Array.isArray(error.response.data.errors)) {              
                     console.log(error)
                     const errorMessage = error.response.data.errors.map((er: errorRegisterMissedDataType) => er.msg)[0]
                     console.log(errorMessage)
@@ -63,9 +66,8 @@ const Register = () => {
                         autoClose: 2500
                     });
                 setLoad(false)
-            } else if (error.message.includes("Request failed with status code 400")) {
-                console.log("Error de código de estado 400");
-                toast.error("El email ya existe", {
+            } else if (error.response && !Array.isArray(error.response)) {
+                toast.error(error.response.data, {
                     style: { backgroundColor: 'white', color: 'red' },
                     pauseOnHover: false,
                     autoClose: 2500
@@ -81,10 +83,10 @@ const Register = () => {
 
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            className="mx-auto h-36 w-96"
+            className="mx-auto h-32 w-32 2xl:h-64 2xl:w-96"
             src="https://i.pinimg.com/originals/ab/61/85/ab618567515f75d1b5ffb840e48b5862.png"
             alt="Your Company"
           />
@@ -93,13 +95,13 @@ const Register = () => {
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
  
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 mt-2">
                 Nombre
               </label>
-              <div className="mt-2">
+              <div className="mt-1">
                 <input
                   type="text"
                   required
@@ -169,7 +171,7 @@ const Register = () => {
               </div>
             </div>
 
-            <div>
+            <div className='mt-6'>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -179,7 +181,7 @@ const Register = () => {
               </button>
             </div>
  
-          {load ? <Loading/> : null}
+          {load ? <div className='flex items-center justify-center mt-4'> <Loading/> </div> : null}
 
         </div>
     </div>

@@ -12,3 +12,12 @@ export type errorRegisterMissedDataType = {
     type: string,
     value: string,
 }
+
+export type UserType = { 
+    _id: string, 
+    password: string,
+    email: string,
+    name: string,
+    confirmed: boolean,
+    __v: number
+}

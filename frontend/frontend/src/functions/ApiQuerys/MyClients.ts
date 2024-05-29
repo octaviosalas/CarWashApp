@@ -1,11 +1,16 @@
-
 import apiBackendUrl from "../../lib/axios";
 import { ClientType } from "types/ClientsTypes";
 
-const userId : string = "6644b816b732651683c01b26"  //cambiar por id del contexto
+const getMyClients = async (userId: string | undefined): Promise<ClientType[]> => {
 
-const getMyClients = async (): Promise<ClientType[]> => {
+  if (!userId) {
+    console.error('User ID is undefined');
+    return [];
+  }
+
+
   try {
+      console.log(`Consultando clientes de ${userId}`)
       const response = await apiBackendUrl.get(`/users/myClients/${userId}`);
       const clients: ClientType[] = response.data.reverse();
       console.log(clients)
@@ -18,4 +23,5 @@ const getMyClients = async (): Promise<ClientType[]> => {
 
 
 export default getMyClients;
+
 

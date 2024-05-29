@@ -7,6 +7,7 @@ import apiBackendUrl from '../../lib/axios'
 import Loading from '../Spinner/Loading'
 import { newClientType } from 'types/ClientsTypes'
 import arrowBack from "../../images/arrowBack.png"
+import { userStore } from '../../store/store'
 
 interface Props { 
     update: () => void,
@@ -22,7 +23,7 @@ const AddNewClientForm = ({update, goBack}: Props) => {
     const [load, setLoad] = useState<boolean>(false)
     const [missedClientData, setMissedClientData] = useState<boolean>(false)
     const [addVehicleStep, setAddVehicleStep] = useState<boolean>(false)
-    const userId: string = "6644b816b732651683c01b26";//id contexto
+    const user = userStore(state => state.user)
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setName(e.target.value)
@@ -71,7 +72,7 @@ const AddNewClientForm = ({update, goBack}: Props) => {
         })
         if(name.length > 0 && dni!== undefined && email.length > 0 && telephone!== undefined ) { 
             setLoad(true)
-            const {data, status} = await apiBackendUrl.post(`/clients/create/${userId}`, clientData)
+            const {data, status} = await apiBackendUrl.post(`/clients/create/${user?._id}`, clientData)
             if(status === 200) { 
                 toast.success(data, {
                     style: { backgroundColor: 'white', color: 'blue' },
@@ -116,7 +117,7 @@ const AddNewClientForm = ({update, goBack}: Props) => {
   return (
     <div className='flex flex-col w-full mt-4'>
           <div className='w-full flex justify-between items-center ml-4 border-b'>
-             <p className='text-md text-black font-medium'>Creando Cliente</p>
+             <p className='text-md text-black font-medium'>Creando Cliente {user?._id} {user?.name}</p>
           </div>
           <div className='ml-4 mt-0 2xl:mt-3'>
             <img src={arrowBack} className='w-5 h-5 2xl:w-6 2xl:h-6 cursor-pointer' onClick={() => goBack()}/>

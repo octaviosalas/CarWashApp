@@ -11,7 +11,7 @@ import {ClientType } from 'types/ClientsTypes'
 import { newClientVehicleType } from 'types/VehiclesTypes'
 import axios from 'axios'
 import arrow from "../../images/arrowBack.png"
-
+import { userStore } from '../../store/store'
 
 interface Props { 
     cancel: () => void,
@@ -29,7 +29,7 @@ const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) 
     const [typeOfVehicle, setTypeOfVehicle] = useState("")
     const [showVehicleData, setShowVehicleData] = useState<boolean>(false)
     const [load, setLoad] = useState<boolean>(false)
-    const userId: string = "6644b816b732651683c01b26";//id contexto
+    const user = userStore(state => state.user)
 
     const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setDescription(e.target.value)
@@ -59,7 +59,7 @@ const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) 
            typeOfVehicle: typeOfVehicle
         })
         try {
-            const {data, status} = await apiBackendUrl.post(`/vehicles/addClientVehicle/${detail?._id}/${userId}`, newVehicle)
+            const {data, status} = await apiBackendUrl.post(`/vehicles/addClientVehicle/${detail?._id}/${user?._id}`, newVehicle)
             if(status === 200) { 
                 setLoad(false)
                 toast.success(data, {

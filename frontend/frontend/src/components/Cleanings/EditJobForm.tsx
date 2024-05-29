@@ -4,6 +4,7 @@ import { JobType } from 'types/JobsTypes'
 import { ClientType } from 'types/ClientsTypes'
 import arrowBack from "../../images/arrowBack.png"
 import { useState } from 'react'
+import { userStore } from '../../store/store'
 
 interface Props { 
   detail: JobType,
@@ -11,8 +12,7 @@ interface Props {
   goBack: () => void
 }
 
-//router.post("/updateJobData/:jobId/:clientId/:userId",
-//const userId: string = "6644b816b732651683c01b26";//id contexto
+
 
 const EditJobForm = ({detail, clients, goBack}: Props) => {
 
@@ -20,9 +20,8 @@ const EditJobForm = ({detail, clients, goBack}: Props) => {
   const [vehicle, setVehicle] = useState(detail.vehicle._id)
   const [amount, setAmount] = useState(detail.amount)
   const [typeOfJob, setTypeOfJob] = useState(detail.typeOfJob)
-  //parametro clientId es detail.client._id
-  //parametro userId es la const
-  //parametro job id es detail._id
+  const user = userStore(state => state.user)
+ 
   
   console.log(detail)
   

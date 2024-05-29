@@ -52,10 +52,8 @@ export const validateAccountNotExist = async (req: Request, res: Response, next:
        
        if(verifyUserExist) { 
         res.status(400).json("El usuario ya existe almacenado en la base de datos")
-        console.log("HAY UNO IGUAL")
        } else { 
         next()
-        console.log("N0 HAY UNO IGUAL")
        }
                
     } catch (error) {

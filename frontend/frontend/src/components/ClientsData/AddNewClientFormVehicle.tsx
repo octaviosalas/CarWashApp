@@ -10,6 +10,8 @@ import {toast} from "react-toastify"
 import { newClientType } from 'types/ClientsTypes'
 import { newClientVehicleType } from 'types/VehiclesTypes'
 import axios from 'axios'
+import { userStore } from '../../store/store'
+
 
 interface Props { 
     newClientData: newClientType,
@@ -30,8 +32,8 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
     const [typeOfVehicle, setTypeOfVehicle] = useState("")
     const [showVehicleData, setShowVehicleData] = useState<boolean>(false)
     const [load, setLoad] = useState<boolean>(false)
-    const userId: string = "6644b816b732651683c01b26";//id contexto
-
+    const user = userStore(state => state.user)
+    
     const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setDescription(e.target.value)
     }
@@ -78,7 +80,7 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
             vehicle : clientVehicle
          })
         try {
-            const {data, status} = await apiBackendUrl.post(`/clients/createWithVehicle/${userId}`, clientData)
+            const {data, status} = await apiBackendUrl.post(`/clients/createWithVehicle/${user?._id}`, clientData)
             console.log(data, status)
             if(status === 200) { 
                 setLoad(false)

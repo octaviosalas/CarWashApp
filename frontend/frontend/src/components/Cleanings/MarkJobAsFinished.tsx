@@ -6,6 +6,7 @@ import axios from 'axios'
 import {toast} from "react-toastify"
 import { getDate } from '../../functions/TransformDateHour/HourAndDate'
 import Loading from '../Spinner/Loading'
+import { userStore } from '../../store/store'
 
 interface Props { 
     detail: JobType,
@@ -27,11 +28,12 @@ type emailType = {
 
 const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
 
-    const userId: string = "6644b816b732651683c01b26";//id contexto
+    
     const [load, setLoad] = useState<boolean>(false)
     const [badMessage, setBadMessage] = useState(false)
     const [message, setMessage] = useState<string>("")
     const [date, setDate] = useState(getDate())
+    const user = userStore(state => state.user)
 
 
     const jobFinished = async () => { 
@@ -40,7 +42,7 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
             status: "completed"
         }) 
       try {
-          const {data, status} = await apiBackendUrl.put(`/jobs/${detail._id}/${userId}`, newStatus) //id contexto
+          const {data, status} = await apiBackendUrl.put(`/jobs/${detail._id}/${user?._id}`, newStatus) 
           if(status === 200) { 
                     toast.success(data, {
                             style: { backgroundColor: 'white', color: 'blue' },
@@ -84,7 +86,7 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
             date: date
         })
         try {
-            const {data, status} = await apiBackendUrl.post(`/jobs/sendEmail/${detail._id}/${userId}`, emailData) //id contexto
+            const {data, status} = await apiBackendUrl.post(`/jobs/sendEmail/${detail._id}/${user?._id}`, emailData) 
             if(status === 200) { 
                 toast.success(data, {
                         style: { backgroundColor: 'white', color: 'blue' },

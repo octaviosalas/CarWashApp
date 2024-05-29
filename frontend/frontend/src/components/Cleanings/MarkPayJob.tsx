@@ -9,6 +9,7 @@ import Loading from '../Spinner/Loading'
 import axios from 'axios'
 import { getDate } from '../../functions/TransformDateHour/HourAndDate'
 import DeleteJobCollection from './DeleteJobCollection'
+import { userStore } from '../../store/store'
 
 interface Props { 
     goBack: () => void,
@@ -25,11 +26,11 @@ interface collectionData  {
 const MarkPayJob = ({goBack, updateJobs, detail, restart}: Props) => {
 
     const [paymentMethod, setPaymentMethod] = useState<string>("")
-    const userId: string = "6644b816b732651683c01b26";//id contexto
     const [load, setLoad] = useState(false)
     const [badMessage, setBadMessage] = useState(false)
     const [message, setMessage] = useState<string>("")
     const [date, setDate] = useState(getDate())
+    const user = userStore(state => state.user)
 
     const createCollection = async () => { 
         setLoad(true)
@@ -38,7 +39,7 @@ const MarkPayJob = ({goBack, updateJobs, detail, restart}: Props) => {
             date: date
         })
         try {
-          const {data, status}  = await apiBackendUrl.put(`/jobs/markAsPaid/${detail._id}/${userId}`, collectionDataDetail)    //id contexto
+          const {data, status}  = await apiBackendUrl.put(`/jobs/markAsPaid/${detail._id}/${user?._id}`, collectionDataDetail)    
                 if(status === 200) { 
                     toast.success(data, {
                     style: { backgroundColor: 'white', color: 'blue' },

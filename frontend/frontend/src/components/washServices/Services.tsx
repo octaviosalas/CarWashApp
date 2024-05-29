@@ -5,6 +5,7 @@ import { ServiceType } from "types/ServicesTypes";
 import Loading from "../Spinner/Loading";
 import CreateService from "./CreateService";
 import transformPrice from "../../functions/TransformDateHour/TransformPrice"
+import { userStore } from "../../store/store";
 
 const Services = () => {
 
@@ -13,11 +14,12 @@ const Services = () => {
   const [services, setServices] = useState<ServiceType[]>([])
   const [load, setLoad] = useState<boolean>(false)
   const [showCreateNew, setShowCreateNew] = useState<boolean>(false)
+  const user = userStore(state => state.user)
 
   const getMyServices = async () => {
     setLoad(true)
     try {
-        const {data} = await apiBackendUrl.get(`/services/myServices/6644b816b732651683c01b26`) //cambiar por id del contexto
+        const {data} = await apiBackendUrl.get(`/services/myServices/${user?._id}`) 
         const response = data
         console.log("servicios", response)
         if(response.length > 0) { 

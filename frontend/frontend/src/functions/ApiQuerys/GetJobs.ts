@@ -1,9 +1,13 @@
 import apiBackendUrl from "../../lib/axios";
 import { JobType } from "types/JobsTypes";
 
-const userId : string = "6644b816b732651683c01b26" //id del contexto
+const getMyJobs = async (userId: string | undefined): Promise<JobType[]> => {
 
-const getMyJobs = async (): Promise<JobType[]> => {
+  if (!userId) {
+    console.error('User ID is undefined');
+    return [];
+  }
+
   try {
       const response = await apiBackendUrl.get(`/users/myJobs/${userId}`);
       const jobs: JobType[] = response.data.detail.reverse();

@@ -9,6 +9,8 @@ import { JobType } from 'types/JobsTypes'
 import formatDate from '../../functions/TransformDateHour/TransformDate'
 import formatHourToText from '../../functions/TransformDateHour/TransformHour'
 import transformPrice from '../../functions/TransformDateHour/TransformPrice'
+import { userStore } from '../../store/store'
+
 
 interface Props { 
     clientVehicles: ClientVehiclesType[]
@@ -17,17 +19,17 @@ interface Props {
 const ClientVehiclesData = ({clientVehicles}: Props) => {
 
 
-    const userId: string = "6644b816b732651683c01b26";//id contexto
     const [loadVehicles, setLoadVehicles] = useState<boolean>(false)
     const [viewLastWashed, setViewLastWashed] = useState<boolean>(false)
     const [lastWashed, setLastWashed] = useState<JobType>()
     const [load, setLoad] = useState<boolean>(false)
+    const user = userStore(state => state.user)
 
     const getLastWashed = async (vehicleId: string) => { 
         setLoad(true)
         setViewLastWashed(false)
         try {
-            const {status, data} = await apiBackendUrl.get(`/vehicles/getLastWashed/${vehicleId}/${userId}`)
+            const {status, data} = await apiBackendUrl.get(`/vehicles/getLastWashed/${vehicleId}/${user?._id}`)
             if(status === 200 && data) { 
                 const sortedData = data.sort((a: JobType, b: JobType) => new Date(b.date).getTime() - new Date(a.date).getTime());
                 const lastWash = sortedData[0]

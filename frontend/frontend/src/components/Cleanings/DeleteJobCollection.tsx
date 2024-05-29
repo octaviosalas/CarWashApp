@@ -5,7 +5,7 @@ import {toast} from "react-toastify"
 import { useState } from 'react'
 import Loading from '../Spinner/Loading'
 import axios from 'axios'
-
+import { userStore } from '../../store/store'
 
 
 interface Props { 
@@ -20,12 +20,11 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
     const [load, setLoad] = useState<boolean>(false)
     const [badMessage, setBadMessage] = useState<boolean>(false)
     const [message, setMessage] = useState<string>("")
-    const userId: string = "6644b816b732651683c01b26";//id contexto
-
+    const user = userStore(state => state.user)
 
     const deleteCollection = async () => { 
           try {
-            const {data, status} = await apiBackendUrl.delete(`/jobs/deletePaid/${detail._id}/${userId}`) //id contexto
+            const {data, status} = await apiBackendUrl.delete(`/jobs/deletePaid/${detail._id}/${user?._id}`) 
             if(status === 200) { 
                 updateJobs()
                 toast.success(data, {

@@ -6,6 +6,7 @@ import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import axios from 'axios'
+import { userStore } from '../../store/store'
 
 //router.delete("/deleteClient/:clientId/:userId",
 
@@ -17,13 +18,13 @@ interface Props {
 
 const DeleteClient = ({detail, goBack, update}: Props) => {
 
-    const userId: string = "6644b816b732651683c01b26";//id contexto
     const [load, setLoad] = useState<boolean>(false)
+    const user = userStore(state => state.user)
 
     const deleteClient = async () => { 
         setLoad(true)
         try {
-            const {data, status} = await apiBackendUrl.delete(`/clients/deleteClient/${detail?._id}/${userId}`)
+            const {data, status} = await apiBackendUrl.delete(`/clients/deleteClient/${detail?._id}/${user?._id}`)
             if(status === 200) { 
                 setLoad(false)
                 toast.success(data, {

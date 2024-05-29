@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { newServiceType } from 'types/ServicesTypes'
 import axios from 'axios'
 import Loading from '../Spinner/Loading'
+import { userStore } from '../../store/store'
 
 interface Props { 
     closeModal: () => void,
@@ -19,6 +20,8 @@ const CreateService = ({closeModal, updateServices}: Props) => {
     const [badMessage, setBadMessage] = useState<boolean>(false)
     const [message, setMessage] = useState<string>("")
     const [load, setLoad] = useState<boolean>(false)
+    const user = userStore(state => state.user)
+
 
     const handleInputService = (event: React.ChangeEvent<HTMLInputElement>) => { 
         setService(event.target.value)
@@ -33,12 +36,12 @@ const CreateService = ({closeModal, updateServices}: Props) => {
            console.log("a")
         } else { 
             setLoad(true)
-            const newService: newServiceType = ({ ////remplazar el id del user por el contexto
+            const newService: newServiceType = ({ 
                 service: service,
                 price: price,
             })
             try {
-                const query = await apiBackendUrl.post(`/services/createService/6644b816b732651683c01b26`, newService)
+                const query = await apiBackendUrl.post(`/services/createService/${user?._id}`, newService)
                 setSuccesMessage(true)
                 setMessage(query.data)
                 setLoad(false)

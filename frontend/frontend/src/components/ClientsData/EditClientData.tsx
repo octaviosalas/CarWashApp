@@ -7,6 +7,8 @@ import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import axios from 'axios'
+import { userStore } from '../../store/store'
+
 
 interface Props { 
     detail: ClientType | undefined,
@@ -20,7 +22,7 @@ const EditClientData = ({detail, goBack, update}: Props) => {
     const [dni, setDni] = useState<number>(detail?.dni || 0);
     const [email, setEmail] = useState<string>(detail?.email || "");
     const [telephone, setTelephone] = useState<number>(detail?.telephone || 0);
-    const userId: string = "6644b816b732651683c01b26";//id contexto
+    const user = userStore(state => state.user)
     const [load, setLoad] = useState(false)
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => { 
@@ -54,7 +56,7 @@ const EditClientData = ({detail, goBack, update}: Props) => {
            email: email
         })
         try {
-            const {data, status} = await apiBackendUrl.put(`/clients/updateClientData/${detail?._id}/${userId}`, clientData)
+            const {data, status} = await apiBackendUrl.put(`/clients/updateClientData/${detail?._id}/${user?._id}`, clientData)
             if(status === 200) { 
                 toast.success(data, {
                     style: { backgroundColor: 'white', color: 'blue' },

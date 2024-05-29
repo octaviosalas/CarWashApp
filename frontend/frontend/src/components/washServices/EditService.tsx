@@ -5,6 +5,7 @@ import arrow from "../../images/arrowBack.png"
 import apiBackendUrl from '../../lib/axios'
 import axios from 'axios'
 import {toast} from "react-toastify"
+import { userStore } from '../../store/store'
 
 interface Props { 
     detail: ServiceType | undefined,
@@ -22,7 +23,7 @@ const EditService = ({detail, goBack, update}: Props) => {
     const [name, setName] = useState<string>(detail?.service || "");
     const [price, setPrice] = useState<number>(detail?.price || 0);
     const [load, setLoad] = useState<boolean>(false);
-    const userId = "6644b816b732651683c01b26" //reemplazar por id del contexto
+    const user = userStore(state => state.user)
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setName(e.target.value)
@@ -49,7 +50,7 @@ const EditService = ({detail, goBack, update}: Props) => {
                 price: price
             })
             try {
-                const {data, status} = await apiBackendUrl.put(`/services/updateServicePrice/${userId}/${detail?._id}`, newDataService)
+                const {data, status} = await apiBackendUrl.put(`/services/updateServicePrice/${user?._id}/${detail?._id}`, newDataService)
                 if(status === 200) { 
                     toast.success(data, {
                         style: { backgroundColor: 'white', color: 'blue' },

@@ -4,15 +4,17 @@ import { useEffect } from 'react'
 import getMyClients from '../../functions/ApiQuerys/MyClients'
 import { ClientType } from '../../types/ClientsTypes'
 import ClientsDetailCard from './ClientsDetailCard'
+import { userStore } from '../../store/store'
 
 const ClientsList = () => {
 
     const [myClients, setMyClients] = useState<ClientType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
+    const user = userStore(state => state.user)
 
     const fetchClients = async () => {
       setLoading(true)
-      const clients : ClientType[] = await getMyClients();
+      const clients : ClientType[] = await getMyClients(user?._id);
       setMyClients(clients); 
       setLoading(false)
     };

@@ -5,6 +5,7 @@ import Loading from "../Spinner/Loading";
 import { useState } from 'react'
 import { useEffect } from 'react'
 import ServicesDetailCard from './ServicesDetailCard';
+import { userStore } from '../../store/store';
 
 const ServicesList = () => {
 
@@ -12,12 +13,12 @@ const ServicesList = () => {
     const [services, setServices] = useState<ServiceType[]>([])
     const [load, setLoad] = useState<boolean>(false)
     const [showCreateNew, setShowCreateNew] = useState<boolean>(false)
-    const userId = "6644b816b732651683c01b26"
+    const user = userStore(state => state.user)
 
     const getMyServices = async () => {
         setLoad(true)
         try {
-            const {data} = await apiBackendUrl.get(`/services/myServices/${userId}`) //cambiar por id del contexto
+            const {data} = await apiBackendUrl.get(`/services/myServices/${user?._id}`) 
             const response = data
             console.log("servicios", response)
             if(response.length > 0) { 

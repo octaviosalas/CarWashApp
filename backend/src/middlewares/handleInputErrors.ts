@@ -13,3 +13,16 @@ export const handleInputErrors = (req: Request, res: Response, next: NextFunctio
   }
   next()
 }
+
+export const handleInputErrorsAuth = (req: Request, res: Response, next: NextFunction) => { 
+
+  let errors = validationResult(req)
+
+  if(!errors.isEmpty()) { 
+      console.log("hay un error en handleInputErrors", errors)  
+      return res.status(400).json(errors)
+      } else { 
+      console.log("no hay error en handleInputErrors", errors)
+  }
+  next()
+}

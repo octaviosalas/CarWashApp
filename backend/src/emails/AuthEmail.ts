@@ -7,6 +7,9 @@ type Props = {
 }
 
 export const sendEmailConfirmationWithToken = async ({email, token, name}: Props) => { 
+
+    console.log("Soy la funcion que envia el correo, me llego:", email, token, name)
+
     await transporter.sendMail({ 
         from:"ExampleEmail <TypeScriptApiRest@gmail.com>",
         to: email,

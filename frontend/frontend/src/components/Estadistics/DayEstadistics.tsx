@@ -9,6 +9,7 @@ import transformDate from "../../functions/TransformDateHour/TransformDate"
 import wash from "../../images/wash.png"
 import money from "../../images/money.png"
 import servicess from "../../images/servicess.jpg"
+import { userStore } from '../../store/store'
 
 interface agroupType {
     price: number,
@@ -25,7 +26,7 @@ interface agroupType {
 
 const DayEstadistics = () => {
 
-    const userId: string = "6644b816b732651683c01b26";//id contexto
+    const user = userStore(state => state.user)
     const [date, setDate] = useState<Date>(getDate())
     const [load, setLoad] = useState<boolean>(false)
     const [jobsData, setJobsData] = useState<JobType[]>([])
@@ -37,7 +38,7 @@ const DayEstadistics = () => {
     const geDayData = async () => { 
         setLoad(true)
         try {
-            const {data, status} = await apiBackendUrl.get(`/estadistics/todayEstadistics/${userId}/${date}`)
+            const {data, status} = await apiBackendUrl.get(`/estadistics/todayEstadistics/${user?._id}/${date}`)
             console.log(data, status)
             if(status === 200) { 
                 setJobsData(data.jobs)
@@ -56,17 +57,7 @@ const DayEstadistics = () => {
         geDayData()
     }, [])
 
-    useEffect(() => { 
-        console.log("jobsData", jobsData)
-        console.log("dayCollections", dayCollections)
-        console.log("amount factured", amountFactured)
-        console.log("byTYPESERVICES", jobsOrdersByTypeOfService)
-    }, [jobsData, dayCollections, amountFactured, jobsOrdersByTypeOfService])
-
-
-
-
-
+    
   return (
     <div className='w-full '>
           {load ? <Loading/> : 

@@ -6,7 +6,7 @@ import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import axios from 'axios'
-
+import { userStore } from '../../store/store'
 
 interface Props { 
     detail: JobType,
@@ -21,13 +21,14 @@ interface Props {
 const DeleteJob = ({detail, goBack, updateJobs, restart}: Props) => {
 
 
-    const userId: string = "6644b816b732651683c01b26";//id contexto
+    const user = userStore(state => state.user)
+
     const [load, setLoad] = useState(false)
 
     const deleteJob = async () => { 
         setLoad(true)
         try {
-            const {data, status} = await apiBackendUrl.delete(`/jobs/${detail._id}/${userId}`)
+            const {data, status} = await apiBackendUrl.delete(`/jobs/${detail._id}/${user?._id}`)
             if(status === 200) { 
                 toast.success(data, {
                     style: { backgroundColor: 'white', color: 'blue' },

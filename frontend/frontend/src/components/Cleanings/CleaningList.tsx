@@ -6,6 +6,7 @@ import { JobType } from '../../types/JobsTypes'
 import CleaningDetailCard from './CleaningDetailCard'
 import getMyClients from '../../functions/ApiQuerys/MyClients'
 import { ClientType } from 'types/ClientsTypes'
+import { userStore } from '../../store/store'
 
 const CleaningList = () => {
 
@@ -17,10 +18,11 @@ const CleaningList = () => {
     const [pendingJobs, setPendingJobs] = useState<JobType[]>([])
     const [userClients, setUserClients] = useState<ClientType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
+    const user = userStore(state => state.user)
 
     const fetchJobs = async () => {
       setLoading(true)
-      const jobs : JobType[] = await getMyJobs();
+      const jobs : JobType[] = await getMyJobs(user?._id);
       setLoading(false)
       setEveryJobsList(jobs); 
       setOriginalEveryJobsList(jobs)
@@ -35,7 +37,7 @@ const CleaningList = () => {
     };
 
     const fetchClients = async () => {
-      const clients : ClientType[] = await getMyClients();
+      const clients : ClientType[] = await getMyClients(user?._id);
       setUserClients(clients); 
     };
 

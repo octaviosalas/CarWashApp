@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Register from './components/Register/Register';
 import Token from './components/Register/Token';
 import { ToastContainer } from 'react-toastify';
+import Login from './components/Login/Login';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
             <Routes>       
               <Route path="/" element={<MainApp />} />      
               <Route path="/register" element={<Register />} />   
+              <Route path="/login" element={<Login />} />   
               <Route path="/token" element={<Token />} />   
             </Routes>
             <ToastContainer />

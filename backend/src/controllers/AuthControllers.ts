@@ -5,19 +5,12 @@ import TokenModel from "../models/Token";
 import { createSixDigitsToken } from "../utils/token";
 import { sendEmailConfirmationWithToken } from "../emails/AuthEmail";
 import ClientModel from "../models/Clients";
+import { sendEmailToVerifyUserAccount } from "../utils/SendEmailToClient";
 
 
 export const createNewAcount = async (req: Request, res: Response) => { 
 
-
     try {
-        
-        const verifyUser = await UserModel.findOne({email: req.body.email})
-
-        if(verifyUser) { 
-            res.status(400).json("El usuario ya se encuentra almacenado en nuestra base de datos")
-        } else { 
-
             const newUserToBeAdded = new UserModel(req.body)
             newUserToBeAdded.password = await hashPassowrd(req.body.password)
 
@@ -25,7 +18,7 @@ export const createNewAcount = async (req: Request, res: Response) => {
             token.token = createSixDigitsToken()
             token.user = newUserToBeAdded.id
 
-            await sendEmailConfirmationWithToken({ 
+            await sendEmailToVerifyUserAccount({ 
                 email: newUserToBeAdded.email, 
                 token: token.token, 
                 name: newUserToBeAdded.name
@@ -33,12 +26,15 @@ export const createNewAcount = async (req: Request, res: Response) => {
 
            await Promise.allSettled([newUserToBeAdded.save(), token.save()])
            res.send("Hemos enviado un correo electronico a tu email para confirmar tu cuenta. Encontraras un Token de confirmacion que expirara en 15 minutos.")
-        }
+        
 
     } catch (error) {
         res.status(500).json({error: "Hubo un error en la creacion de la cuenta"})
     }
 }
+
+
+
 
 export const confirmAccountWithToken = async (req: Request, res: Response) => { 
 
@@ -51,7 +47,8 @@ export const confirmAccountWithToken = async (req: Request, res: Response) => {
 
             const error = new Error("El Token ha expirado, solicita uno nuevo para poder registrar tu cuenta")
             return res.status(401).json({error: error.message})
-        } else { 
+            
+            } else { 
 
             const getUserTokenOwner = await UserModel.findById(verifyToken.user)
             getUserTokenOwner.confirmed = true
@@ -103,7 +100,7 @@ export const login = async (req: Request, res: Response) => {
             if(isPasswordCorrect === false) { 
                 res.status(400).json("La contrasñea ingresada es incorrecta")
             } else { 
-                res.status(200).json("Sesion iniciada correctamente")
+                res.status(200).json(user)
             }
         }
 

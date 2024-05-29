@@ -12,7 +12,7 @@ import { getDate, getHour } from '../../functions/TransformDateHour/HourAndDate'
 import { newJobType } from 'types/JobsTypes'
 import {toast} from "react-toastify"
 import arrowBack from "../../images/arrowBack.png"
-
+import { userStore } from '../../store/store'
 
 interface Props { 
     clients: ClientType[],
@@ -34,13 +34,13 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
     const [hour, setHour] = useState<string>(getHour().toString())
     const [loading, setLoading] = useState<boolean>(false)
 
-    const userId: string = "6644b816b732651683c01b26" //id contexto
+    const user = userStore(state => state.user)
 
     const findClientVehicles = async (clientId: string) => { 
         setLoad(true)
         setClientSelected(clientId)
         try {
-            const {data} = await apiBackendUrl.get(`/clients/clientData/${clientId}/6644b816b732651683c01b26`) //remplazar el id del user por el contexto
+            const {data} = await apiBackendUrl.get(`/clients/clientData/${clientId}/${user?._id}`) 
             const response = data.clientVehicles
             const userServices = data.services
             console.log("userservices", userServices)
@@ -95,7 +95,7 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
         })
         console.log(jobData)
         try {
-            const {data} = await apiBackendUrl.post(`/jobs/createJob/${userId}/${clientSelected}`, jobData);
+            const {data} = await apiBackendUrl.post(`/jobs/createJob/${user?._id}/${clientSelected}`, jobData);
             console.log(data)
             updateJobs()
                 toast.success("El lavado se guardó correctamente", {
