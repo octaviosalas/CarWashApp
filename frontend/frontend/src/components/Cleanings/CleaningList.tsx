@@ -70,11 +70,17 @@ const CleaningList = () => {
    
   return (
     <div >
-       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :
-         <CleaningDetailCard  
+       {loading ? 
+
+          <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> 
+              <Loading/> 
+          </div> :
+
+          <CleaningDetailCard  
           filter={filterJobsByInput} change={change} inProcess={pendingJobs} 
           finished={finishedJobs}  jobsData={everyJobsList} pendingCollections={pendingCollections}  
           paid={paidJobs} every={originalEveryJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
+
     </div>
   )
 }

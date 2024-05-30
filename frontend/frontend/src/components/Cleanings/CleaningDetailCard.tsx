@@ -12,6 +12,7 @@ import { useState } from 'react';
 import AddNewJobButton from './AddNewJobButton';
 import AddNewJobForm from './AddNewJobForm';
 import { ClientType } from 'types/ClientsTypes';
+import Loading from '..//Spinner/Loading';
 
 interface Props {
     jobsData: JobType[];
@@ -78,49 +79,57 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                     <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(pendingCollections)}>Sin Abonar</p>
                     <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(paid)}>Abonados</p>
                 </div>
+
                 <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[715px] overflow-y-auto w-full'>  
-                {jobsData.map((job: JobType) => ( 
-                    <div className='mt-2 2xl:mt-4 w-full cursor-pointer hover:bg-blue-100' key={job._id} onClick={() => viwJobDetail(job)}>
-                            <div className='flex items-start text-start justify-start' key={job._id}>
-                                <p className='font-medium text-md text-blue-500'>{job.client.name}</p>
-                            </div>
-                            <div className='flex items-center gap-2'>
-                                {job.vehicle.typeOfVehicle === "Auto" ? 
-                                    <img className='w-6 h-8' src={car}/> : 
-                                     job.vehicle.typeOfVehicle === "Moto" ? ( 
-                                        <img className='w-6 h-8' src={moto} />
-                                    ) : (
-                                     <img className='w-6 h-8' src={camioneta} />
-                                    ) 
-                                   
-                                } 
-                                <p className='font-medium text-black text-md'>{job.vehicle.description}</p>
-                            </div>
-                            <div className='flex items-center'>
-                                {
-                                job.paid == true ? 
-                                <p className='text-green-600 text-md font-medium'>Abonado - {transformPrice(job.amount)}</p> :
-                                <p className='text-red-600 font-medium text-md'>Pendiente de Pago - {transformPrice(job.amount)}</p>
-                                }
-                            </div>
-                            <div className='flex items-center mt-2 '>
-                               <p className='font-medium text-black text-md'>Lavado: {job.status === "pending" ? <span className='bg-red-300 text-white font-medium'>Pendiente</span> :
-                               <span className='bg-green-300 text-white font-medium'>Completado</span>}</p> 
-                            </div>
-                            <div className='flex items-center mt-2 '>
-                              <p className='font-medium text-black text-md'>Fecha: {formatDate(job.date)}</p>
-                            </div>
-                            <div className='flex items-center justify-between mt-1 mb-2'>     
-                            <p className='font-medium text-black text-md'>Horario: {formatHourToText(job.hour)}</p>
-                              {
-                              job.notified === false ? <img title='Notificar via Email' className='cursor-pointer w-5 h-5 mr-2' src={email}/> 
-                              : 
-                              <img title='Notificado' className='cursor-pointer w-5 h-5 mr-2' src={notified}/>
-                              }
-                            </div>
-                    </div>  
-                ))}
-             </div>
+                    {jobsData.length > 0 ? 
+                        <div>
+                            {jobsData.map((job: JobType) => ( 
+                                <div className='mt-2 2xl:mt-4 w-full cursor-pointer hover:bg-blue-100' key={job._id} onClick={() => viwJobDetail(job)}>
+                                        <div className='flex items-start text-start justify-start' key={job._id}>
+                                            <p className='font-medium text-md text-blue-500'>{job.client.name}</p>
+                                        </div>
+                                        <div className='flex items-center gap-2'>
+                                            {job.vehicle.typeOfVehicle === "Auto" ? 
+                                                <img className='w-6 h-8' src={car}/> : 
+                                                job.vehicle.typeOfVehicle === "Moto" ? ( 
+                                                    <img className='w-6 h-8' src={moto} />
+                                                ) : (
+                                                <img className='w-6 h-8' src={camioneta} />
+                                                ) 
+                                            
+                                            } 
+                                            <p className='font-medium text-black text-md'>{job.vehicle.description}</p>
+                                        </div>
+                                        <div className='flex items-center'>
+                                            {
+                                            job.paid == true ? 
+                                            <p className='text-green-600 text-md font-medium'>Abonado - {transformPrice(job.amount)}</p> :
+                                            <p className='text-red-600 font-medium text-md'>Pendiente de Pago - {transformPrice(job.amount)}</p>
+                                            }
+                                        </div>
+                                        <div className='flex items-center mt-2 '>
+                                        <p className='font-medium text-black text-md'>Lavado: {job.status === "pending" ? <span className='bg-red-300 text-white font-medium'>Pendiente</span> :
+                                        <span className='bg-green-300 text-white font-medium'>Completado</span>}</p> 
+                                        </div>
+                                        <div className='flex items-center mt-2 '>
+                                        <p className='font-medium text-black text-md'>Fecha: {formatDate(job.date)}</p>
+                                        </div>
+                                        <div className='flex items-center justify-between mt-1 mb-2'>     
+                                        <p className='font-medium text-black text-md'>Horario: {formatHourToText(job.hour)}</p>
+                                        {
+                                        job.notified === false ? <img title='Notificar via Email' className='cursor-pointer w-5 h-5 mr-2' src={email}/> 
+                                        : 
+                                        <img title='Notificado' className='cursor-pointer w-5 h-5 mr-2' src={notified}/>
+                                        }
+                                        </div>
+                                </div>  
+                            ))}
+                        </div> : 
+                        <div className='flex items-center justify-center mt-24'>
+                            <p className='font-medium text-zinc-500'>No cuentas con lavados registrados. Crea el primero!</p>
+                        </div>}
+                </div>
+                
            </div>
 
            <div className=' h-full w-4/5'>
