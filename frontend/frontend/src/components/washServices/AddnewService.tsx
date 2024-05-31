@@ -7,6 +7,7 @@ import axios from 'axios'
 import Loading from '../Spinner/Loading'
 import {toast} from "react-toastify"
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 interface Props { 
     update: () => void
@@ -55,21 +56,7 @@ const AddnewService = ({update}: Props) => {
                     update()
                 }
             } catch (error) {
-                if (axios.isAxiosError(error)) {
-                    if (error.response) {
-                      setLoad(false)
-                      toast.error(error.response.data, {
-                        style: { backgroundColor: 'white', color: 'blue' },
-                        pauseOnHover: false,
-                        autoClose: 2000
-                    });      
-                    setService("")
-                    setPrice(0)               
-                  } else {
-                    console.log('Unexpected error:', error);
-                    setLoad(false)
-                  }
-                }
+                handleError(error, setLoad)
             }
         }
     }

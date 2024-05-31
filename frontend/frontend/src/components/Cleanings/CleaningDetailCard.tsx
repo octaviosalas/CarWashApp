@@ -80,7 +80,7 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                     <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(paid)}>Abonados</p>
                 </div>
 
-                <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[715px] overflow-y-auto w-full'>  
+                <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[625px] overflow-y-auto w-full'>  
                     {jobsData.length > 0 ? 
                         <div>
                             {jobsData.map((job: JobType) => ( 
@@ -125,8 +125,9 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                                 </div>  
                             ))}
                         </div> : 
-                        <div className='flex items-center justify-center mt-24'>
-                            <p className='font-medium text-zinc-500'>No cuentas con lavados registrados. Crea el primero!</p>
+                        <div className='flex flex-col items-center justify-center mt-24'>
+                            <p className='font-medium text-zinc-500'>No cuentas con lavados registrados</p>
+                            <p className='font-medium text-zinc-500 mt-3'>Crear el primero!</p>
                         </div>}
                 </div>
                 
@@ -141,8 +142,6 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                }
            </div>
     </div>
-   
- 
   )
 }
 

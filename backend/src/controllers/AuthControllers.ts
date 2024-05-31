@@ -6,6 +6,7 @@ import { createSixDigitsToken } from "../utils/token";
 import { sendEmailConfirmationWithToken } from "../emails/AuthEmail";
 import ClientModel from "../models/Clients";
 import { sendEmailToVerifyUserAccount } from "../utils/SendEmailToClient";
+import ServicesModel from "../models/Services";
 
 
 export const createNewAcount = async (req: Request, res: Response) => { 
@@ -100,7 +101,8 @@ export const login = async (req: Request, res: Response) => {
             if(isPasswordCorrect === false) { 
                 res.status(400).json("La contrasñea ingresada es incorrecta")
             } else { 
-                res.status(200).json(user)
+                const userServices = await ServicesModel.find({user: user._id})
+                res.status(200).json({userData: user, userServices: userServices})
             }
         }
 

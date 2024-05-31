@@ -30,6 +30,7 @@ const Login = () => {
     }
 
     const setUserData = userStore(state => state.setUserAccountData); 
+    const setUserServices = userStore(state => state.setUserServices); 
 
     const logAccount = async () => { 
         const userData : userAccountType = ({ 
@@ -43,9 +44,8 @@ const Login = () => {
              const {data, status} = await apiBackendUrl.post(`/auth/login`, userData)
              if(status === 200) { 
                 setLoad(false)
-                setUserData(data)
-                console.log(data, status)
-                setUserData(data)
+                setUserData(data.userData)
+                setUserServices(data.userServices)
                 navigate("/") 
              }
              
@@ -62,7 +62,7 @@ const Login = () => {
                         autoClose: 2500
                     });
                 setLoad(false)
-            } else if (error.response && !Array.isArray(error.response)) {
+            }  if (error.response && !Array.isArray(error.response)) {
                 toast.error(error.response.data, {
                     style: { backgroundColor: 'white', color: 'red' },
                     pauseOnHover: false,

@@ -12,6 +12,7 @@ import { newClientVehicleType } from 'types/VehiclesTypes'
 import axios from 'axios'
 import arrow from "../../images/arrowBack.png"
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 interface Props { 
     cancel: () => void,
@@ -73,20 +74,8 @@ const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) 
                 }
                 cancel()
             } 
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                if (error.response) {
-                    toast.error(error.response.data, {
-                        style: { backgroundColor: 'white', color: 'red' },
-                        pauseOnHover: false,
-                        autoClose: 2500
-                    });
-                setLoad(false)
-            } else {
-                console.log('Unexpected error:', error);
-                setLoad(false)
-            }
-          }
+        } catch (error) {         
+          handleError(error, setLoad)
         }
     }
 
