@@ -29,7 +29,6 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
 
     const goBack = () => { 
       setShowNewClient(false)
-      //setClientSelected([])
     }
 
     const selectClientAndGetVehicles = async  (item: ClientType) => { 

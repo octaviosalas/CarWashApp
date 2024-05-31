@@ -2,7 +2,7 @@ import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist, validateUserAccountIsConfirmed } from "../middlewares/AuthValidations"
-import {getDayEstadistic, getMonthEstadistic} from "../controllers/EstadisticsControllers"
+import {getDayEstadistic, getMonthEstadistic, getYearEstadistic} from "../controllers/EstadisticsControllers"
 
 const router = Router()
 
@@ -21,7 +21,13 @@ router.get("/monthEstadistics/:userId",
     validateUserAccountIsConfirmed,
     getMonthEstadistic
 )
-router.get("/yearEstadistics/:userId")
+router.get("/yearEstadistics/:userId",
+    param("userId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),
+    handleInputErrors,
+    validateUserExist,
+    validateUserAccountIsConfirmed,
+    getYearEstadistic
+)
 
 
 export default router

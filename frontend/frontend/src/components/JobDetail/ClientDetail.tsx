@@ -7,7 +7,7 @@ import AddVehicle from "../ClientsData/AddVehicle";
 import ClientVehiclesData from "../ClientsData/ClientVehiclesData";
 import EditClientData from "../ClientsData/EditClientData";
 import DeleteClient from "../ClientsData/DeleteClient";
-
+import Loading from "../Spinner/Loading";
 
 interface Props { 
     detail: ClientType | undefined
@@ -95,17 +95,23 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
 
                 <div className="2xl:mt-6 w-full">
 
-                    {clientVehicles.length === 0  && showAddVehicle === false ?
+                    {!clientVehicles ? <Loading /> : clientVehicles.length === 0  && showAddVehicle === false ? ( 
+                        <div className="flex flex-col items-center justify-center w-full">
+                            <p className="font-medium text-black text-md">Este cliente no tiene vehiculos cargados</p>
+                            <Button className="bg-blue-500 hover:bg-blue-300 hover:text-black text-white font-medium w-2/4 mt-4" onClick={() => setShowAddVehicle(true)}>Agregar Vehiculo</Button>
+                        </div> 
+                    ) : clientVehicles.length === 0  && showAddVehicle === false ? ( 
+                        <div className="flex flex-col items-center justify-center w-full">
+                        <p className="font-medium text-black text-md">Este cliente no tiene vehiculos cargados</p>
+                        <Button className="bg-blue-500 hover:bg-blue-300 hover:text-black text-white font-medium w-2/4 mt-4" onClick={() => setShowAddVehicle(true)}>Agregar Vehiculo</Button>
+                     </div> 
+                    ) :  clientVehicles.length !== 0 && showAddVehicle === false ? ( 
+                        <ClientVehiclesData clientVehicles={clientVehicles}/>
+                     ) : null
 
-                      <div className="flex flex-col items-center justify-center w-full">
-                         <p className="font-medium text-black text-md">Este cliente no tiene vehiculos cargados</p>
-                         <Button className="bg-blue-500 hover:bg-blue-300 hover:text-black text-white font-medium w-2/4 mt-4" onClick={() => setShowAddVehicle(true)}>Agregar Vehiculo</Button>
-                      </div> 
+                   }
+                  
 
-                      : clientVehicles.length !== 0 && showAddVehicle === false ? ( 
-                         <ClientVehiclesData clientVehicles={clientVehicles}/>
-                      ) : null
-                    }
 
                     {showAddVehicle ? <div className="flex items-center justify-center"> <AddVehicle showArrow="false" cancel={comeBackToDetail} detail={detail} update={update} updateVehicles={updateVehicles}/> </div> : null}
                 </div>

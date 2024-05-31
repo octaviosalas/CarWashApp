@@ -59,3 +59,9 @@ export const actualMonthNow = ()  => {
     const fecha = new Date();
     return fecha.getMonth() + 1; 
 }
+
+
+export const getCurrentYear = (): number => {
+    const fecha = new Date();
+    return fecha.getFullYear(); // getFullYear() devuelve el año completo (ej. 2024)
+}

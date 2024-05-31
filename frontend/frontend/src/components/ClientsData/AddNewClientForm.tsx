@@ -117,7 +117,7 @@ const AddNewClientForm = ({update, goBack}: Props) => {
   return (
     <div className='flex flex-col w-full mt-4'>
           <div className='w-full flex justify-between items-center ml-4 border-b'>
-             <p className='text-md text-black font-medium'>Creando Cliente {user?._id} {user?.name}</p>
+             <p className='text-md text-black font-medium'>Creando Cliente </p>
           </div>
           <div className='ml-4 mt-0 2xl:mt-3'>
             <img src={arrowBack} className='w-5 h-5 2xl:w-6 2xl:h-6 cursor-pointer' onClick={() => goBack()}/>

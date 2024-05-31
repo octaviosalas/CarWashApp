@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import ServicesModel from "../models/Services";
+import { actualYear, actualMonth, transformPrice } from "../utils/DateAndHourFunctions";
+import JobsModel from "../models/Jobs";
 
 
 export const createService = async (req: Request, res: Response) => { 
@@ -69,4 +71,42 @@ export const updateService = async (req: Request, res: Response) => {
       res.status(500).json("Error al actualizar el servicio")
 
     }
+}
+
+export const getServicesDataEstadistic = async (req: Request, res: Response) => { 
+
+    const {userId, serviceId, month} = req.params
+    const currentYear = actualYear();
+    const actuallyMonth = actualMonth();
+
+    const servicesJobs = await JobsModel.find({user: userId})
+    const filteredJobs = servicesJobs.filter(job => { 
+      const date = new Date(job.date)
+      const actualYear = date.getFullYear();
+      const monthActualData = date.getMonth() + 1
+      const yearData = date.getFullYear();
+      return monthActualData === actuallyMonth && yearData === actualYear;
+    })
+
+    console.log(filteredJobs)
+
+    const detail = []
+
+    const data =  filteredJobs.forEach((jd) => { 
+      jd.typeOfJob.map((job) => { 
+         if(job._id.toString() === serviceId) { 
+            detail.push(job)
+         } else { 
+           null
+         }
+      })
+    })
+
+    const totalAmount = detail.reduce((acc, el) => acc + el.price, 0)
+    const totalJobs = detail.length
+
+
+    res.status(200).json({data, detail, totalAmount, totalJobs})
+
+
 }

@@ -3,7 +3,7 @@ import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
 import { validateServiceNotExist, validateServiceExist, validateServicePrice } from "../middlewares/ServicesValidation"
-import { getServices, createService, deleteService, updateService } from "../controllers/ServicesControllers"
+import { getServices, createService, deleteService, updateService, getServicesDataEstadistic } from "../controllers/ServicesControllers"
 
 const router = Router()
 
@@ -44,6 +44,15 @@ router.delete("/deleteService/:userId/:serviceId",
         validateUserExist,
         validateServiceExist,
         deleteService
+)
+
+router.get("/servicesDataEstadistic/:userId/:serviceId",
+        param("userId").isMongoId().withMessage("El id del usuario no es valido"),
+        param("serviceId").isMongoId().withMessage("El id del servicio no es valido"),
+        handleInputErrors,
+        validateUserExist,
+        validateServiceExist,
+        getServicesDataEstadistic
 )
 
 

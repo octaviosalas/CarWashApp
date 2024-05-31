@@ -22,7 +22,6 @@ const NavItemActionsClients = ({viewEdit, viewDelete, viewAddVehicle}: Props) =>
               <img src={editjob} title="Editar datos del Cliente"  className='h-6 w-6 cursor-pointer' onClick={() => viewEdit()}/>
               <img src={deleteJob} title="Eliminar Cliente" className='h-6 w-6 cursor-pointer'  onClick={() => viewDelete()}/>
               <img src={plus} title="Agregar nuevo Vehiculo" className='h-6 w-6 cursor-pointer'  onClick={() => viewAddVehicle()}/>
-
           </div>
 
     </div>

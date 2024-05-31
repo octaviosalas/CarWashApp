@@ -68,6 +68,10 @@ export const actualMonth = ()  => {
     return fecha.getMonth() + 1; // getMonth() devuelve un índice basado en cero, por lo que se suma 1 para obtener el mes correcto.
 }
 
+export const actualYear = () => {
+    const fecha = new Date();
+    return fecha.getFullYear(); // getFullYear() devuelve el año completo (ej. 2024)
+}
 
 export const transformPrice = (value: number) => {
     return `$${value.toLocaleString('de-DE')}`;

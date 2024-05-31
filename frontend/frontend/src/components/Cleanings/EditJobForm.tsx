@@ -1,7 +1,7 @@
 import { JobType } from 'types/JobsTypes'
 import { ClientType } from 'types/ClientsTypes'
 import arrowBack from "../../images/arrowBack.png"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { userStore } from '../../store/store'
 import { Select, SelectItem } from '@nextui-org/react'
 
@@ -27,6 +27,10 @@ const EditJobForm = ({detail, clients, goBack}: Props) => {
   const handleChangeStatus= (e: React.ChangeEvent<HTMLSelectElement>) => { 
     setStatus(e.target.value)
   }
+
+  useEffect(() => { 
+    console.log(status)
+  }, [status])
   
   return (
     <div className='w-full'>
@@ -44,9 +48,9 @@ const EditJobForm = ({detail, clients, goBack}: Props) => {
 
         <div className='flex flex-col justify-start text-start items-start mt-4'>
             <p className='text-sm text-black font-medium'>Estado del Lavado</p>
-            <Select isRequired className='w-40 xl:w-52 2xl:w-96' defaultSelectedKeys={[status]} onChange={handleChangeStatus}>
-               <SelectItem key="Pendiente" >Pendiente</SelectItem>
-               <SelectItem key="Terminado">Terminado</SelectItem>
+            <Select  className='w-40 xl:w-52 2xl:w-96'  label={status === "pending" ? "Pendiente" : "Completado"} value={status} onChange={handleChangeStatus}>
+              <SelectItem key="Abonado"  value="Abonado" >Abonado</SelectItem>
+              <SelectItem key="Pendiente De Pago" value="Pendiente De Pago">Pendiente De Pago</SelectItem>
             </Select>
         </div>
 
