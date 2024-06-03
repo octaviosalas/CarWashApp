@@ -102,7 +102,9 @@ export const login = async (req: Request, res: Response) => {
                 res.status(400).json("La contrasñea ingresada es incorrecta")
             } else { 
                 const userServices = await ServicesModel.find({user: user._id})
-                res.status(200).json({userData: user, userServices: userServices})
+                const userClients = await ClientModel.find({clientOf: user._id})
+
+                res.status(200).json({userData: user, userServices: userServices, userClients: userClients})
             }
         }
 

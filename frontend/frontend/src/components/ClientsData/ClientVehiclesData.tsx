@@ -51,7 +51,7 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
     }, [clientVehicles])
 
   return (
-    <div className='w-full flex flex-col'>
+    <div className='w-full flex flex-col mt-4 2xl:mt-0'>
          <div className='w-full bg-blue-500 flex items-center justify-start text-start h-12 rounded-md'>
               <h4 className='font-medium text-white text-lg ml-2'>Vehiculos</h4>
          </div>

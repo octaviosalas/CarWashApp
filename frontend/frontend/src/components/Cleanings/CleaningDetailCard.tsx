@@ -67,7 +67,7 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                    <AddNewJobButton add={addNewJobNow} />
                 </div>
                 <div className='mt-2'>
-                   <input type="text" name="search" placeholder='Buscar' className=" mt-1s w-40 xl:w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                   <input type="text" name="search" placeholder='Buscar' className=" mt-1s w-64 xl:w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={inputValue}
                     onChange={handleChangeInputValue}
                    />
@@ -80,7 +80,7 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                     <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(paid)}>Abonados</p>
                 </div>
 
-                <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[625px] overflow-y-auto w-full'>  
+                <div className='max-h-[350px] 2xl:max-h-[645px] 3xl:max-h-[725px] overflow-y-auto w-full'>  
                     {jobsData.length > 0 ? 
                         <div>
                             {jobsData.map((job: JobType) => ( 

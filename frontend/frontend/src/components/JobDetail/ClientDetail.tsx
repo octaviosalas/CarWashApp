@@ -73,21 +73,21 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                {showClientDetail ? 
                    <div className="w-full justify-start items-start"> 
                  <div className=" w-full">
-                    <div className="flex flex-col items-start justify-start text-start w-full mt-1 2xl:mt-8 ">                    
+                    <div className="flex 2xl:flex 2xl:flex-col items-start justify-between 2xl:justify-between text-start w-full mt-1 2xl:mt-8">                    
                             <div className="flex flex-col items-start text-start mt-2">
-                                <p className="text-md font-medium text-black">Cliente</p>
+                                <p className="text-md font-medium text-white bg-blue-500 w-full text-center">Cliente</p>
                                 <p className="">{detail.name.toUpperCase()}</p>
                             </div>
                             <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
-                                <p className="text-md font-medium text-black underline">Dni:</p>
+                                <p className="text-md font-medium text-white bg-blue-500 w-full text-center">Dni</p>
                                 <p>{detail.dni}</p>
                             </div>
                             <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
-                                <p className="text-md font-medium text-black underline">Telefono:</p>
+                                <p className="text-md font-medium text-white bg-blue-500 w-full text-center">Telefono</p>
                                 <p>{detail.telephone}</p>
                             </div>
                             <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
-                                <p className="text-md font-medium text-black underline">Email:</p>
+                                <p className="text-md font-medium text-white bg-blue-500 w-full text-center ">Email</p>
                                 <p>{detail.email}</p>
                             </div>   
                     </div>
