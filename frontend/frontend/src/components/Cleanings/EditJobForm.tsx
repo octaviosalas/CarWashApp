@@ -18,6 +18,7 @@ const EditJobForm = ({detail, clients, goBack}: Props) => {
   const [typeOfJob, setTypeOfJob] = useState(detail.typeOfJob)
   const [status, setStatus] = useState(detail.status)
   const [paid, setPaid] = useState(detail.paid)
+  const [deletePaid, setDeletePaid] = useState<boolean>(false)
   const user = userStore(state => state.user)
   const userClients = userStore(state => state.userClients)
 
@@ -32,8 +33,21 @@ const EditJobForm = ({detail, clients, goBack}: Props) => {
   }
 
   const handleChangePaid = (e: React.ChangeEvent<HTMLInputElement>) => { 
-    setStatus(e.target.value)
+    console.log(e.target.value)
+    if(e.target.value === "pending") { 
+      setPaid(false)
+    } else { 
+      setPaid(true)
+    }
   }
+
+  useEffect(() => {  
+    if(paid === false) { 
+      setDeletePaid(true)
+    } else { 
+      setDeletePaid(false)
+    }
+  }, [paid])
 
 
   return (
@@ -53,7 +67,7 @@ const EditJobForm = ({detail, clients, goBack}: Props) => {
 
         <div className='flex flex-col justify-start text-start items-start mt-4'>
             <p className='text-sm text-black font-medium'>Estado del Lavado</p>
-            <Autocomplete defaultItems={status} defaultSelectedKey={status} className="max-w-xs" onChange={handleChangeStatus}>
+            <Autocomplete aria-label="Status" defaultItems={status} defaultSelectedKey={status} className="max-w-xs" onChange={handleChangeStatus}>
                 <AutocompleteItem key="pending">Pendiente</AutocompleteItem>
                 <AutocompleteItem key="completed">Completado</AutocompleteItem>
             </Autocomplete>
@@ -63,11 +77,13 @@ const EditJobForm = ({detail, clients, goBack}: Props) => {
 
         <div className='flex flex-col justify-start text-start items-start mt-4'>
             <p className='text-sm text-black font-medium'>Cobro del Lavado</p>
-            <Autocomplete  defaultSelectedKey={paid ? "paid" : "unPaid"} className="max-w-xs" onChange={handleChangePaid}>
-                <AutocompleteItem key="paid">Pagado</AutocompleteItem>
-                <AutocompleteItem key="unPaid">Sin Abonar</AutocompleteItem>
+            <Autocomplete   aria-label="Paid" defaultSelectedKey={paid ? "paid" : "unPaid"} className="max-w-xs" onChange={handleChangePaid}>
+                <AutocompleteItem key="paid" onClick={() => setPaid(true)}>Pagado</AutocompleteItem>
+                <AutocompleteItem key="unPaid" onClick={() => setPaid(false)}>Sin Abonar</AutocompleteItem>
             </Autocomplete>
         </div>
+
+        {deletePaid ? <p>a</p> : null}
 
          
       </div> 
