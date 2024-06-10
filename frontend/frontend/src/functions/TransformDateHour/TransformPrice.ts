@@ -1,5 +1,7 @@
-function transformPrice(value: number) {
-    return `$${value.toLocaleString('de-DE')}`;
+function transformPrice(value: number | undefined) {
+     if(value !== undefined) { 
+      return `$${value.toLocaleString('de-DE')}`;
+     }
   }
 
 

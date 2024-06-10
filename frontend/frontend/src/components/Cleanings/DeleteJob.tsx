@@ -66,7 +66,7 @@ const DeleteJob = ({detail, goBack, updateJobs, restart}: Props) => {
            <img className='w-8 h-8 cursor-pointer' title="Volver al detalle" src={arrowBack} onClick={() => goBack()}/>
         </div>
      
-            <div className='flex flex-col items-center jsutify-center mt-24'>
+            <div className='w-full flex flex-col items-center justify-center mt-24'>
                <p className='font-medium text-black text-md'>¿Estas seguro de eliminar el lavado?</p> 
                   {detail.paid === true ? 
                         <div className='flex flex-col items-center justify-center mt-4'>

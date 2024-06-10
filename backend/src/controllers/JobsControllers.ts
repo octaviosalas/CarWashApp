@@ -29,6 +29,7 @@ export const createJob = async (req: Request, res: Response) => {
     }
 }
 
+
 export const updateJobStatus = async (req: Request, res: Response) => { 
 
     const {status} = req.body
@@ -42,6 +43,7 @@ export const updateJobStatus = async (req: Request, res: Response) => {
       
     }
 }
+
 
 export const deleteJob = async (req: Request, res: Response) => { 
  
@@ -66,6 +68,7 @@ export const deleteJob = async (req: Request, res: Response) => {
        res.status(200).json("El lavado fue eliminado con exito")
     }
 }
+
 
 export const markJobAsPaid = async (req: Request, res: Response) => { 
     const {date, paymentMethod} = req.body
@@ -106,6 +109,7 @@ export const markJobAsPaid = async (req: Request, res: Response) => {
     }
 }
 
+
 export const updateJobDetailData = async (req: Request, res: Response) => { 
     const {vehicle, typeOfJob, amount} = req.body
     const {jobId, clientId, userId} = req.params
@@ -124,6 +128,7 @@ export const updateJobDetailData = async (req: Request, res: Response) => {
         
     }
 }
+
 
 export const deleteJobPaid = async (req: Request, res: Response) => { 
     console.log("el id recibido", req.jobData.id)
@@ -146,6 +151,7 @@ export const deleteJobPaid = async (req: Request, res: Response) => {
 
     }
 }
+
 
 export const notifyEndOfWashingByEmail = async (req: Request, res: Response) => { 
 
@@ -183,6 +189,38 @@ export const notifyEndOfWashingByEmail = async (req: Request, res: Response) => 
 };
 
 
+export const updateJobAmountOrClient = async (req: Request, res: Response) => { 
+
+    const {amount, clientId, vehicle, paid} = req.body
+    const {jobId} = req.params
+
+    try {
+        const newJobData = await JobsModel.findByIdAndUpdate(jobId, {        
+            client: clientId,
+            amount: amount,
+            vehicle: vehicle
+        }, {new: true})
+
+        await newJobData.save()
+
+        if(paid === true) { 
+            const changeCollectionData = await CollectionModel.findOneAndUpdate({jobReference: jobId}, { 
+                client: clientId, 
+                amount: amount
+            })
+            await changeCollectionData.save()
+        }
+
+        res.status(200).send("Los datos del lavado fueron actualizados")
+
+        
+    } catch (error) {
+        
+    }
+}
 
 
+export const jobCollectionData = async (req: Request, res: Response) => { 
+   res.status(200).send(req.collectionData)
+}
 

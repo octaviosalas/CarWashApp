@@ -101,14 +101,12 @@ const YearEstadistics = () => {
                 <p className='text-white font-medium text-lg'> Servicios </p>
             </div>
             {jobsOrdersByTypeOfService.length > 0 ? 
-
-            <div className='flex flex-col items-center justify-center mt-2'>
+            <div className='flex flex-col items-start justify-start mt-2 ml-4'>
                 {jobsOrdersByTypeOfService.map((serv) => ( 
-                    <div className='flex gap-4'>
-                        
-                        <p className='font-medium text-blue-500 mt-2 text-lg'>{serv.services}</p>
-                        <p className='text-black mt-2 text-md'>Total facturado: {transformPrice(serv.data.reduce((acc, el) => acc + el.price, 0))}</p> 
-                        <p className='text-black mt-2 text-md'>Cantidad de Lavados: {serv.data.length}</p> 
+                    <div className='flex gap-4'>                    
+                        <p className='font-medium text-white bg-blue-500 mt-2 text-lg'>{serv.services} </p>
+                        <p className='text-black mt-2 text-md'><span className='font-medium'>Facturacion: </span> {transformPrice(serv.data.reduce((acc, el) => acc + el.price, 0))}</p> 
+                        <p className='text-black mt-2 text-md'><span className='font-medium'>Cantidad: </span> {serv.data.length}</p> 
                     </div>
                 ))}
             </div> : null}

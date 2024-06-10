@@ -4,7 +4,8 @@ import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
 import { validateClientExist } from "../middlewares/ClientValidation"
 import { validateVehicleExistInUserClientsVehicles, validateJobExist, validateJobIsUserJob } from "../middlewares/JobsValidation"
-import { createJob, updateJobStatus, deleteJob, markJobAsPaid, deleteJobPaid,  notifyEndOfWashingByEmail, updateJobDetailData} from "../controllers/JobsControllers"
+import {validateJobCollectionExist} from "../middlewares/CollectionsValidations"
+import { createJob, updateJobStatus, deleteJob, markJobAsPaid, deleteJobPaid,  notifyEndOfWashingByEmail, updateJobDetailData, updateJobAmountOrClient, jobCollectionData} from "../controllers/JobsControllers"
 
 
 const router = Router()
@@ -89,6 +90,29 @@ router.post("/sendEmail/:jobId/:userId",
     notifyEndOfWashingByEmail
 )
 
+router.put("/updateData/:jobId/:userId",
+    param("jobId").isMongoId().withMessage("El Id del lavado al que intentas asignar no es valido"),
+    param("userId").isMongoId().withMessage("El ID del usuario es obligatorio"), 
+    body("clientId").notEmpty().withMessage("El ID del cliente es obligatorio"), 
+    body("amount")
+        .notEmpty().withMessage("El Monto es obligatorio")
+        .isFloat({ min: 0.01 }).withMessage("El Monto debe ser un número mayor a 0"), 
+    body("vehicle").notEmpty().withMessage("El Vehiculo es obligatorio"), 
+    body("paid").notEmpty().withMessage("Es obligatorio indicar si el pago fue realizado"), 
+    handleInputErrors,
+    validateUserExist,
+    validateJobExist,
+    updateJobAmountOrClient
+)
 
+router.get("/jobCollection/:jobId/:userId",
+    param("jobId").isMongoId().withMessage("El Id del lavado al que intentas asignar no es valido"),
+    param("userId").isMongoId().withMessage("El ID del usuario es obligatorio"), 
+    handleInputErrors,
+    validateUserExist,
+    validateJobExist,
+    validateJobCollectionExist,
+    jobCollectionData
+)
 
 export default router

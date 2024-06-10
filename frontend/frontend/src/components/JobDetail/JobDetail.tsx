@@ -70,7 +70,7 @@ const JobDetail = ({ detail, clients, updateJobs, restart }: Props) => {
        
 
         return (
-            <div className="flex flex-col items-center justify-center ">
+            <div className="flex flex-col items-center justify-center w-full">
 
                {detail === undefined ? 
 
@@ -119,7 +119,7 @@ const JobDetail = ({ detail, clients, updateJobs, restart }: Props) => {
                     </div>
                 : null}
 
-                {showEditJobForm ? <EditJobForm detail={detail} clients={clients} goBack={goBackDetail}/> : null}
+                {showEditJobForm ? <EditJobForm detail={detail} clients={clients} goBack={goBackDetail} updateJobs={updateJobs}/> : null}
                 {showDeleteJob ? <DeleteJob detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}
                 {showPaidJob ?   <MarkPayJob detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}
                 {showCompletedJob ?   <MarkJobAsFinished detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}

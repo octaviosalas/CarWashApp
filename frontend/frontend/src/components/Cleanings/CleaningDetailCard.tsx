@@ -12,7 +12,6 @@ import { useState } from 'react';
 import AddNewJobButton from './AddNewJobButton';
 import AddNewJobForm from './AddNewJobForm';
 import { ClientType } from 'types/ClientsTypes';
-import Loading from '..//Spinner/Loading';
 
 interface Props {
     jobsData: JobType[];
@@ -32,7 +31,8 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
     const [jobSelected, setJobSelected] = useState<JobType | undefined>()
     const [showNewJob, setShowNewJob] = useState<boolean>(false)
     const [inputValue, setInputValue] = useState<string>("")
-    
+    const [typeOfJobsSelected, setTypeOfJobsSelected] = useState<string>("")
+
 
     const addNewJobNow = () => { 
         setShowNewJob(true)
@@ -57,6 +57,11 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
         filter(e.target.value); 
     };
 
+    const changeTypeOfJob = (data: JobType[] | [], type: string) => { 
+      change(data)
+      setTypeOfJobsSelected(type)
+    }
+
  
 
   return (
@@ -73,14 +78,14 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                    />
                 </div>
                 <div className='flex w-full justify-start items-center gap-12 mt-4 ml-1'>
-                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(every)}>Todos</p>
-                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(finished)}>Finalizados</p>
-                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(inProcess)}>Sin Finalizar</p>
-                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(pendingCollections)}>Sin Abonar</p>
-                    <p className='text-sm text-gray-500 cursor-pointer font-medium' onClick={() => change(paid)}>Abonados</p>
+                    <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "every" ? 'text-white bg-blue-500' : 'text-zinc-600'}`}  onClick={() => changeTypeOfJob(every, "every")}>Todos</p>
+                    <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "finished" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(finished, "finished")}>Finalizados</p>
+                    <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "inProcess" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(inProcess, "inProcess")}>Sin Finalizar</p>
+                    <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "pendingCollections" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(pendingCollections, "pendingCollections")}>Sin Abonar</p>
+                    <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "paid" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(paid, "paid")}>Abonados</p>
                 </div>
 
-                <div className='max-h-[350px] 2xl:max-h-[645px] 3xl:max-h-[725px] overflow-y-auto w-full'>  
+                <div className='max-h-[350px] 2xl:max-h-[645px] 3xl:max-h-[625px] overflow-y-auto w-full'>  
                     {jobsData.length > 0 ? 
                         <div>
                             {jobsData.map((job: JobType) => ( 

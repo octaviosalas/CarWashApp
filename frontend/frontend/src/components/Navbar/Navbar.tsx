@@ -37,7 +37,7 @@ const Navbar = ({showClients, showJobs, showServices, showEstadistics}: Props) =
                     <DropdownItem onClick={() => logOut()}>Cerrar Sesion</DropdownItem>
                 </DropdownMenu>
             </Dropdown>
-                <p className='text-white font-medium text-md'>Lavadero</p>
+                <p className='text-white font-medium text-md'>{user?.name}</p>
             </div>
             <div className='flex items-center gap-4 mr-2'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" className="w-6 h-6 cursor-pointer" onClick={showJobs}>

@@ -66,8 +66,6 @@ const CleaningList = () => {
 
 
   
-
-   
   return (
     <div >
        {loading ? 

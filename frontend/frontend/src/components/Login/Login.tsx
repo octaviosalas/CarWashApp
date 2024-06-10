@@ -1,12 +1,10 @@
 import React from 'react'
-import axios from 'axios'
 import { useState } from 'react'
 import apiBackendUrl from '../../lib/axios'
-import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
-import { errorRegisterMissedDataType } from 'types/UserTypes'
 import { useNavigate } from 'react-router-dom'
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 interface userAccountType  { 
     email: string,
@@ -54,30 +52,7 @@ const Login = () => {
              }
              
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.log(error)
-                if (error.response && Array.isArray(error.response.data.errors)) {              
-                    console.log(error)
-                    const errorMessage = error.response.data.errors.map((er: errorRegisterMissedDataType) => er.msg)[0]
-                    console.log(errorMessage)
-                    toast.error(errorMessage, {
-                        style: { backgroundColor: 'white', color: 'red' },
-                        pauseOnHover: false,
-                        autoClose: 2500
-                    });
-                setLoad(false)
-            }  if (error.response && !Array.isArray(error.response)) {
-                toast.error(error.response.data, {
-                    style: { backgroundColor: 'white', color: 'red' },
-                    pauseOnHover: false,
-                    autoClose: 2500
-                });
-                setLoad(false);
-            } else { 
-                console.log('Unexpected error:', error);
-                setLoad(false)
-            }
-          }
+          handleError(error, setLoad)
         }
     }
 
