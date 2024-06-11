@@ -11,6 +11,9 @@ import transformPrice from '../../functions/TransformDateHour/TransformPrice'
 import formatDate from '../../functions/TransformDateHour/TransformDate'
 
 
+
+
+
 interface Props { 
     updateJobs: () => void,
     restart: () => void,
@@ -20,8 +23,8 @@ interface Props {
 
 const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
 
+  
     const [load, setLoad] = useState<boolean>(false)
-    const [badMessage, setBadMessage] = useState<boolean>(false)
     const [message, setMessage] = useState<string>("")
     const [collectionData, setCollectionData] = useState<CollectionsType | undefined>()
     const [showCollectionData, setShowCollectionData] = useState<boolean>(false)
@@ -67,6 +70,8 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
         }
     }
 
+    
+
   return (
     <div className='w-full'>
         <div className='flex flex-col items-center justify-center w-full '>
@@ -78,8 +83,8 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
                  <Button className='bg-blue-500 text-white text-md font-medium w-52' onClick={() => viewCollectionData()}>Ver cobro</Button>
              </div>
              {load ? <div className='flex mt-4 items-center justify-center'> <Loading/> </div> : null}
-             {badMessage ? <div className='flex mt-4 items-center justify-center'> <p className='bg-red-600 text-white text-center mt-6'>{message}</p> </div> : null}
 
+            
              {showCollectionData && load === false ? 
              <div className='flex w-full flex-col justify-center items-center mt-6'>
                  <div className='w-full bg-blue-500 text-white font-medium h-12 mt-6 rounded-lg'>
