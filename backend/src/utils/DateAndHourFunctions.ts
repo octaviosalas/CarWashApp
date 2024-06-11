@@ -65,12 +65,12 @@ console.log(`La hora es ${horaFormateada}.`);
 
 export const actualMonth = ()  => {
     const fecha = new Date();
-    return fecha.getMonth() + 1; // getMonth() devuelve un índice basado en cero, por lo que se suma 1 para obtener el mes correcto.
+    return fecha.getMonth() + 1; 
 }
 
 export const actualYear = () => {
     const fecha = new Date();
-    return fecha.getFullYear(); // getFullYear() devuelve el año completo (ej. 2024)
+    return fecha.getFullYear(); 
 }
 
 export const transformPrice = (value: number) => {

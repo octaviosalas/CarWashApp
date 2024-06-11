@@ -7,33 +7,73 @@ import CleaningDetailCard from './CleaningDetailCard'
 import getMyClients from '../../functions/ApiQuerys/MyClients'
 import { ClientType } from 'types/ClientsTypes'
 import { userStore } from '../../store/store'
+import { getDate, getYesterdayDate } from '../../functions/TransformDateHour/HourAndDate'
 
 const CleaningList = () => {
 
+    const [date, setDate] = useState<Date>(getDate())
+    const [yesterday, setYesterday] = useState<Date>(getYesterdayDate())
     const [everyJobsList, setEveryJobsList] = useState<JobType[]>([])
     const [originalEveryJobsList, setOriginalEveryJobsList] = useState<JobType[]>([])
     const [pendingCollections, setPendingCollections] = useState<JobType[]>([])
     const [paidJobs, setPaidJobs] = useState<JobType[]>([])
     const [finishedJobs, setFinishedJobs] = useState<JobType[]>([])
     const [pendingJobs, setPendingJobs] = useState<JobType[]>([])
+    const [todayJobs, setTodayJobs] = useState<JobType[]>([])
+    const [yesterdayJobs, setYesterdayJobs] = useState<JobType[]>([])
+    const [monthsJobs, setMonthsJobs] = useState<JobType[]>([])
+    const [thisWeekJobs, setThisWeekJobs] = useState<JobType[]>([])
     const [userClients, setUserClients] = useState<ClientType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const user = userStore(state => state.user)
+    const [typeOfJobsSelected, setTypeOfJobsSelected] = useState<string>("")
 
     const fetchJobs = async () => {
       setLoading(true)
       const jobs : JobType[] = await getMyJobs(user?._id);
-      setLoading(false)
       setEveryJobsList(jobs); 
       setOriginalEveryJobsList(jobs)
       const pendingJobsCollections = jobs.filter((job) => job.paid === false)
       const paidJobsCollections = jobs.filter((job) => job.paid === true)
       const jobsFinished = jobs.filter((job) => job.status === "completed")
       const jobsInProcess = jobs.filter((job) => job.status === "pending")
+      const jobsToday = jobs.filter((job) => {
+        const jobDate = new Date(job.date);
+        return jobDate.toDateString() === date.toDateString();
+      });  
+      const jobsYesterday = jobs.filter((job) => {
+        const jobDate = new Date(job.date);
+        return jobDate.toDateString() === yesterday.toDateString();
+      });  
+      const thisMonthJobs = jobs.filter((job) => { 
+        const date = new Date(job.date);
+        const actualYear = new Date().getFullYear();
+        const actualMonth = new Date().getMonth() + 1; 
+        const yearData = date.getFullYear();
+        const monthData = date.getMonth() + 1;
+        return monthData === actualMonth && yearData === actualYear;
+    });
+
+        const today = new Date();
+        const firstDayOfWeek = new Date(today); 
+        firstDayOfWeek.setDate(today.getDate() - today.getDay() + 1); 
+        const lastDayOfWeek = new Date(today); 
+        lastDayOfWeek.setDate(today.getDate() - today.getDay() + 7); 
+        const jobsThisWeek = jobs.filter((job) => {
+            const jobDate = new Date(job.date);
+            return jobDate >= firstDayOfWeek && jobDate <= lastDayOfWeek;
+        });
+
       setPendingCollections(pendingJobsCollections)
       setPaidJobs(paidJobsCollections)
       setFinishedJobs(jobsFinished)
       setPendingJobs(jobsInProcess)
+      setTodayJobs(jobsToday)
+      setYesterdayJobs(jobsYesterday)
+      setMonthsJobs(thisMonthJobs)
+      setThisWeekJobs(jobsThisWeek)
+      setLoading(false)
+
     };
 
     const fetchClients = async () => {
@@ -50,6 +90,7 @@ const CleaningList = () => {
     const filterJobsByInput = (value: string) => { 
       if (!value.trim()) {
         setEveryJobsList(originalEveryJobsList);
+        setTypeOfJobsSelected("every")
       } else {
         const lowerCaseValue = value.toLowerCase();
         const filteredJobs = everyJobsList.filter((job) => 
@@ -60,9 +101,14 @@ const CleaningList = () => {
       }
     };
     
-   const change = (data: JobType[] | []) => { 
+    const change = (data: JobType[] | []) => { 
      setEveryJobsList(data)
-   }
+    }
+
+    const changeTypeOfJob = (data: JobType[] | [], type: string) => { 
+     change(data)
+     setTypeOfJobsSelected(type)
+    }
 
 
   
@@ -75,9 +121,11 @@ const CleaningList = () => {
           </div> :
 
           <CleaningDetailCard  
-          filter={filterJobsByInput} change={change} inProcess={pendingJobs} 
-          finished={finishedJobs}  jobsData={everyJobsList} pendingCollections={pendingCollections}  
-          paid={paidJobs} every={originalEveryJobsList} userClientsData={userClients} updateJobs={fetchJobs}/>}
+            filter={filterJobsByInput} inProcess={pendingJobs} 
+            finished={finishedJobs}  jobsData={everyJobsList} pendingCollections={pendingCollections}  
+            paid={paidJobs} every={originalEveryJobsList} todayJobs={todayJobs} yesterdayJobs={yesterdayJobs} 
+            monthsJobs={monthsJobs} thisWeekJobs={thisWeekJobs} userClientsData={userClients} updateJobs={fetchJobs} 
+            changeTypeOfJob={changeTypeOfJob} typeOfJobsSelected={typeOfJobsSelected}/>}
 
     </div>
   )

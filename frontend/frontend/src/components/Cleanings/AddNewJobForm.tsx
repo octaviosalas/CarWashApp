@@ -13,6 +13,8 @@ import { newJobType } from 'types/JobsTypes'
 import {toast} from "react-toastify"
 import arrowBack from "../../images/arrowBack.png"
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
+import AddVehicle from '../ClientsData/AddVehicle'
 
 interface Props { 
     clients: ClientType[],
@@ -24,6 +26,7 @@ interface Props {
 const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
 
     const [clientSelected, setClientSelected] = useState<string>("")
+    const [clientSelectedData, setClientSelectedData] = useState<ClientType>()
     const [clientSelectedVehicles, setClientSelectedVehicles] = useState<ClientVehiclesType[]>([])
     const [userServices, setUserServices] = useState<ServiceType[]>([])
     const [vehicleSelected, setVehicleSelected] = useState<ClientVehiclesType>();
@@ -33,12 +36,16 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
     const [date, setDate] = useState<Date>(getDate())
     const [hour, setHour] = useState<string>(getHour().toString())
     const [loading, setLoading] = useState<boolean>(false)
+    const [showAddVehicle, setShowAddVehicle] = useState<boolean>(false)
+
 
     const user = userStore(state => state.user)
 
-    const findClientVehicles = async (clientId: string) => { 
+    const findClientVehicles = async (clientId: string, cc: ClientType) => { 
         setLoad(true)
         setClientSelected(clientId)
+        setClientSelectedData(cc)
+        console.log("SOY EL CC", cc)
         try {
             const {data} = await apiBackendUrl.get(`/clients/clientData/${clientId}/${user?._id}`) 
             const response = data.clientVehicles
@@ -82,7 +89,6 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
 
     const createJob = async () => {
         setLoading(true)
-        console.log(date)
         if(servicesSelected.length === 0) { 
             
         }
@@ -93,7 +99,6 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
             amount: servicesSelected.reduce((acc, el) => acc + el.price, 0),
             vehicle: vehicleSelected ? vehicleSelected._id : undefined
         })
-        console.log(jobData)
         try {
             const {data} = await apiBackendUrl.post(`/jobs/createJob/${user?._id}/${clientSelected}`, jobData);
             console.log(data)
@@ -110,45 +115,45 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
                     setClientSelectedVehicles([])
             }, 2000)
         } catch (error) {
-            setLoading(false)
-            toast.error("El lavado no guardó correctamente", {
-                style: { backgroundColor: 'white', color: 'blue' },
-                pauseOnHover: false,
-                autoClose: 1500
-            });
-            return []; 
+            handleError(error, setLoading)
         } 
     };
+
+    const needToAddClientVehicle = () => { 
+        setShowAddVehicle(!showAddVehicle)
+    }
+    
 
 
     
 
   return (
     <div>
-         <div className='ml-4 mt-0 2xl:mt-3'>
-            <img src={arrowBack} className='w-5 h-5 2xl:w-6 2xl:h-6 cursor-pointer' onClick={() => goBack()}/>
+         <div className='ml-4 mt-2 2xl:mt-3'>
+            <img src={arrowBack} className='w-6 h-6 2xl:w-6 2xl:h-6 cursor-pointer' onClick={() => goBack()}/>
           </div>
-         <div className='flex flex-col text-start justify-start mt-12'>
+         <div className='flex flex-col text-start justify-start mt-4 2xl:mt-8 3xl:mt-12'>
              <p className='font-medium text-black text-md ml-2'>Cliente</p>
              <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de tus clientes">
                {clients.map((cc: ClientType) => ( 
-                 <SelectItem key={cc._id} onClick={() => findClientVehicles(cc._id)}>{cc.name}</SelectItem>
+                 <SelectItem key={cc._id} onClick={() => findClientVehicles(cc._id, cc)}>{cc.name}</SelectItem>
                ))}
              </Select>
          </div>
       
          {clientSelected === "" ? null : 
-             <div className='flex flex-col text-start justify-start mt-12'>
-                <p className='font-medium text-black text-md ml-2'>Vehiculo</p>
+             <div className='flex flex-col text-start justify-start mt-4 2xl:mt-8 3xl:mt-12'>
+               
 
                 {load ? 
-                  <div className='mt-2'>
+                  <div className='mt-0 2xl:mt-2'>
                        <Loading/>
                   </div>
                 : 
                 clientSelectedVehicles.length > 0 ? ( 
                     <div className='flex flex-col'>
                         <div>
+                        <p className='font-medium text-black text-md ml-2'>Vehiculo</p>
                             <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de sus vehiculos">
                                 {clientSelectedVehicles.map((cc: ClientVehiclesType) => ( 
                                     <SelectItem key={cc._id} onClick={() => chooseVehicle(cc)} textValue={cc.description}> {cc.description} - {cc.patent}   </SelectItem>
@@ -196,12 +201,19 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
                     </div>
                   
                 ) : ( 
-                    <div className='flex flex-col justify-start'>
-                    <p className='text-black text-md font-medium'>El cliente no tiene vehiculos cargado.</p>
-                    <div className='flex mt-2'>
-                       <AddNewVehicle clientId={clientSelected}/>
+                    <div className='flex flex-col justify-start w-3/4'> 
+                         {showAddVehicle !== true ? 
+                         <>
+                          <div className='h-12 bg-red-500 text-center rounded-lg'>
+                            <p className='text-white text-md font-medium mt-2'>El cliente no tiene vehiculos cargados</p>
+                          </div>
+                          <div className='flex mt-4'>
+                             <Button className='bg-blue-500 text-white font-medium text-md w-full' onClick={() => needToAddClientVehicle()}>Agregar Vehiculo</Button>
+                          </div> 
+                        </> 
+                         : 
+                         <AddVehicle cancel={goBack} update={updateJobs} detail={clientSelectedData} showArrow={"false"}/>}
                     </div>
-                </div>
                 )}
              </div>
           }

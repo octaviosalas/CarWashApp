@@ -73,7 +73,7 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
     
 
   return (
-    <div className='w-full'>
+    <div className='w-full '>
         <div className='flex flex-col items-center justify-center w-full '>
              <div className='mt-4'>
                  <h5 className='font-medium text-black text-md'>El lavado seleccionado tiene un cobro registrado</h5>
@@ -86,9 +86,9 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
 
             
              {showCollectionData && load === false ? 
-             <div className='flex w-full flex-col justify-center items-center mt-6'>
+             <div className='flex w-full  flex-col justify-center items-center mt-6'>
                  <div className='w-full bg-blue-500 text-white font-medium h-12 mt-6 rounded-lg'>
-                      <p>Detalle del cobro</p>
+                      <p className='mt-3'>Detalle del cobro</p>
                  </div>
                  <div className='flex flex-col justify-start items-start mt-2'>
                     <p><span className='font-medium'>Monto: </span>{transformPrice(collectionData?.amount)}</p>

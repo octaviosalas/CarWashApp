@@ -96,12 +96,12 @@ const YearEstadistics = () => {
                  {totalAmount > 0 ? <p className='mt-2 font-medium text-blue-500'>{transformPrice(totalAmount)}</p> :  <p>No se registraron cobros</p>}
             </div>
         </div>
-        <div className='w-full flex flex-col gap-6 mt-4'>
+        <div className='w-full flex flex-col gap-6 mt-1 2xl:mt-4'>
              <div className='bg-blue-500 w-full border h-12 rounded-lg flex items-center text-center justify-center'>
                 <p className='text-white font-medium text-lg'> Servicios </p>
             </div>
             {jobsOrdersByTypeOfService.length > 0 ? 
-            <div className='flex flex-col items-start justify-start mt-2 ml-4'>
+            <div className='flex flex-col items-start justify-start mt-0 2xl:mt-2 ml-4 max-h-[150px] 2xl:max-h-[350px] overflow-y-auto'>
                 {jobsOrdersByTypeOfService.map((serv) => ( 
                     <div className='flex gap-4'>                    
                         <p className='font-medium text-white bg-blue-500 mt-2 text-lg'>{serv.services} </p>

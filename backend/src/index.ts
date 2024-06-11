@@ -33,10 +33,6 @@ interface CreateReferenceRequestBody {
     back_urls: urlsType;
     auto_return: string,
     notification_url: string,
-    payer: {
-        email: string
-    }
-   
 } 
 
 
@@ -80,9 +76,6 @@ app.post("/create_preference/:jobId/:userId", async (req: Request, res: Response
                     currency_id: "ARS"
                 }
             ],
-            payer: {
-                email: 'test_user_email@testuser.com'  // Usa el email del comprador de prueba generado
-            },
             back_urls: {
                 success: "http://127.0.0.1:5173/",
                 failure: "http://127.0.0.1:5173/",

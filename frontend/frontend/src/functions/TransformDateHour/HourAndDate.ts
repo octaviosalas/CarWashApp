@@ -6,6 +6,10 @@ export function getDate() {
     return new Date(ano, mes - 1, dia);
 }
 
+export const actualMonth = ()  => {
+    const fecha = new Date();
+    return fecha.getMonth() + 1; 
+}
 
 export function getHour() {
     const ahora = new Date();
@@ -22,26 +26,26 @@ export function getHour() {
     return horaArgentina;
 }
 
+export function getYesterdayDate() {
+    const today = new Date();
+    today.setDate(today.getDate() - 1); 
+    return today;
+}
+
 
 export function obtenerFechaHoyArgentinaConObjeto() {
-    // Obtener la fecha y hora actuales
     const ahora = new Date();
+        const utcDate = new Date(ahora.toISOString());
     
-    // Convertir a UTC
-    const utcDate = new Date(ahora.toISOString());
-    
-    // Ajustar el offset de tiempo para Argentina (-3 horas durante el horario estándar, -2 durante el horario de verano)
-    let offset = -3; // Durante el horario estándar
-    if (ahora >= new Date('2024-10-01') && ahora <= new Date('2024-03-31')) { // Suponiendo que el horario de verano comienza el 1 de octubre y termina el 31 de marzo
-        offset = -2; // Durante el horario de verano
+    let offset = -3;
+    if (ahora >= new Date('2024-10-01') && ahora <= new Date('2024-03-31')) { 
+        offset = -2; 
     }
-    const millisecondsOffset = offset * 60 * 60 * 1000; // Convertir a milisegundos
+    const millisecondsOffset = offset * 60 * 60 * 1000; 
     const adjustedDate = new Date(utcDate.getTime() + millisecondsOffset);
     
-    // Formatear la fecha como string en el formato requerido
-    const formattedDate = adjustedDate.toISOString().replace(/Z$/, '+00:00'); // Reemplazar Z por +00:00
-    
-    // Retornar tanto la cadena formateada como el objeto Date
+    const formattedDate = adjustedDate.toISOString().replace(/Z$/, '+00:00'); 
+
     return {
         fechaFormateada: formattedDate,
         fechaObjeto: adjustedDate
@@ -63,5 +67,5 @@ export const actualMonthNow = ()  => {
 
 export const getCurrentYear = (): number => {
     const fecha = new Date();
-    return fecha.getFullYear(); // getFullYear() devuelve el año completo (ej. 2024)
+    return fecha.getFullYear(); 
 }

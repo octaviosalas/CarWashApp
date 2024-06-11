@@ -36,7 +36,8 @@ const EditJobForm = ({detail, clients, goBack, updateJobs}: Props) => {
   const [clientWithOutVehicles, setClientWithOutVehicles] = useState<boolean>(false)
   const user = userStore(state => state.user)
   const [vehicleSelected, setVehicleSelected] = useState<string>(detail.vehicle._id);
-  
+  const [newVehicleSelected, setNewVehicleSelected] = useState<string>("");
+
 
   const handleChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => { 
     setAmount(Number(e.target.value))
@@ -65,7 +66,7 @@ const EditJobForm = ({detail, clients, goBack, updateJobs}: Props) => {
   }
 
   const chooseVehicle = async (vehicle: ClientVehiclesType) => { 
-    setVehicleSelected(vehicle._id)
+    setNewVehicleSelected(vehicle._id)
   }
 
   const changeData = async () => { 
@@ -73,7 +74,7 @@ const EditJobForm = ({detail, clients, goBack, updateJobs}: Props) => {
     const newData : newJobData = ({ 
       amount: amount,
       clientId: clientId,
-      vehicle: vehicleSelected ? vehicleSelected : undefined,
+      vehicle: newVehicleSelected ? newVehicleSelected : undefined,
       paid: detail.paid
     })
     try {
@@ -120,7 +121,9 @@ const EditJobForm = ({detail, clients, goBack, updateJobs}: Props) => {
              </Select>
         </div>
 
-         {loadVehicles ? <Loading /> : clientSelectedVehicles.length > 0 && loadVehicles === false ? ( 
+         {loadVehicles ? 
+         <Loading /> : 
+          clientSelectedVehicles.length > 0 && loadVehicles === false ? ( 
             <div className='flex flex-col justify-start text-start items-start mt-4'>
                 <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de sus vehiculos">
                   {clientSelectedVehicles.map((cc: ClientVehiclesType) => ( 
@@ -140,7 +143,7 @@ const EditJobForm = ({detail, clients, goBack, updateJobs}: Props) => {
         </div>
 
         { load ? 
-            <div className='flex justify-center text-center items-center gap-6 mt-12'>
+            <div className='flex justify-center text-center items-center gap-6 mt-4 2xl:mt-8 3xl:mt-12'>
                 <Loading/>
             </div>
         : null}

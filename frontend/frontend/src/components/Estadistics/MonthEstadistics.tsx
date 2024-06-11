@@ -42,7 +42,6 @@ const MonthEstadistics = () => {
      setLoad(true)
       try {
         const {status, data} = await apiBackendUrl.get(`/estadistics/monthEstadistics/${user?._id}`)
-        console.log(status, data)
           if(status === 200) { 
             setEveryCollections(data.collections)
             setEveryJobs(data.jobs)

@@ -119,10 +119,14 @@ const JobDetail = ({ detail, clients, updateJobs, restart }: Props) => {
                     </div>
                 : null}
 
-                {showEditJobForm ? <EditJobForm detail={detail} clients={clients} goBack={goBackDetail} updateJobs={updateJobs}/> : null}
-                {showDeleteJob ? <DeleteJob detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}
-                {showPaidJob ?   <MarkPayJob detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}
-                {showCompletedJob ?   <MarkJobAsFinished detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}
+                <div className="w-full">
+                    {showEditJobForm ? <EditJobForm detail={detail} clients={clients} goBack={goBackDetail} updateJobs={updateJobs}/> : null}
+                    {showDeleteJob ? <DeleteJob detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}
+                    {showPaidJob ?   <MarkPayJob detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}
+                    {showCompletedJob ?   <MarkJobAsFinished detail={detail} goBack={goBackDetail} updateJobs={updateJobs} restart={restart}/> : null}
+                </div>
+
+              
 
                </> 
                

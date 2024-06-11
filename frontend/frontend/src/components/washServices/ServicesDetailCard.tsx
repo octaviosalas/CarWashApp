@@ -22,6 +22,10 @@ const ServicesDetailCard = ({servicesData, update}: Props) => {
         setServiceSelected(item)
     }
 
+    const goBack = () => { 
+         setShowNewService(false)
+    }
+
 
   return (
     <div className='flex gap-4 h-full w-full'>
@@ -46,7 +50,7 @@ const ServicesDetailCard = ({servicesData, update}: Props) => {
 
               <div className='w-4/5 h-full flex flex-col items-center justify-center'>
                 {showNewService === true ?  
-                   <AddnewService update={update}/>
+                   <AddnewService update={update} goBack={goBack}/>
                     :
                    <ServiceDetail serviceData={serviceSelected} update={update}/>}
            </div>

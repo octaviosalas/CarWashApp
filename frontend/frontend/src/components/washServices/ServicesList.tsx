@@ -20,7 +20,6 @@ const ServicesList = () => {
         try {
             const {data} = await apiBackendUrl.get(`/services/myServices/${user?._id}`) 
             const response = data
-            console.log("servicios", response)
             if(response.length > 0) { 
               setServices(response)
               setWithOutServices(false)

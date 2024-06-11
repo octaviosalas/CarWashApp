@@ -66,7 +66,7 @@ const DeleteService = ({detail, goBack, update}: Props) => {
     </div>
     <div className='mt-4 2xl:mt-8 flex justify-center items-center gap-4 2xl:gap-8'>
         <Button className='bg-blue-500 text-white font-medium text-sm w-1/4' onClick={() => deleteService()}>Eliminar</Button>
-        <Button className='bg-zinc-400 text-white font-medium text-sm w-1/4'>Cancelar</Button>
+        <Button className='bg-zinc-400 text-white font-medium text-sm w-1/4' onClick={() => goBack()}>Cancelar</Button>
     </div>
     {load ? <div className='flex items-center justify-center mt-4 mb-2'> <Loading /> </div> : null}
 </div>

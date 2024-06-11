@@ -32,6 +32,7 @@ const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) 
     const [load, setLoad] = useState<boolean>(false)
     const user = userStore(state => state.user)
 
+
     const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => { 
         setDescription(e.target.value)
     }

@@ -82,15 +82,15 @@ const ServiceDetail = ({serviceData, update}: Props) => {
         {showService && serviceData !== undefined ? 
          <div className='flex flex-col w-full'>
             <div className='flex flex-col items-start justify-star mt-6 ml-4'>
-                <div className='flex flex-col items-centers justify-center'>
+                <div className='flex flex-col items-start justify-start'>
                     <p className='font-bold text-black'>Nombre del Servicio</p>
-                    <input type="text" name="price" id="price" className=" mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                    <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={serviceData?.service} disabled
                     />
                 </div>
-                <div className='flex flex-col items-centers justify-center mt-4'>
+                <div className='flex flex-col items-start justify-start mt-4'>
                     <p className='font-bold text-black'>Precio</p>
-                    <input type="text" name="price" id="price" className=" mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                    <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={serviceData?.price} disabled
                     />
                 </div>
@@ -98,9 +98,9 @@ const ServiceDetail = ({serviceData, update}: Props) => {
               <div className='mt-6 flex flex-col items-start justify-start w-full ml-4'>
                  <div>
                      {viewDetail ?  
-                        <Button className='bg-blue-500 text-white w-96 text-md font-medium' onClick={() => setViewDetail(false)}>Cerrar</Button>
+                        <Button className='bg-blue-500 text-white w-80 2xl:96 text-md font-medium' onClick={() => setViewDetail(false)}>Cerrar</Button>
                          :
-                        <Button className='bg-blue-500 text-white w-96 text-md font-medium' onClick={() => getServiceDetail()}>Ver Detalles del Mes</Button> 
+                        <Button className='bg-blue-500 text-white w-80 2xl:96 text-md font-medium' onClick={() => getServiceDetail()}>Ver Detalles del Mes</Button> 
                       }
                 </div>
                 {load ?
@@ -109,8 +109,8 @@ const ServiceDetail = ({serviceData, update}: Props) => {
                       </div> 
                       : load === false && withOutJobs === false  && viewDetail ? ( 
                         <div className='mt-6 flex flex-col justify-center items-center w-full'>
-                           <div className='w-full '>
-                              <div className='bg-blue-500 w-full h-12 items-center text-center'>
+                           <div className='w-full'>
+                              <div className='bg-blue-500 rounded-lg w-full h-12 items-center text-center'>
                                   <p className='font-medium text-lg text-white text-center'>Cantidad de Lavados</p>
                               </div>
                               <div>
@@ -119,7 +119,7 @@ const ServiceDetail = ({serviceData, update}: Props) => {
                            </div>
                         
                            <div className='w-full mt-4'>
-                              <div className='bg-blue-500 w-full h-12 items-center text-center'>
+                              <div className='bg-blue-500 rounded-lg w-full h-12 items-center text-center'>
                                   <p className='font-medium text-lg text-white'>Total Facturado</p>
                               </div>
                               <div>

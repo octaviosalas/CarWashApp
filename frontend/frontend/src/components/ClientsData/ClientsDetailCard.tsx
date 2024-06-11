@@ -13,14 +13,17 @@ import { userStore } from '../../store/store';
 
 interface Props {
    clientsData: ClientType[];
-   update: () => void
+   update: () => void,
+   filter: (value: string) => void
 }
 
-const ClientsDetailCard = ({clientsData, update}: Props) => {
+const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
 
     const [clientSelected, setClientSelected] = useState<ClientType>()
     const [showNewClient, setShowNewClient] = useState<boolean>(false)
     const [clientVehicles, setClientVehicles] = useState<ClientVehiclesType[]>([]);
+    const [inputValue, setInputValue] = useState<string>("")
+
     const user = userStore(state => state.user)
 
     const addNewJobClient = () => { 
@@ -55,6 +58,11 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
         }
     }
 
+    const handleChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => { 
+      setInputValue(e.target.value);
+      filter(e.target.value); 
+  };
+
   return (
 
     <div className='flex gap-4 h-full '>
@@ -63,7 +71,13 @@ const ClientsDetailCard = ({clientsData, update}: Props) => {
                   <div className='mt-2 w-full flex justify-start'>
                       <AddNewClient add={addNewJobClient}/>
                   </div>
-                  <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[725px] overflow-y-auto w-full ml-2'>  
+                  <div className='flex items-center gap-1 2xl:gap-2 mt-2 w-3/4 ml-2'>
+                      <input type="text" name="search" placeholder='Buscar' className=" mt-1s w-64 xl:w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                      onChange={handleChangeInputValue}
+                      value={inputValue}
+                      />
+                  </div>
+                  <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[670px] overflow-y-auto w-full ml-2 mt-2'>  
                     {clientsData.map((client: ClientType) => ( 
                         <div className='mt-4 w-full cursor-pointer hover:bg-blue-100' key={client._id} onClick={() => selectClientAndGetVehicles(client)}>
                                 <div className='flex items-start text-start justify-between' key={client._id}>

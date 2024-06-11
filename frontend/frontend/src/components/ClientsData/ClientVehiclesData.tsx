@@ -56,22 +56,25 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
               <h4 className='font-medium text-white text-lg ml-2'>Vehiculos</h4>
          </div>
         {clientVehicles ? 
-         <div className='flex justify-start items-start ml-4 mt-6 gap-12 2xl:gap-24'>
+         <div className='flex  justify-start items-start ml-4 mt-6 gap-12 2xl:gap-24'>
             {clientVehicles.map((cc: ClientVehiclesType) => ( 
-                <div className='flex gap-2 items-center justify-start text-start'>
-                    <div>
-                        {cc.typeOfVehicle === "Auto" ? 
-                                  <img className='h-14 w-14 2xl:h-20 2xl:w-20' src={carBlack}/> :  cc.typeOfVehicle === "Moto" ? 
-                             ( 
-                                   <img className='h-14 w-14 2xl:h-20 2xl:w-20' src={motorbike}/>
-                             ) :   <img className='h-14 w-14 2xl:h-20 2xl:w-20' src={camioneta}/> 
-                        }
+                <> 
+                    <div className='flex gap-2 items-center justify-start text-start'>
+                        <div>
+                            {cc.typeOfVehicle === "Auto" ? 
+                                    <img className='h-14 w-14 2xl:h-20 2xl:w-20' src={carBlack}/> :  cc.typeOfVehicle === "Moto" ? 
+                                ( 
+                                    <img className='h-14 w-14 2xl:h-20 2xl:w-20' src={motorbike}/>
+                                ) :   <img className='h-14 w-14 2xl:h-20 2xl:w-20' src={camioneta}/> 
+                            }
+                        </div>
+                        <div className='flex flex-col'>
+                            <p className='text-blue-500 font-medium cursor-pointer hover:text-blue-300' onClick={() => getLastWashed(cc._id)}>{cc.description}</p>
+                            <p className='font-medium'>{cc.patent}</p>
+                        </div>
                     </div>
-                    <div className='flex flex-col'>
-                        <p className='text-blue-500 font-medium cursor-pointer hover:text-blue-300' onClick={() => getLastWashed(cc._id)}>{cc.description}</p>
-                        <p className='font-medium'>{cc.patent}</p>
-                    </div>
-                </div>
+                  
+                </>
             ))}
          </div>: <div className='flex items-center justify-center mt-8'><Loading /></div>}
 

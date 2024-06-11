@@ -9,6 +9,7 @@ import { userStore } from '../../store/store'
 const ClientsList = () => {
 
     const [myClients, setMyClients] = useState<ClientType[]>([])
+    const [originalClients, setOriginalClients] = useState<ClientType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const user = userStore(state => state.user)
 
@@ -16,6 +17,7 @@ const ClientsList = () => {
       setLoading(true)
       const clients : ClientType[] = await getMyClients(user?._id);
       setMyClients(clients); 
+      setOriginalClients(clients)
       setLoading(false)
     };
 
@@ -24,11 +26,25 @@ const ClientsList = () => {
         setLoading(false)
     }, []);
 
+    const filterClientsByInput = (value: string) => { 
+      if (!value.trim()) {
+        setMyClients(originalClients);
+      } else {
+        const lowerCaseValue = value.toLowerCase();
+        const filteredJobs = myClients.filter((client) => 
+          client.name.toLowerCase().includes(lowerCaseValue) 
+        );
+        setMyClients(filteredJobs);
+      }
+    };
+
+   
+
 
    
   return (
     <div className='h-full'>
-       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :  <ClientsDetailCard clientsData={myClients} update={fetchClients}/>}
+       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :  <ClientsDetailCard clientsData={myClients} update={fetchClients} filter={filterClientsByInput}/>}
     </div>
   )
 }

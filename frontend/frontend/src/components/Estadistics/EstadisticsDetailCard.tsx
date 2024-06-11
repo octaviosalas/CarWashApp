@@ -68,7 +68,7 @@ const EstadisticsDetailCard = () => {
              ) :  showYearEstadistic === true ?  ( 
                    <YearEstadistics/>
              ) : <div> 
-                   <p >No has seleccionado ninguna estadistica</p> 
+                   <p className='font-medium text-zinc-600'>No has seleccionado ninguna estadistica</p> 
                  </div>
           }
 

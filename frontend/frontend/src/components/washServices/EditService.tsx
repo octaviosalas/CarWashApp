@@ -88,14 +88,14 @@ const EditService = ({detail, goBack, update}: Props) => {
         <div className='flex items-center justify-start gap-24 mt-6'>
                 <div className='flex flex-col items-start justify-start'>
                     <p className='font-bold text-black'>Nombre del Servicio</p>
-                    <input type="text" name="price" id="price" className=" mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                    <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={name} 
                     onChange={handleChangeName}
                     />
                 </div>
                 <div className='flex flex-col items-start justify-start'>
                     <p className='font-bold text-black'>Precio</p>
-                    <input type="text" name="price" id="price" className=" mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                    <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={price} 
                     onChange={handleChangePrice}
                     />
