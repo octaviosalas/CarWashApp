@@ -132,15 +132,21 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
          <div className='ml-4 mt-2 2xl:mt-3'>
             <img src={arrowBack} className='w-6 h-6 2xl:w-6 2xl:h-6 cursor-pointer' onClick={() => goBack()}/>
           </div>
-         <div className='flex flex-col text-start justify-start mt-4 2xl:mt-8 3xl:mt-12'>
-             <p className='font-medium text-black text-md ml-2'>Cliente</p>
-             <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de tus clientes">
-               {clients.map((cc: ClientType) => ( 
-                 <SelectItem key={cc._id} onClick={() => findClientVehicles(cc._id, cc)}>{cc.name}</SelectItem>
-               ))}
-             </Select>
-         </div>
-      
+        {clients.length > 0 ?
+             <div className='flex flex-col text-start justify-start mt-4 2xl:mt-8 3xl:mt-12'>
+                <p className='font-medium text-black text-md ml-2'>Cliente</p>
+                <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de tus clientes">
+                {clients.map((cc: ClientType) => ( 
+                    <SelectItem key={cc._id} onClick={() => findClientVehicles(cc._id, cc)}>{cc.name}</SelectItem>
+                ))}
+                </Select>
+             </div> : 
+             <div className='flex flex-col text-center justify-center mt-4 2xl:mt-8 3xl:mt-12'>
+                 <p className='text-zinc-500 text-md 2xl:text-lg'>No se encuentran clientes registrados para poder guardar un nuevo lavado.</p>
+                 <p className='text-zinc-500 text-md 2xl:text-lg'>Ve a la pestaña de Clientes y crea el primero.</p>
+             </div>
+            }
+        
          {clientSelected === "" ? null : 
              <div className='flex flex-col text-start justify-start mt-4 2xl:mt-8 3xl:mt-12'>
                

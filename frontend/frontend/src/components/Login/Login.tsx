@@ -2,9 +2,10 @@ import React from 'react'
 import { useState } from 'react'
 import apiBackendUrl from '../../lib/axios'
 import Loading from '../Spinner/Loading'
-import { useNavigate } from 'react-router-dom'
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
+import { useNavigate } from 'react-router-dom'
+
 
 interface userAccountType  { 
     email: string,
@@ -110,13 +111,17 @@ const Login = () => {
 
         
 
-            <div className='mt-6'>
+            <div className='flex flex-col mt-6'>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={() => logAccount()}
               >
                 Ingresar
+              </button>
+              <button     
+                className="mt-2 flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={() => navigate("/register")}>
+                Registrarme
               </button>
             </div>
  

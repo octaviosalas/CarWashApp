@@ -77,6 +77,11 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
                       value={inputValue}
                       />
                   </div>
+
+               {clientsData.length === 0 ?
+                 <div className='flex items-center justify-center mt-6 2xl:mt-24'>
+                    <p className='text-zinc-500 text-md'>No tenes clientes registrados</p>
+                 </div> : 
                   <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[670px] overflow-y-auto w-full ml-2 mt-2'>  
                     {clientsData.map((client: ClientType) => ( 
                         <div className='mt-4 w-full cursor-pointer hover:bg-blue-100' key={client._id} onClick={() => selectClientAndGetVehicles(client)}>
@@ -92,7 +97,8 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
                                 </div>            
                         </div>  
                      ))}
-                </div>
+                </div>}
+
               </div> : <Loading/>}
            
 

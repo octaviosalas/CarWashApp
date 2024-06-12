@@ -1,6 +1,6 @@
 import { ClientType } from "types/ClientsTypes"
 import NavItemActionsClients from "../NavItemActions/NavItemActionsClients";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ClientVehiclesType } from "types/VehiclesTypes";
 import { Button } from "@nextui-org/react";
 import AddVehicle from "../ClientsData/AddVehicle";
@@ -55,6 +55,15 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
       setShowEditClient(false)
      }
 
+     useEffect(() => { 
+      setLoad(true)
+      console.log("Load true")
+      if(detail) { 
+        setLoad(false)
+        console.log("Load false")
+      }
+     }, [detail])
+
 
  
 
@@ -62,7 +71,7 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
           <div className="flex flex-col items-center justify-center  ">
               {detail === undefined ? 
                <div className="flex items-center justify-center mt-40">
-                  <p className="text-lg text-zinc-500">No hay ningun elemento para mostrar</p>
+                  <p className="text-lg text-zinc-500">No has seleccionado ningun elemento para mostrar</p>
                </div>  :
                <>
 
@@ -93,22 +102,34 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                     </div>
                 </div>
 
+                {load ? <Loading/> : null}
+
                 <div className="2xl:mt-6 w-full">
 
-                    {!clientVehicles ? <Loading /> : clientVehicles.length === 0  && showAddVehicle === false ? ( 
+                    { load ? 
+                       <Loading /> 
+                       : 
+                       clientVehicles.length === 0  && showAddVehicle === false && load === false ? ( 
+
                         <div className="flex flex-col items-center justify-center w-full">
-                            <p className="font-medium text-black text-md">Este cliente no tiene vehiculos cargados</p>
+                            <div className="bg-red-600 flex items-center justify-center text-center  w-full h-10 2xl:h-12 rounded-lg ">
+                               <p className="font-medium text-white text-md">Este cliente no tiene vehiculos cargados</p>
+                            </div>
                             <Button className="bg-blue-500 hover:bg-blue-300 hover:text-black text-white font-medium w-2/4 mt-4" onClick={() => setShowAddVehicle(true)}>Agregar Vehiculo</Button>
                         </div> 
-                    ) : clientVehicles.length === 0  && showAddVehicle === false ? ( 
+
+                    ) : clientVehicles.length === 0  && showAddVehicle === false && load === false ? ( 
+
                         <div className="flex flex-col items-center justify-center w-full">
                         <p className="font-medium text-black text-md">Este cliente no tiene vehiculos cargados</p>
                         <Button className="bg-blue-500 hover:bg-blue-300 hover:text-black text-white font-medium w-2/4 mt-4" onClick={() => setShowAddVehicle(true)}>Agregar Vehiculo</Button>
                      </div> 
-                    ) :  clientVehicles.length !== 0 && showAddVehicle === false ? ( 
-                        <ClientVehiclesData clientVehicles={clientVehicles}/>
-                     ) : null
 
+                    ) :  clientVehicles.length !== 0 && showAddVehicle === false && load === false ? ( 
+
+                        <ClientVehiclesData clientVehicles={clientVehicles}/>
+
+                     ) : null
                    }
                   
 

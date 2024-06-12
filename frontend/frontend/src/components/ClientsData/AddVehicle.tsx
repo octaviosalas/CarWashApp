@@ -27,7 +27,7 @@ const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) 
 
     const [description, setDescription] = useState("")
     const [patente, setPatente] = useState("")
-    const [typeOfVehicle, setTypeOfVehicle] = useState("")
+    const [typeOfVehicle, setTypeOfVehicle] = useState("Auto")
     const [showVehicleData, setShowVehicleData] = useState<boolean>(false)
     const [load, setLoad] = useState<boolean>(false)
     const user = userStore(state => state.user)
@@ -78,6 +78,14 @@ const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) 
         } catch (error) {         
           handleError(error, setLoad)
         }
+    }
+
+    const errorInAddVehicle = () => { 
+        toast.error("Debes completar todos los datos solicitados del Vehiculo", {
+            style: { backgroundColor: 'white', color: 'blue' },
+            pauseOnHover: false,
+            autoClose: 1500
+        });
     }
 
 
@@ -131,7 +139,7 @@ const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) 
          </div> : null
         }
         <div className='flex items-center justify-start mt-4 2xl:mt-8 gap-4'>
-            {!showVehicleData ? <Button className="bg-blue-500 text-white font-medium xl:w-80 2xl:w-96">Añadir Vehiculo</Button> : 
+            {!showVehicleData ? <Button className="bg-blue-500 text-white font-medium xl:w-80 2xl:w-96" onClick={() => errorInAddVehicle()}>Añadir Vehiculo</Button> : 
              <Button className="bg-blue-500 text-white font-medium xl:w-80 2xl:w-96" onClick={() => addClientVehicle()}>Confirmar</Button>
             }
             <Button className="bg-gray-300 text-white font-medium xl:w-80 2xl:w-96" onClick={() => cancel()}>Cancelar</Button>

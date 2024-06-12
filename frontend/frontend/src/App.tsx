@@ -3,6 +3,7 @@ import MainApp from './components/Main/MainApp';
 import { useEffect } from 'react';
 import Register from './components/Register/Register';
 import Token from './components/Register/Token';
+import HookForm from './components/prueba/HookForm';
 import { ToastContainer } from 'react-toastify';
 import Login from './components/Login/Login';
 import { userStore } from './store/store';
@@ -26,6 +27,8 @@ function App() {
               <Route path="/register" element={<Register />} />   
               <Route path="/login" element={<Login />} />   
               <Route path="/token" element={<Token />} />   
+              <Route path="/prueba" element={<HookForm />} />   
+
             </Routes>
             <ToastContainer />
           </div>

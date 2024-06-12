@@ -108,7 +108,7 @@ const ServiceDetail = ({serviceData, update}: Props) => {
                            <Loading/>
                       </div> 
                       : load === false && withOutJobs === false  && viewDetail ? ( 
-                        <div className='mt-6 flex flex-col justify-center items-center w-full'>
+                        <div className='mt-6 flex flex-col justify-center items-center w-3/4 '>
                            <div className='w-full'>
                               <div className='bg-blue-500 rounded-lg w-full h-12 items-center text-center'>
                                   <p className='font-medium text-lg text-white text-center'>Cantidad de Lavados</p>

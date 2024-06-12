@@ -110,7 +110,6 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                         </div> : 
                         <div className='flex flex-col items-center justify-center mt-24'>
                             <p className='font-medium text-zinc-500'>No cuentas con lavados registrados</p>
-                            <p className='font-medium text-zinc-500 mt-3'>Crear el primero!</p>
                         </div>}
                 </div>
                 
