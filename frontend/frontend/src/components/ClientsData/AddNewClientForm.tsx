@@ -8,6 +8,7 @@ import Loading from '../Spinner/Loading'
 import { newClientType } from 'types/ClientsTypes'
 import arrowBack from "../../images/arrowBack.png"
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 interface Props { 
     update: () => void,
@@ -64,33 +65,31 @@ const AddNewClientForm = ({update, goBack}: Props) => {
     }
 
     const addClient = async () => { 
-        const clientData : newClientType = ({ 
-            name: name,
-            dni: dni,
-            email: email,
-            telephone: telephone
-        })
-        if(name.length > 0 && dni!== undefined && email.length > 0 && telephone!== undefined ) { 
-            setLoad(true)
-            const {data, status} = await apiBackendUrl.post(`/clients/create/${user?._id}`, clientData)
-            if(status === 200) { 
-                toast.success(data, {
-                    style: { backgroundColor: 'white', color: 'blue' },
-                    pauseOnHover: false,
-                    autoClose: 2000
-                });
-                update()
-                setLoad(false)
-                cleanInputs()
-            }
-        } else { 
-            setMissedClientData(true)
-            toast.error("Debes completar todos los campos", {
-                style: { backgroundColor: 'white', color: 'red' },
-                pauseOnHover: false,
-                autoClose: 800
-            });
+        try {
+            const clientData : newClientType = ({ 
+                name: name,
+                dni: dni,
+                email: email,
+                telephone: telephone
+            })
+           
+                setLoad(true)
+                const {data, status} = await apiBackendUrl.post(`/clients/create/${user?._id}`, clientData)
+                if(status === 200) { 
+                    toast.success(data, {
+                        style: { backgroundColor: 'white', color: 'blue' },
+                        pauseOnHover: false,
+                        autoClose: 2000
+                    });
+                    update()
+                    setLoad(false)
+                    cleanInputs()
+                }
+              
+        } catch (error) {
+            handleError(error, setLoad)
         }
+        
     }
 
     const newClientDataResolved : newClientType = { 
@@ -129,13 +128,15 @@ const AddNewClientForm = ({update, goBack}: Props) => {
                         <input type="text" name="price" id="price" className=" mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                          value={name}
                          onChange={handleChangeName}
-                        />
+                         disabled={addVehicleStep ? true : false}
+                         />
                      </div>
                      <div className='flex flex-col justify-start text-start items-start'>
                         <p className='text-sm text-black font-medium'>Dni</p>
                         <input type="number" name="price" id="price" className="block mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none " 
                         value={dni}
                         onChange={handleChangeDni}
+                        disabled={addVehicleStep ? true : false}
                         />
                      </div>
                     
@@ -146,6 +147,7 @@ const AddNewClientForm = ({update, goBack}: Props) => {
                         <input type="text" name="price" id="price" className="block mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none "
                         value={email}
                         onChange={handleChangeEmail}
+                        disabled={addVehicleStep ? true : false}
                         />
                      </div>
                      <div className='flex flex-col justify-start text-start items-start'>
@@ -153,6 +155,7 @@ const AddNewClientForm = ({update, goBack}: Props) => {
                         <input type="number" name="price" id="price" className="block mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none "
                         value={telephone}
                         onChange={handleChangeTelephone}
+                        disabled={addVehicleStep ? true : false}
                          />
                      </div>                 
                  </div>

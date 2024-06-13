@@ -10,6 +10,7 @@ import formatDate from '../../functions/TransformDateHour/TransformDate'
 import formatHourToText from '../../functions/TransformDateHour/TransformHour'
 import transformPrice from '../../functions/TransformDateHour/TransformPrice'
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 
 interface Props { 
@@ -28,6 +29,7 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
     const getLastWashed = async (vehicleId: string) => { 
         setLoad(true)
         setViewLastWashed(false)
+        console.log("ejecuto funcion")
         try {
             const {status, data} = await apiBackendUrl.get(`/vehicles/getLastWashed/${vehicleId}/${user?._id}`)
             if(status === 200 && data) { 
@@ -37,12 +39,13 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
                 console.log("lastWash", lastWash);
                 setLoad(false)
                 setViewLastWashed(true)
-            } else if (status === 200 && lastWashed === undefined) { 
-                console.log("nada")
+            } else if (status === 200 && data === undefined) { 
+                console.log("nada", status)
             }
         } catch (error) {
             console.log(error)
             setViewLastWashed(true)
+            handleError(error, setLoad)
         }
     }
 

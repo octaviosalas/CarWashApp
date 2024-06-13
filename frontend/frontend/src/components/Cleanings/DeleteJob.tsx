@@ -7,6 +7,7 @@ import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import axios from 'axios'
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 interface Props { 
     detail: JobType,
@@ -28,7 +29,7 @@ const DeleteJob = ({detail, goBack, updateJobs, restart}: Props) => {
     const deleteJob = async () => { 
         setLoad(true)
         try {
-            const {data, status} = await apiBackendUrl.delete(`/jobs/${detail._id}/${user?._id}`)
+            const {data, status} = await apiBackendUrl.delete(`/jobs/${detail?._id}/${user?._id}`)
             if(status === 200) { 
                 toast.success(data, {
                     style: { backgroundColor: 'white', color: 'blue' },
@@ -43,20 +44,7 @@ const DeleteJob = ({detail, goBack, updateJobs, restart}: Props) => {
             }, 2000)
             }
         } catch (error) {
-            setLoad(false)
-            if (axios.isAxiosError(error)) {
-                if (error.response) {
-                setLoad(false)
-                toast.success(error.response.data, {
-                    style: { backgroundColor: 'white', color: 'blue' },
-                    pauseOnHover: false,
-                    autoClose: 2000
-                });
-            } else {
-                console.log('Unexpected error:', error);
-                setLoad(false)
-            }
-          }
+            handleError(error, setLoad)
         }
     }
 

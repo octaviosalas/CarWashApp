@@ -6,6 +6,7 @@ import axios from 'axios';
 import { errorRegisterMissedDataType } from 'types/UserTypes'
 import { useNavigate } from 'react-router-dom';
 import Loading from '../Spinner/Loading';
+import handleError from '../../utils/AxiosErrorFragment';
 
 interface TokenType  { 
    token: number | undefined
@@ -42,44 +43,48 @@ const Token = () => {
     }
 
     const sendToken = async () => { 
-       setLoad(true)
-       const tokenData : TokenType = ({ 
-          token: token
-       })
-        try {
-          const {status, data} = await apiBackendUrl.post("/auth/confirmAccount", tokenData)
-          if(status === 401) { 
-            toast.success(data, {
-              style: { backgroundColor: 'white', color: 'blue' },
-              pauseOnHover: false,
-              autoClose: 1500
-          });
-          setLoad(false)
-          } else if (status === 200) { 
-            toast.success(data, {
-              style: { backgroundColor: 'white', color: 'blue' },
-              pauseOnHover: false,
-              autoClose: 1500
-          });
-          navigate("/")
-          setLoad(false)
-          }
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            console.log(error)
-            if (error.response && Array.isArray(error.response.data.errors)) {              
-                console.log(error)
-                const errorMessage = error.response.data.errors.map((er: errorRegisterMissedDataType) => er.msg)[0]
-                console.log(errorMessage)
-                toast.error(errorMessage, {
-                    style: { backgroundColor: 'white', color: 'red' },
-                    pauseOnHover: false,
-                    autoClose: 2500
-                });
-                setLoad(false)
-        } 
-        }
-    }
+      if(token === 0) { 
+        toast.error("El token no puede ser vacio", {
+          style: { backgroundColor: 'white', color: 'blue' },
+          pauseOnHover: false,
+          autoClose: 1500
+      });
+      } else { 
+        setLoad(true)
+        const tokenData : TokenType = ({ 
+           token: token
+        })
+         try {
+          const {data, status} = await apiBackendUrl.post("/auth/confirmAccount", tokenData);
+           
+           console.log("Response response.status:", status);
+           console.log("Response Data:", data);
+           
+           if(status === 401) { 
+             toast.error(data, {
+               style: { backgroundColor: 'white', color: 'blue' },
+               pauseOnHover: false,
+               autoClose: 1500
+           });
+           setLoad(false)
+           console.log(status)
+           console.log(data)
+           alert("a")
+           } else if (status === 200) { 
+             toast.success(data, {
+               style: { backgroundColor: 'white', color: 'blue' },
+               pauseOnHover: false,
+               autoClose: 1500
+           });
+           navigate("/")
+           setLoad(false)
+           }
+         
+         } catch (error) {
+          handleError(error, setLoad)
+     }
+      }
+      
   }
 
 

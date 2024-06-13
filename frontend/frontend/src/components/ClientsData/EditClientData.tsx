@@ -8,6 +8,7 @@ import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import axios from 'axios'
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 
 interface Props { 
@@ -68,19 +69,7 @@ const EditClientData = ({detail, goBack, update}: Props) => {
             }
         } catch (error) {
             console.log(error)
-            if (axios.isAxiosError(error)) {
-                if (error.response) {
-                setLoad(false)
-                toast.error(error.response.data.errors[0].msg, {
-                    style: { backgroundColor: 'white', color: 'red' },
-                    pauseOnHover: false,
-                    autoClose: 2000
-                });
-            } else {
-                console.log('Unexpected error:', error);
-                setLoad(false)
-            }
-          }
+            handleError(error, setLoad)
         }
     }
      

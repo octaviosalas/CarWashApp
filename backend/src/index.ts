@@ -35,7 +35,6 @@ interface CreateReferenceRequestBody {
     notification_url: string,
 } 
 
-
 const port = process.env.PORT || 4000
 
 dotenv.config()

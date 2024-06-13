@@ -12,6 +12,7 @@ import { getDate } from '../../functions/TransformDateHour/HourAndDate'
 import DeleteJobCollection from './DeleteJobCollection'
 import { userStore } from '../../store/store'
 import { initMercadoPago } from '@mercadopago/sdk-react'
+import handleError from '../../utils/AxiosErrorFragment'
 
 interface Props { 
     goBack: () => void,
@@ -107,21 +108,7 @@ const MarkPayJob = ({goBack, updateJobs, detail, restart}: Props) => {
                 }, 2000)
               } 
            } catch (error) {
-                if (axios.isAxiosError(error)) {
-                    if (error.response) {
-                    setLoad(false)
-                    setBadMessage(true)
-                    setMessage(error.response.data)
-                    setTimeout(() => { 
-                        setBadMessage(false)
-                        setMessage("")
-                        setPaymentMethod("")
-                    }, 2000)
-                } else {
-                    console.log('Unexpected error:', error);
-                    setLoad(false)
-                }
-        }
+                handleError(error, setLoad)
     }
     }
 

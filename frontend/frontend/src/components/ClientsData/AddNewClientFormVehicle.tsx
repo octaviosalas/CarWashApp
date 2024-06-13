@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-import { Select, SelectItem, Button } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import motorBike from "../../images/motorBike.png"
 import carBlack from "../../images/carBlack.png"
 import camioneta from "../../images/camioneta.png"
@@ -9,8 +9,8 @@ import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import { newClientType } from 'types/ClientsTypes'
 import { newClientVehicleType } from 'types/VehiclesTypes'
-import axios from 'axios'
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 
 interface Props { 
@@ -29,7 +29,7 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
 
     const [description, setDescription] = useState("")
     const [patente, setPatente] = useState("")
-    const [typeOfVehicle, setTypeOfVehicle] = useState("")
+    const [typeOfVehicle, setTypeOfVehicle] = useState("Auto")
     const [showVehicleData, setShowVehicleData] = useState<boolean>(false)
     const [load, setLoad] = useState<boolean>(false)
     const user = userStore(state => state.user)
@@ -79,6 +79,7 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
             client: newClientData,
             vehicle : clientVehicle
          })
+        
         try {
             const {data, status} = await apiBackendUrl.post(`/clients/createWithVehicle/${user?._id}`, clientData)
             console.log(data, status)
@@ -94,20 +95,7 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
                 clean()
             } 
         } catch (error) {
-            console.log(error)
-            if (axios.isAxiosError(error)) {
-                if (error.response) {
-                    toast.error(error.response.data, {
-                        style: { backgroundColor: 'white', color: 'red' },
-                        pauseOnHover: false,
-                        autoClose: 2500
-                    });
-                setLoad(false)
-            } else {
-                console.log('Unexpected error:', error);
-                setLoad(false)
-            }
-          }
+           handleError(error, setLoad)
         }
     }
 
@@ -166,10 +154,11 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
          </div> : null
         }
         <div className='flex items-center justify-start mt-4 2xl:mt-8 gap-4'>
-            {!showVehicleData ? <Button className="bg-blue-500 text-white font-medium xl:w-80 2xl:w-96" onClick={() => showVehicleDataNow()}>Añadir Vehiculo</Button> : 
+            {!showVehicleData ? 
+             <Button className="bg-blue-500 text-white font-medium xl:w-80 2xl:w-96" onClick={() => showVehicleDataNow()}>Añadir Vehiculo</Button> : 
              <Button className="bg-blue-500 text-white font-medium xl:w-80 2xl:w-96" onClick={() => createClientWithVehicle()}>Confirmar</Button>
             }
-            <Button className="bg-gray-300 text-white font-medium xl:w-80 2xl:w-96" onClick={() => setShowVehicleData(true)}>Cancelar</Button>
+            <Button className="bg-gray-300 text-white font-medium xl:w-80 2xl:w-96" onClick={() => comeBack()}>Cancelar</Button>
         </div>
     </div>
   )

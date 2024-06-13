@@ -24,6 +24,7 @@ router.post("/addVehicle/:clientId/:userId",
 router.get("/clientVehicles/:clientId/:userId",    
    param("clientId").isMongoId().withMessage("El Id del client al que intentas asignarle un vehiculo no es valido"),
    param("userId").isMongoId().withMessage("El Id del client al que intentas asignarle un vehiculo no es valido"),
+   handleInputErrors,
    validateClientExist,
    validateUserExist,
    getVehiclesByClient

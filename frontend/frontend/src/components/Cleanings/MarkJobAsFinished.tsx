@@ -7,6 +7,7 @@ import {toast} from "react-toastify"
 import { getDate } from '../../functions/TransformDateHour/HourAndDate'
 import Loading from '../Spinner/Loading'
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
 interface Props { 
     detail: JobType,
@@ -103,21 +104,7 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
         }, 2000)
       }
         } catch (error) {
-            setLoad(false)
-            if (axios.isAxiosError(error)) {
-                if (error.response) {
-                setLoad(false)
-                setBadMessage(true)
-                setMessage(error.response.data)
-                setTimeout(() => { 
-                    setBadMessage(false)
-                    setMessage("")
-                }, 2000)
-            } else {
-                console.log('Unexpected error:', error);
-                setLoad(false)
-            }
-          }
+           handleError(error, setLoad)
         }
     }
 

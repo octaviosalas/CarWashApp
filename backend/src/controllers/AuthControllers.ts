@@ -40,25 +40,23 @@ export const createNewAcount = async (req: Request, res: Response) => {
 export const confirmAccountWithToken = async (req: Request, res: Response) => { 
 
     const {token} = req.body
+    console.log(token)
 
     try {
         const verifyToken = await TokenModel.findOne({token: token})
 
         if(!verifyToken) { 
-
-            const error = new Error("El Token ha expirado, solicita uno nuevo para poder registrar tu cuenta")
+            console.log("No encontre el token")
+            const error = new Error("El Token es incorrecto o ha expirado")
             return res.status(401).json({error: error.message})
-            
-            } else { 
-
+        } else { 
             const getUserTokenOwner = await UserModel.findById(verifyToken.user)
             getUserTokenOwner.confirmed = true
-
             await getUserTokenOwner.save() 
             await verifyToken.deleteOne() 
+            res.status(200).json("La cuenta ha sido confirmada exitosamente")
         }
 
-        res.send("La cuenta ha sido confirmada exitosamente")
 
     } catch (error) {
        res.status(500).json({error: "Hubo un error en la creacion de la cuenta"})
@@ -80,6 +78,7 @@ export const login = async (req: Request, res: Response) => {
 
         } else if (user.confirmed !== true) { 
 
+          console.log("sin confirmar")
           const newTokenToSend = new TokenModel
           newTokenToSend.user = user.id
           newTokenToSend.token = createSixDigitsToken()
@@ -100,6 +99,7 @@ export const login = async (req: Request, res: Response) => {
 
             if(isPasswordCorrect === false) { 
                 res.status(400).json("La contrasñea ingresada es incorrecta")
+                console.log("contraseña mal puesta")
             } else { 
                 const userServices = await ServicesModel.find({user: user._id})
                 const userClients = await ClientModel.find({clientOf: user._id})

@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {ClientType} from "../../types/ClientsTypes"
 import ClientDetail from '../JobDetail/ClientDetail';
 import wsp from "../../images/whatsapp.png"
 import AddNewClient from './AddNewClient';
 import AddNewClientForm from './AddNewClientForm';
-import axios from "axios";
 import apiBackendUrl from '../../lib/axios';
 import { ClientVehiclesType } from "types/VehiclesTypes";
-import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading';
 import { userStore } from '../../store/store';
+import handleError from '../../utils/AxiosErrorFragment';
 
 interface Props {
    clientsData: ClientType[];
@@ -23,6 +22,7 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
     const [showNewClient, setShowNewClient] = useState<boolean>(false)
     const [clientVehicles, setClientVehicles] = useState<ClientVehiclesType[]>([]);
     const [inputValue, setInputValue] = useState<string>("")
+    const [load, setLoad] = useState<boolean>(false)
 
     const user = userStore(state => state.user)
 
@@ -35,26 +35,19 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
     }
 
     const selectClientAndGetVehicles = async  (item: ClientType) => { 
+      setLoad(true)
        setClientSelected(item)
        try {
             const {status, data} = await apiBackendUrl.get(`/vehicles/clientVehicles/${item?._id}/${user?._id}`)
             if(status === 200) { 
               console.log(data)
               setClientVehicles(data)
+              setLoad(false)
           }  
           } catch (error) {
-            if (axios.isAxiosError(error)) {
-              setClientVehicles([])
-              if (error.response) {
-                  toast.error(error.response.data, {
-                      style: { backgroundColor: 'white', color: 'red' },
-                      pauseOnHover: false,
-                      autoClose: 2500
-                  });
-              } else {
-                  console.log('Unexpected error:', error);         
-            }
-          }
+           handleError(error, setLoad)
+           setClientVehicles([])
+
         }
     }
 

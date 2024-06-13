@@ -6,6 +6,7 @@ import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import { NewUserType, errorRegisterMissedDataType } from 'types/UserTypes'
 import { Navigate, useNavigate } from 'react-router-dom'
+import handleError from '../../utils/AxiosErrorFragment'
 
 const Register = () => {
 
@@ -54,30 +55,7 @@ const Register = () => {
              }
              
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.log(error)
-                if (error.response && Array.isArray(error.response.data.errors)) {              
-                    console.log(error)
-                    const errorMessage = error.response.data.errors.map((er: errorRegisterMissedDataType) => er.msg)[0]
-                    console.log(errorMessage)
-                    toast.error(errorMessage, {
-                        style: { backgroundColor: 'white', color: 'red' },
-                        pauseOnHover: false,
-                        autoClose: 2500
-                    });
-                setLoad(false)
-            } else if (error.response && !Array.isArray(error.response)) {
-                toast.error(error.response.data, {
-                    style: { backgroundColor: 'white', color: 'red' },
-                    pauseOnHover: false,
-                    autoClose: 2500
-                });
-                setLoad(false);
-            } else { 
-                console.log('Unexpected error:', error);
-                setLoad(false)
-            }
-          }
+            handleError(error, setLoad)
         }
     }
 

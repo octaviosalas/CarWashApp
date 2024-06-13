@@ -10,6 +10,7 @@ import { createJob, updateJobStatus, deleteJob, markJobAsPaid, deleteJobPaid,  n
 
 const router = Router()
 
+
 router.post("/createJob/:userId/:clientId",
     param("userId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),
     param("clientId").isMongoId().withMessage("El Id del cliente al que intentas asignar un cliente no es valido"),
@@ -62,7 +63,7 @@ router.post("/updateJobData/:jobId/:clientId/:userId",
 )
 
 router.delete("/:jobId/:userId",
-    param("jobId").isMongoId().withMessage("El Id del lavado al que intentas asignar no es valido"),
+    param("jobId").isMongoId().withMessage("El lavado al que intentas eliminar no es valido"),
     handleInputErrors,
     validateUserExist,
     validateJobExist,

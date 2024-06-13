@@ -8,9 +8,10 @@ import { JobType } from 'types/JobsTypes';
 import axios from 'axios'
 import {toast} from "react-toastify"
 import { getCurrentYear } from '../../functions/TransformDateHour/HourAndDate';
-import servicess from "../../images/servicess.jpg"
+import services from "../../images/servicess.jpg"
 import wash from "../../images/wash.png"
 import money from "../../images/money.png"
+import TableEstadistics from './TableEstadistics';
 
 interface agroupType {
   price: number,
@@ -42,7 +43,7 @@ const YearEstadistics = () => {
         setLoad(true)
         try {
           const {status, data} = await apiBackendUrl.get(`/estadistics/yearEstadistics/${user?._id}`)
-          console.log(status, data)
+          console.log("estadisticas status, data:", status, data)
             if(status === 200) { 
               setEveryCollections(data.collections)
               setEveryJobs(data.jobs)
@@ -97,18 +98,10 @@ const YearEstadistics = () => {
             </div>
         </div>
         <div className='w-full flex flex-col gap-6 mt-1 2xl:mt-4'>
-             <div className='bg-blue-500 w-full border h-12 rounded-lg flex items-center text-center justify-center'>
-                <p className='text-white font-medium text-lg'> Servicios </p>
-            </div>
+            
             {jobsOrdersByTypeOfService.length > 0 ? 
-            <div className='flex flex-col items-start justify-start mt-0 2xl:mt-2 ml-4 max-h-[150px] 2xl:max-h-[350px] overflow-y-auto'>
-                {jobsOrdersByTypeOfService.map((serv) => ( 
-                    <div className='flex gap-4'>                    
-                        <p className='font-medium text-white bg-blue-500 mt-2 text-lg'>{serv.services} </p>
-                        <p className='text-black mt-2 text-md'><span className='font-medium'>Facturacion: </span> {transformPrice(serv.data.reduce((acc, el) => acc + el.price, 0))}</p> 
-                        <p className='text-black mt-2 text-md'><span className='font-medium'>Cantidad: </span> {serv.data.length}</p> 
-                    </div>
-                ))}
+            <div className='flex flex-col items-center justify-center ml-4 max-h-[150px] 2xl:max-h-[350px] overflow-y-auto'>
+               <TableEstadistics data={jobsOrdersByTypeOfService}/>
             </div> : null}
         </div>
       </div>

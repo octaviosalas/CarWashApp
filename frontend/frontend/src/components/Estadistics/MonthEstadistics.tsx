@@ -9,8 +9,8 @@ import {toast} from "react-toastify"
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
 import { CollectionsType } from 'types/CollectionsType';
 import { JobType } from 'types/JobsTypes';
-import servicess from "../../images/servicess.jpg"
 import { userStore } from '../../store/store';
+import TableEstadistics from './TableEstadistics';
 
 interface agroupType {
   price: number,
@@ -95,19 +95,15 @@ const MonthEstadistics = () => {
                 </div>
             </div>
             <div className='w-full flex flex-col gap-6 mt-4'>
-                 <div className='bg-blue-500 w-full border h-12 rounded-lg flex items-center text-center justify-center'>
-                    <p className='text-white font-medium text-lg'> Servicios </p>
-                </div>
-                {jobsOrdersByTypeOfService.length > 0 ? 
-                <div className='flex flex-col items-start justify-start mt-2 ml-4'>
-                {jobsOrdersByTypeOfService.map((serv) => ( 
-                    <div className='flex gap-4'>                    
-                        <p className='font-medium text-white bg-blue-500 mt-2 text-lg'>{serv.services} </p>
-                        <p className='text-black mt-2 text-md'><span className='font-medium'>Facturacion: </span> {transformPrice(serv.data.reduce((acc, el) => acc + el.price, 0))}</p> 
-                        <p className='text-black mt-2 text-md'><span className='font-medium'>Cantidad: </span> {serv.data.length}</p> 
-                    </div>
-                ))}
-                </div> : null}
+               
+            {jobsOrdersByTypeOfService.length > 0 ? 
+              <div className='flex flex-col items-center justify-center ml-4 max-h-[150px] 2xl:max-h-[350px] overflow-y-auto'>
+                <TableEstadistics data={jobsOrdersByTypeOfService}/>
+              </div>  
+               : 
+               <div className='flex items-center justify-center '>
+                  <p className='text-zinc-500'>No hay servicios utilizados en el mes actual</p>    
+               </div>}
             </div>
           </div>
         }

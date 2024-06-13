@@ -33,6 +33,7 @@ const Login = () => {
         }) 
         try {
             const {data, status} = await apiBackendUrl.post(`/auth/login`, userData)
+            console.log(data)
             if(status === 200) { 
                setLoad(false)
                setUserAccountData(data.userData)

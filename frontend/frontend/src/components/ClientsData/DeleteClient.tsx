@@ -5,10 +5,9 @@ import arrow from "../../images/arrowBack.png"
 import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
-import axios from 'axios'
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
 
-//router.delete("/deleteClient/:clientId/:userId",
 
 interface Props { 
     detail: ClientType | undefined,
@@ -37,19 +36,7 @@ const DeleteClient = ({detail, goBack, update}: Props) => {
             }
         } catch (error) {
             console.log(error)
-            if (axios.isAxiosError(error)) {
-                if (error.response) {
-                    toast.error(error.response.data, {
-                        style: { backgroundColor: 'white', color: 'red' },
-                        pauseOnHover: false,
-                        autoClose: 2500
-                    });
-                setLoad(false)
-            } else {
-                console.log('Unexpected error:', error);
-                setLoad(false)
-            }
-          }
+           handleError(error, setLoad)
         }
     }
 

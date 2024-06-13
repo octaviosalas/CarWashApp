@@ -8,6 +8,7 @@ const router = Router()
 
 router.get("/todayEstadistics/:userId/:date",
     param("userId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),
+    param("date").notEmpty().withMessage("La fecha es obligatoria"),
     handleInputErrors,
     validateUserExist,
     validateUserAccountIsConfirmed,
