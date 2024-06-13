@@ -9,6 +9,7 @@ export type JobVehicleType = {
 
 export type JobClientType = { 
    name: string,
+   email: string,
    _id: string,
 }
 

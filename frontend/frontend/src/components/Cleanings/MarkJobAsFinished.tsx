@@ -35,6 +35,8 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
     const [date, setDate] = useState(getDate())
     const user = userStore(state => state.user)
 
+    console.log(detail)
+
 
     const jobFinished = async () => { 
         setLoad(true)
@@ -77,12 +79,12 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
         }
     }
 
-    const jobFinishedAndNotifyClientByEmail = async () => { //POST: addresse title message date
+    const jobFinishedAndNotifyClientByEmail = async () => { 
         setLoad(true)
         const emailData : emailType = ({ 
-            addressee: "salasoctavio129@gmail.com",
+            addressee: detail.client.email,
             title: "LAVADERO DE AUTOS DIGITAL",
-            message: "Tu auto se encuentra listo. Ya podes pasar a buscarLo. Recorda que estamos hasta las 18hs. Saludos.",
+            message: "Tu auto se encuentra listo. Ya podes pasar a buscarlo. Recorda que estamos hasta las 18hs. Saludos.",
             date: date
         })
         try {

@@ -49,7 +49,7 @@ export const getEveryJobs = async (req: Request, res: Response) => {
         const jobs = await JobsModel.find({user: userId}).populate({
             path: "client",
             model: ClientModel,
-            select: "name"
+            select: "name email"
         }).populate({
             path: "vehicle",
             model: VehicleModel,

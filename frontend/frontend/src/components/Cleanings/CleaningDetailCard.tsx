@@ -47,6 +47,7 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
     }
 
     const viwJobDetail = (item: JobType) => { 
+        console.log("recibi a", item)
         setShowNewJob(false)
         setJobSelected(item)
     }

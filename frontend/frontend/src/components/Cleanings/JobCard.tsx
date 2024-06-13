@@ -16,6 +16,7 @@ interface Props {
 }
 
 const JobCard = ({jobs, viwJobDetail}: Props) => {
+    console.log(jobs)
   return (
     <div>
                             {jobs.map((job: JobType) => ( 
