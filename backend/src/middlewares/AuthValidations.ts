@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express"
 import mongoose from "mongoose"
 import UserModel from "../models/User"
+import { comprarePassword } from "../utils/HashPassword"
 
 
 
@@ -64,13 +65,13 @@ export const validateAccountNotExist = async (req: Request, res: Response, next:
 
 export const validateEmailExist = async (req: Request, res: Response, next: NextFunction) => { 
      
-    const {email, name} = req.body
+    const {email} = req.body
 
     try {
        const verifyUserExist = await UserModel.findOne({email: email})
 
        if(!verifyUserExist) { 
-        res.status(400).json("El usuario no existe almacenado en la base de datos")
+        res.status(400).json("El email ingresado no corresponde a un usuario registrado")
        } else { 
         next()
        }        
@@ -98,4 +99,28 @@ export const validateUserAccountIsConfirmed = async (req: Request, res: Response
         console.log(error)
         res.status(500).json("Hubo un error en el midddleware")
     }
+}
+
+export const checkIfUserPasswordIsCorrect = async (req: Request, res: Response, next: NextFunction) => { 
+    
+     const {userId} = req.params
+     const {password} = req.body
+
+     try {
+        const user = await UserModel.findById(userId)
+        if(!user) { 
+            res.status(400).send("El usuario no fue encontrado en nuestra base de datos")
+        } else { 
+          const isCorrect = await comprarePassword(password, user.password)
+          if(isCorrect === false) { 
+            res.status(400).json("La contrasñea ingresada es incorrecta")
+            console.log("contraseña mal puesta")
+            } else { 
+               next()
+            }
+        }
+     } catch (error) {
+        console.log(error)
+        res.status(500).json("Hubo un error en el midddleware")
+     }
 }

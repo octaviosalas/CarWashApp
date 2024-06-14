@@ -96,7 +96,7 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                         <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "paid" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(paid, "paid")}>Este Año</p>
                     </div> 
                     : 
-                    <div className='flex w-full justify-start items-center gap-6 2xl:gap-12 mt-4 ml-1'>
+                    <div className='flex w-full justify-start items-center gap-4 2xl:gap-12 mt-4 ml-1'>
                         <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "every" ? 'text-white bg-blue-500' : 'text-zinc-600'}`}  onClick={() => changeTypeOfJob(every, "every")}>Todos</p>
                         <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "finished" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(finished, "finished")}>Finalizados</p>
                         <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "inProcess" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(inProcess, "inProcess")}>Sin Finalizar</p>

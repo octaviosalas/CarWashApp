@@ -1,11 +1,10 @@
 import React from 'react'
-import axios from 'axios'
 import { useState } from 'react'
 import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
-import { NewUserType, errorRegisterMissedDataType } from 'types/UserTypes'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { NewUserType } from 'types/UserTypes'
+import { useNavigate } from 'react-router-dom'
 import handleError from '../../utils/AxiosErrorFragment'
 
 const Register = () => {

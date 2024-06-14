@@ -7,6 +7,7 @@ import handleError from '../../utils/AxiosErrorFragment'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../Spinner/Loading'
 import {toast} from "react-toastify"
+import LossMyPassword from './LossMyPassword'
 
 
 interface FormType { 
@@ -100,6 +101,10 @@ const Login = () => {
                         />
                         {errors.password?.type === "required" && <p className='mt-1 text-red-500 font-medium flex text-center text-sm'>La contraseña es obligatoria</p>}
                         {errors.password?.type === "minLength" && <p className='mt-1 text-red-500 font-medium flex text-center text-sm'>La contraseña es demasiado corta</p>}
+                    </div>
+
+                    <div className="flex items-start justify-start mt-2">
+                     <LossMyPassword/>
                     </div>
 
                     <div className='flex flex-col items-center mt-4'>

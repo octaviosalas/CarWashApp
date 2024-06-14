@@ -18,7 +18,9 @@ const ClientsList = () => {
       const clients : ClientType[] = await getMyClients(user?._id);
       setMyClients(clients); 
       setOriginalClients(clients)
-      setLoading(false)
+      setTimeout(() => { 
+        setLoading(false)
+      }, 4000)
     };
 
     useEffect(() => {
@@ -38,13 +40,10 @@ const ClientsList = () => {
       }
     };
 
-   
 
-
-   
   return (
     <div className='h-full'>
-       {loading ? <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> <Loading/> </div> :  <ClientsDetailCard clientsData={myClients} update={fetchClients} filter={filterClientsByInput}/>}
+       <ClientsDetailCard loading={loading} clientsData={myClients} update={fetchClients} filter={filterClientsByInput}/>
     </div>
   )
 }

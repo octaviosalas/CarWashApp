@@ -5,8 +5,9 @@ import TokenModel from "../models/Token";
 import { createSixDigitsToken } from "../utils/token";
 import { sendEmailConfirmationWithToken } from "../emails/AuthEmail";
 import ClientModel from "../models/Clients";
-import { sendEmailToVerifyUserAccount } from "../utils/SendEmailToClient";
+import { sendEmailToVerifyUserAccount, sendEmailToRecoverUserAccount } from "../utils/SendEmailToClient";
 import ServicesModel from "../models/Services";
+import bcrypt from "bcrypt"
 
 
 export const createNewAcount = async (req: Request, res: Response) => { 
@@ -111,11 +112,111 @@ export const login = async (req: Request, res: Response) => {
      }
 }
 
+export const lossMyPassword =  async (req: Request, res: Response) => { 
+  
+    const {email} = req.body
+
+    try {
+        const user = await UserModel.findOne({email: email})
+        if (user) { 
+            const token =  new TokenModel
+            token.token = createSixDigitsToken()
+            token.user = user.id 
+
+            await sendEmailToRecoverUserAccount({ 
+                email: user.email, 
+                token: token.token, 
+                name: user.name
+           })
+
+           await token.save()
+           res.send("Hemos enviado un correo electronico a tu email para recuperar tu cuenta. Encontraras un Token de confirmacion que expirara en 15 minutos.")
+        }
+    } catch (error) {
+        res.status(500).json({error: "Hubo un error en la recuperacion de la cuenta"})
+
+    }
+}
+
+export const findTokenToRecoverPassword = async (req: Request, res: Response) => { 
+
+    try {
+        const token = await TokenModel.findOne({token: req.body.token})
+        if(!token) { 
+            res.status(202).json("El token ingresado es incorrecto")
+        } else { 
+            await token.deleteOne() 
+            res.status(200).json("El token ingresado es correcto. Ahora puedes cambiar tu contraseña")
+        }
+    } catch (error) {
+        res.status(500).json({error: "Hubo un error en la recuperacion de la cuenta"})
+    }
+}
+
+export const changePassowrd = async (req: Request, res: Response) => { 
+    console.log("changepPassword")
+    try {
+        const {email, password} = req.body
+        console.log(email, password)
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = await UserModel.findOneAndUpdate({email: email}, { 
+             email: email,
+             password: hashedPassword
+        }, { new: true });
+
+        if (!user) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+
+        res.status(200).send("Has cambiado tu contraseña exitosamente")
+    } catch (error) {
+        res.status(500).json({error: "Hubo un error en la recuperacion de la cuenta"})
+    }
+}
+
 export const updateUserData = async (req: Request, res: Response) => { 
     try {
+        const {email} = req.body
+        const {userId} = req.params
+      
+        const user = await UserModel.findByIdAndUpdate(userId, { 
+            email: email,
+        }, { new: true });
+
+       if (!user) {
+           return res.status(404).json({ error: "Usuario no encontrado" });
+       }
+
+       res.status(200).send("Has cambiado tu correo exitosamente")
         
     } catch (error) {
+        res.status(500).json({error: "Hubo un error en la recuperacion de la cuenta"})
+
+    }
+}
+
+
+export const updateUserPassword = async (req: Request, res: Response) => { 
+    try {
+        const {newPassword} = req.body
+        const {userId} = req.params
+      
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        const user = await UserModel.findByIdAndUpdate(userId, { 
+            password: hashedPassword,
+        }, { new: true });
+
+       if (!user) {
+           return res.status(404).json({ error: "Usuario no encontrado" });
+       }
+
+       res.status(200).send("Has cambiado tu contraseña exitosamente")
         
+    } catch (error) {
+        res.status(500).json({error: "Hubo un error en la recuperacion de la cuenta"})
+
     }
 }
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {ClientType} from "../../types/ClientsTypes"
 import ClientDetail from '../JobDetail/ClientDetail';
 import wsp from "../../images/whatsapp.png"
@@ -13,10 +13,11 @@ import handleError from '../../utils/AxiosErrorFragment';
 interface Props {
    clientsData: ClientType[];
    update: () => void,
-   filter: (value: string) => void
+   filter: (value: string) => void,
+   loading: boolean
 }
 
-const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
+const ClientsDetailCard = ({clientsData, loading, update, filter}: Props) => {
 
     const [clientSelected, setClientSelected] = useState<ClientType>()
     const [showNewClient, setShowNewClient] = useState<boolean>(false)
@@ -52,11 +53,15 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
     const handleChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => { 
       setInputValue(e.target.value);
       filter(e.target.value); 
-  };
+    };
+
+    useEffect(() => { 
+      console.log("loadinggggggg", loading)
+    }, [loading])
 
   return (
 
-    <div className='flex gap-4 h-full '>
+    <div className='flex gap-4 h-full'>
               {clientsData ? 
               <div className='flex flex-col '>
                   <div className='mt-2 w-full flex justify-start'>
@@ -69,26 +74,37 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
                       />
                   </div>
 
-               {clientsData.length === 0 ?
+               {loading ?
+
                  <div className='flex items-center justify-center mt-6 2xl:mt-24'>
-                    <p className='text-zinc-500 text-md'>No tenes clientes registrados</p>
-                 </div> : 
+                    <Loading/>
+                 </div> 
+
+                 :
+                  clientsData.length === 0 && loading === false ? ( 
+                    <div className='flex items-center justify-center mt-6 2xl:mt-24'>
+                        <p className='text-zinc-500 text-md'>No tenes clientes registrados</p>
+                    </div>
+
+                 ) : ( 
                   <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[670px] overflow-y-auto w-full ml-2 mt-2'>  
-                    {clientsData.map((client: ClientType) => ( 
-                        <div className='mt-4 w-full cursor-pointer hover:bg-blue-100' key={client._id} onClick={() => selectClientAndGetVehicles(client)}>
-                                <div className='flex items-start text-start justify-between' key={client._id}>
-                                    <p className='font-medium text-md text-blue-500'>{client.name}</p>                             
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                    <p className=' text-zinc-500 text-md'>{client.email}</p>
-                                </div>   
-                                <div className='flex items-center justify-between'>
-                                    <p className=' text-zinc-500 text-md'>{client.telephone}</p>
-                                    <img src={wsp} className='w-6 h-6 cursor-pointer' title="Enviar WhatsApp"/>
-                                </div>            
-                        </div>  
-                     ))}
-                </div>}
+                  {clientsData.map((client: ClientType) => ( 
+                      <div className='mt-4 w-full cursor-pointer hover:bg-blue-100' key={client._id} onClick={() => selectClientAndGetVehicles(client)}>
+                              <div className='flex items-start text-start justify-between' key={client._id}>
+                                  <p className='font-medium text-md text-blue-500'>{client.name}</p>                             
+                              </div>
+                              <div className='flex items-center gap-2'>
+                                  <p className=' text-zinc-500 text-md'>{client.email}</p>
+                              </div>   
+                              <div className='flex items-center justify-between'>
+                                  <p className=' text-zinc-500 text-md'>{client.telephone}</p>
+                                  <img src={wsp} className='w-6 h-6 cursor-pointer' title="Enviar WhatsApp"/>
+                              </div>            
+                      </div>  
+                   ))}
+              </div>
+                 )
+                 }
 
               </div> : <Loading/>}
            
