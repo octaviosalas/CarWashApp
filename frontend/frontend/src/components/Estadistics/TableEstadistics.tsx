@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import {Table,TableHeader,TableColumn,TableBody,TableRow,TableCell, Button, Input} from "@nextui-org/react";
+import {Table,TableHeader,TableColumn,TableBody,TableRow,TableCell} from "@nextui-org/react";
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
 
 interface serviceData { 
@@ -33,11 +33,9 @@ interface tableDataType {
 
 const TableEstadistics = ({data}: Props) => {
 
-    console.log("table", data)
 
     const [tableData, setTableData] = useState<tableDataType[]>([]);
     const [columns, setColumns] = useState<ColumnsTypes[]>([]);
-    const [selectionBehavior, setSelectionBehavior] = React.useState("toggle");
     const [showTable, setShowTable] = useState<boolean>(false);
     const tableRef = useRef(null);
 
@@ -51,9 +49,7 @@ const TableEstadistics = ({data}: Props) => {
                 cantidad: d.data.length
              }
           })
-          console.log(" 1 DATOS respuesta funcion", datos)
           setTableData(datos)
-
             const propiedades = Object.keys(datos[0])
             const columnObjects = propiedades.map(propiedad => ({
                 key: propiedad,
@@ -61,11 +57,7 @@ const TableEstadistics = ({data}: Props) => {
                 allowsSorting: true
             }));
 
-            setColumns(columnObjects);
-            console.log(" 2 columnas", columnObjects)
-            console.log(" 3 tabledata", tableData)
-           
-            
+            setColumns(columnObjects);       
        } catch (error) {
         console.log(error)
        }  
@@ -97,22 +89,21 @@ const TableEstadistics = ({data}: Props) => {
                     columnAutoWidth={true} 
                     columnSpacing={10}  
                     aria-label="Selection behavior table example with dynamic content"   
-                    selectionBehavior={selectionBehavior} 
                     className="w-full mt-2  max-h-[350px] 2xl:max-h-[600px] h-auto text-center shadow-left-right shadow-lg shadow-top shadow-left-right overflow-y-auto  rounded-xl "
                   >
                     <TableHeader columns={columns}>
                         {(column) => (
-                            <TableColumn key={column.key} className="text-left bg-blue-500 text-white text-sm h-10"> {column.label}  </TableColumn>
+                            <TableColumn key={column.key} className="text-left bg-blue-500 text-white text-sm 2xl:text-md h-10"> {column.label}  </TableColumn>
                         )}
                     </TableHeader>
                     <TableBody items={tableData}>
                       {(item) => (
                         <TableRow key={item.servicio}>
                         {columns.map((column) => (
-                         <TableCell key={column.key} className='text-left'>
-                            {column.key === "facturacion"? transformPrice(item[column.key]) : item[column.key]}
-                       </TableCell>
-                         ))}
+                            <TableCell key={column.key} className='text-left text-sm 2xl:text-md'>
+                              {item[column.key] as string}
+                            </TableCell>
+                        ))}
                        </TableRow>
                       )}
                         </TableBody> 

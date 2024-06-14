@@ -40,14 +40,12 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
        try {
             const {status, data} = await apiBackendUrl.get(`/vehicles/clientVehicles/${item?._id}/${user?._id}`)
             if(status === 200) { 
-              console.log(data)
               setClientVehicles(data)
               setLoad(false)
           }  
           } catch (error) {
            handleError(error, setLoad)
            setClientVehicles([])
-
         }
     }
 

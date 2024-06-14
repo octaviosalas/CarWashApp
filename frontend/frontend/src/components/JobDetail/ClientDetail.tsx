@@ -8,6 +8,7 @@ import ClientVehiclesData from "../ClientsData/ClientVehiclesData";
 import EditClientData from "../ClientsData/EditClientData";
 import DeleteClient from "../ClientsData/DeleteClient";
 import Loading from "../Spinner/Loading";
+import ClientTableData from "../../components/ClientsData/ClientTableData";
 
 interface Props { 
     detail: ClientType | undefined
@@ -17,6 +18,8 @@ interface Props {
 }
 
 const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props) => {
+
+    console.log("Cliente data", detail)
 
  
     const [load, setLoad] = useState<boolean>(false)
@@ -57,10 +60,8 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
 
      useEffect(() => { 
       setLoad(true)
-      console.log("Load true")
       if(detail) { 
         setLoad(false)
-        console.log("Load false")
       }
      }, [detail])
 
@@ -83,22 +84,7 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                    <div className="w-full justify-start items-start"> 
                  <div className=" w-full">
                     <div className="flex 2xl:flex 2xl:flex-col items-start justify-between 2xl:justify-between text-start w-full mt-1 2xl:mt-8">                    
-                            <div className="flex flex-col items-start text-start mt-2">
-                                <p className="text-md font-medium text-white bg-blue-500 w-full text-center">Cliente</p>
-                                <p className="">{detail.name.toUpperCase()}</p>
-                            </div>
-                            <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
-                                <p className="text-md font-medium text-white bg-blue-500 w-full text-center">Dni</p>
-                                <p>{detail.dni}</p>
-                            </div>
-                            <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
-                                <p className="text-md font-medium text-white bg-blue-500 w-full text-center">Telefono</p>
-                                <p>{detail.telephone}</p>
-                            </div>
-                            <div className="flex flex-col items-start text-start mt-2 2xl:mt-3">
-                                <p className="text-md font-medium text-white bg-blue-500 w-full text-center ">Email</p>
-                                <p>{detail.email}</p>
-                            </div>   
+                        <ClientTableData client={detail}/>
                     </div>
                 </div>
 
@@ -111,7 +97,7 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                        : 
                        clientVehicles.length === 0  && showAddVehicle === false && load === false ? ( 
 
-                        <div className="flex flex-col items-center justify-center w-full">
+                        <div className="flex flex-col items-center justify-center w-full mt-12 2xl:mt-0">
                             <div className="bg-red-600 flex items-center justify-center text-center  w-full h-10 2xl:h-12 rounded-lg ">
                                <p className="font-medium text-white text-md">Este cliente no tiene vehiculos cargados</p>
                             </div>
@@ -127,7 +113,7 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
 
                     ) :  clientVehicles.length !== 0 && showAddVehicle === false && load === false ? ( 
 
-                        <ClientVehiclesData clientVehicles={clientVehicles}/>
+                         <ClientVehiclesData clientVehicles={clientVehicles}/>
 
                      ) : null
                    }

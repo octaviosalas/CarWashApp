@@ -17,6 +17,7 @@ const Token = () => {
     const [timeLeft, setTimeLeft] = useState<number>(15 * 60); 
     const [token, setToken] = useState<number | undefined>(); 
     const [load, setLoad] = useState<boolean>(false); 
+    const [tryAgain, setTryAgain] = useState<boolean>(false); 
     const navigate = useNavigate()
 
 
@@ -43,47 +44,41 @@ const Token = () => {
     }
 
     const sendToken = async () => { 
-      if(token === 0) { 
-        toast.error("El token no puede ser vacio", {
-          style: { backgroundColor: 'white', color: 'blue' },
-          pauseOnHover: false,
-          autoClose: 1500
-      });
-      } else { 
-        setLoad(true)
-        const tokenData : TokenType = ({ 
-           token: token
-        })
-         try {
-          const {data, status} = await apiBackendUrl.post("/auth/confirmAccount", tokenData);
-           
-           console.log("Response response.status:", status);
-           console.log("Response Data:", data);
-           
-           if(status === 401) { 
-             toast.error(data, {
+      try {
+        if(token === 0) { 
+            toast.error("El token no puede ser vacio", {
+              style: { backgroundColor: 'white', color: 'blue' },
+              pauseOnHover: false,
+              autoClose: 1500
+          });
+        } else { 
+          setLoad(true)
+          const tokenData : TokenType = ({ 
+            token: token
+          })
+           const {data, status} = await apiBackendUrl.post("/auth/confirmAccount", tokenData);
+           if (status === 202) { 
+            toast.error(data.error, {
                style: { backgroundColor: 'white', color: 'blue' },
                pauseOnHover: false,
-               autoClose: 1500
+               autoClose: 4500
            });
            setLoad(false)
-           console.log(status)
-           console.log(data)
-           alert("a")
+           setTryAgain(true)
            } else if (status === 200) { 
              toast.success(data, {
                style: { backgroundColor: 'white', color: 'blue' },
                pauseOnHover: false,
                autoClose: 1500
            });
-           navigate("/")
+           navigate("/login")
            setLoad(false)
            }
-         
+        }    
          } catch (error) {
           handleError(error, setLoad)
      }
-      }
+     
       
   }
 
@@ -107,6 +102,10 @@ const Token = () => {
          <div className='mt-6'>
             <Button className='bg-blue-500 text-white font-medium text-md w-72 h-12 rounded-lg' onClick={() => sendToken()}>Confirmar mi Cuenta</Button>
          </div>
+        {tryAgain ?
+         <div className='mt-6'>
+             <p className='text-smn text-blue-600 font-medium underline cursor-pointer' onClick={() => navigate("/login")}>Iniciar sesion y recibir nuevo Token</p>
+         </div> : null}
     </div>
   )
  }

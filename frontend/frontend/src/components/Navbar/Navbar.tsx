@@ -7,10 +7,11 @@ interface Props {
     showClients: ()  => void,
     showJobs: () => void,
     showServices: () => void,
-    showEstadistics: () => void
+    showEstadistics: () => void,
+    showMyAccountMenu: () => void
 }
 
-const Navbar = ({showClients, showJobs, showServices, showEstadistics}: Props) => {
+const Navbar = ({showClients, showJobs, showServices, showEstadistics, showMyAccountMenu}: Props) => {
 
     const { user, setUserAccountData } = userStore();
     const navigate = useNavigate()
@@ -35,6 +36,7 @@ const Navbar = ({showClients, showJobs, showServices, showEstadistics}: Props) =
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Dynamic Actions" >
                     <DropdownItem onClick={() => logOut()}>Cerrar Sesion</DropdownItem>
+                    <DropdownItem onClick={showMyAccountMenu}>Mi Cuenta</DropdownItem>
                 </DropdownMenu>
             </Dropdown>
                 <p className='text-white font-medium text-md'>{user?.name}</p>

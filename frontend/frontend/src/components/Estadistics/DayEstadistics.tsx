@@ -40,7 +40,6 @@ const DayEstadistics = () => {
         setLoad(true)
         try {
             const {data, status} = await apiBackendUrl.get(`/estadistics/todayEstadistics/${user?._id}/${date}`)
-            console.log(data, status)
             if(status === 200) { 
                 setJobsData(data.jobs)
                 setDayCollections(data.collectons)
@@ -65,8 +64,8 @@ const DayEstadistics = () => {
             <div className='bg-blue-500 w-full border h-12 rounded-lg flex items-center text-center justify-center'>
                  <p className='text-white font-medium text-lg '> {transformDate(date.toString())} </p>
             </div>
-            <div className='flex gap-36 items-center mt-6'>
-                <div className='flex flex-col mt-2'>
+            <div className='flex gap-36 items-center mt-2 2xl:mt-6'>
+            <div className='flex flex-col mt-2'>
                     <p className='font-medium text-blue-500 text-lg'>Lavados</p>
                     <img src={wash} className='w-16 h-16 2xl:h-24 2xl:w-24 mt-2'/>
                     <p className='mt-2 font-medium text-blue-500'>{jobsData.length}</p>
@@ -77,23 +76,19 @@ const DayEstadistics = () => {
                      <p className='mt-2 font-medium text-blue-500'>{transformPrice(amountFactured)}</p>
                 </div>
             </div>
-            <div className='w-full flex flex-col gap-6 mt-4'>
-                {jobsOrdersByTypeOfService.length > 0 ? 
-                    <div className='flex flex-col items-center justify-center ml-4 max-h-[150px] 2xl:max-h-[350px] overflow-y-auto'>
-                        <TableEstadistics data={jobsOrdersByTypeOfService}/>
-                    </div>
-                     : 
-                     <> 
-                     <div className='bg-blue-500 w-full border h-12 rounded-lg flex items-center text-center justify-center'>
-                        <p className='text-white font-medium text-lg'> Servicios </p>
-                     </div>
-                    <div className='flex items-center justify-center mt-4'>
-                      <p className='text-zinc-500'>No hay servicios utilizados en el dia de hoy</p>    
-                    </div>
-                    </>
+            <div className='w-full flex flex-col gap-6 mt-0 2xl:mt-4'>    
+
+              {jobsOrdersByTypeOfService.length > 0 ? 
+                <div className='flex flex-col  ml-4 max-h-[210px] 2xl:max-h-[350px] overflow-y-auto'>
+                  <TableEstadistics data={jobsOrdersByTypeOfService}/>
+                </div>  
+                : 
+                <div className='flex items-center justify-center '>
+                    <p className='text-zinc-500'>No hay servicios utilizados en el dia </p>    
+                </div>
                 }
-          
-            </div>
+
+        </div>
         </div>
          }
     </div>

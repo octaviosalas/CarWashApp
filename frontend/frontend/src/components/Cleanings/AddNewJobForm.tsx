@@ -3,7 +3,6 @@ import { Button, Select, SelectItem } from '@nextui-org/react'
 import { ClientType } from 'types/ClientsTypes'
 import apiBackendUrl from '../../lib/axios'
 import { ClientVehiclesType } from 'types/VehiclesTypes'
-import AddNewVehicle from '../Modals/AddNewVehicle'
 import Loading from '../Spinner/Loading'
 import { ServiceType } from 'types/ServicesTypes'
 import {Checkbox} from "@nextui-org/react";
@@ -133,15 +132,15 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
             <img src={arrowBack} className='w-6 h-6 2xl:w-6 2xl:h-6 cursor-pointer' onClick={() => goBack()}/>
           </div>
         {clients.length > 0 ?
-             <div className='flex flex-col text-start justify-start mt-4 2xl:mt-8 3xl:mt-12'>
+             <div className='flex flex-col text-start justify-start mt-4 2xl:mt-8 3xl:mt-12 ml-2'>
                 <p className='font-medium text-black text-md ml-2'>Cliente</p>
-                <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de tus clientes">
-                {clients.map((cc: ClientType) => ( 
-                    <SelectItem key={cc._id} onClick={() => findClientVehicles(cc._id, cc)}>{cc.name}</SelectItem>
-                ))}
-                </Select>
+                    <Select radius="none" color="primary" className='w-3/4 border mt-1 text-white font-medium ml-2' label="Selecciona uno de tus clientes">
+                        {clients.map((cc: ClientType) => ( 
+                            <SelectItem className='bg-blue-500 text-white font-bold' key={cc._id} onClick={() => findClientVehicles(cc._id, cc)}>{cc.name}</SelectItem>
+                        ))}
+                    </Select>
              </div> : 
-             <div className='flex flex-col text-center justify-center mt-4 2xl:mt-8 3xl:mt-12'>
+             <div className='flex flex-col text-center justify-center mt-4 2xl:mt-8 3xl:mt-12 ml-2'>
                  <p className='text-zinc-500 text-md 2xl:text-lg'>No se encuentran clientes registrados para poder guardar un nuevo lavado.</p>
                  <p className='text-zinc-500 text-md 2xl:text-lg'>Ve a la pestaña de Clientes y crea el primero.</p>
              </div>
@@ -152,17 +151,17 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
                
 
                 {load ? 
-                  <div className='mt-0 2xl:mt-2'>
+                  <div className='mt-0 2xl:mt-2 flex items-center justify-center'>
                        <Loading/>
                   </div>
                 : 
                 clientSelectedVehicles.length > 0 ? ( 
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col ml-2'>
                         <div>
                         <p className='font-medium text-black text-md ml-2'>Vehiculo</p>
-                            <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de sus vehiculos">
+                            <Select radius="none" color="primary" className='w-3/4 border mt-1 text-white font-medium ml-2' label="Selecciona uno de sus vehiculos">
                                 {clientSelectedVehicles.map((cc: ClientVehiclesType) => ( 
-                                    <SelectItem key={cc._id} onClick={() => chooseVehicle(cc)} textValue={cc.description}> {cc.description} - {cc.patent}   </SelectItem>
+                                    <SelectItem className='bg-blue-500 text-white font-bold'  key={cc._id} onClick={() => chooseVehicle(cc)} textValue={cc.description}> {cc.description} - {cc.patent}   </SelectItem>
                                 ))}
                             </Select>
                         </div> 

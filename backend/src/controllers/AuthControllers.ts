@@ -34,9 +34,6 @@ export const createNewAcount = async (req: Request, res: Response) => {
     }
 }
 
-
-
-
 export const confirmAccountWithToken = async (req: Request, res: Response) => { 
 
     const {token} = req.body
@@ -46,9 +43,10 @@ export const confirmAccountWithToken = async (req: Request, res: Response) => {
         const verifyToken = await TokenModel.findOne({token: token})
 
         if(!verifyToken) { 
-            console.log("No encontre el token")
-            const error = new Error("El Token es incorrecto o ha expirado")
-            return res.status(401).json({error: error.message})
+
+            const error = new Error("El Token es incorrecto. Intenta nuevamente. En caso de haber pasado los 15 minutos, intenta iniciar sesion nuevamente para recibir un token nuevo")
+            res.status(202).json({error: error.message})
+
         } else { 
             const getUserTokenOwner = await UserModel.findById(verifyToken.user)
             getUserTokenOwner.confirmed = true
@@ -78,7 +76,7 @@ export const login = async (req: Request, res: Response) => {
 
         } else if (user.confirmed !== true) { 
 
-          console.log("sin confirmar")
+   
           const newTokenToSend = new TokenModel
           newTokenToSend.user = user.id
           newTokenToSend.token = createSixDigitsToken()
@@ -91,7 +89,7 @@ export const login = async (req: Request, res: Response) => {
           })
 
           const error = new Error("La cuenta no ha sido confirmada, hemos enviado un nuevo email de confirmacion. Tu Token expirara en 15 minutos")
-          return res.status(200).json({error: error.message})
+          return res.status(202).json({error: error.message})
 
         } else { 
 

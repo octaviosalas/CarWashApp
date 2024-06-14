@@ -82,8 +82,8 @@ const MonthEstadistics = () => {
              <div className='bg-blue-500 w-full border h-12 rounded-lg flex items-center text-center justify-center'>
                 <p className='text-white font-medium text-lg '> {actualMonthName(actualMonthNow())} </p>
              </div>
-             <div className='flex gap-36 items-center mt-6'>
-                <div className='flex flex-col mt-2'>
+             <div className='flex gap-36 items-center mt-2 2xl:mt-6'>
+             <div className='flex flex-col mt-2'>
                     <p className='font-medium text-blue-500 text-lg'>Lavados</p>
                     <img src={wash} className='w-16 h-16 2xl:h-24 2xl:w-24 mt-2'/>
                     {quantityJobs > 0 ? <p className='mt-2 font-medium text-blue-500'>{quantityJobs}</p> : <p>No hay lavados registrados</p>}
@@ -94,16 +94,20 @@ const MonthEstadistics = () => {
                      {totalAmount > 0 ? <p className='mt-2 font-medium text-blue-500'>{transformPrice(totalAmount)}</p> :  <p>No se registraron cobros</p>}
                 </div>
             </div>
-            <div className='w-full flex flex-col gap-6 mt-4'>
-               
-            {jobsOrdersByTypeOfService.length > 0 ? 
-              <div className='flex flex-col items-center justify-center ml-4 max-h-[150px] 2xl:max-h-[350px] overflow-y-auto'>
-                <TableEstadistics data={jobsOrdersByTypeOfService}/>
-              </div>  
-               : 
-               <div className='flex items-center justify-center '>
-                  <p className='text-zinc-500'>No hay servicios utilizados en el mes actual</p>    
-               </div>}
+            <div className='w-full flex flex-col'>
+               <div className='w-full flex flex-col gap-6 mt-0 2xl:mt-4'>    
+
+              {jobsOrdersByTypeOfService.length > 0 ? 
+                <div className='flex flex-col  ml-4 max-h-[210px] 2xl:max-h-[350px] overflow-y-auto'>
+                  <TableEstadistics data={jobsOrdersByTypeOfService}/>
+                </div>  
+                : 
+                <div className='flex items-center justify-center '>
+                    <p className='text-zinc-500'>No hay servicios utilizados en el mes actual</p>    
+                </div>
+                }
+
+        </div>
             </div>
           </div>
         }

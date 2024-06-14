@@ -6,6 +6,7 @@ import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../Spinner/Loading'
+import {toast} from "react-toastify"
 
 
 interface FormType { 
@@ -33,13 +34,24 @@ const Login = () => {
         }) 
         try {
             const {data, status} = await apiBackendUrl.post(`/auth/login`, userData)
-            console.log(data)
+          
             if(status === 200) { 
                setLoad(false)
                setUserAccountData(data.userData)
                setUserServices(data.userServices)
                setUserClients(data.userClients)
                navigate("/") 
+            } else if (status === 202 ) { 
+              console.log(status, data)
+              toast.error(data.error, {
+                style: { backgroundColor: 'white', color: 'blue' },
+                pauseOnHover: false,
+                autoClose: 4500
+            });
+            setLoad(false)
+            setTimeout(() => { 
+              navigate("/token")
+            }, 1500)
             }
             
        } catch (error) {
