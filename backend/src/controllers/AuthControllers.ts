@@ -220,6 +220,31 @@ export const updateUserPassword = async (req: Request, res: Response) => {
     }
 }
 
+
+export const disableAccount = async (req: Request, res: Response) => { 
+    try {
+       
+        const {userId} = req.params
+      
+
+        const user = await UserModel.findByIdAndUpdate(userId, { 
+            confirmed: false,
+        }, { new: true });
+
+       if (!user) {
+           return res.status(404).json({ error: "Usuario no encontrado" });
+       }
+
+       res.status(200).send("Has dado de baja tu cuenta exitosamente. Esperamos volver a verte pronto!")
+        
+    } catch (error) {
+        res.status(500).json({error: "Hubo un error en la recuperacion de la cuenta"})
+
+    }
+}
+
+
+
 export const deleteUserAccount = async (req: Request, res: Response) => { 
     try {
         

@@ -35,8 +35,8 @@ const Navbar = ({showClients, showJobs, showServices, showEstadistics, showMyAcc
                     </svg>
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Dynamic Actions" >
-                    <DropdownItem onClick={() => logOut()}>Cerrar Sesion</DropdownItem>
                     <DropdownItem onClick={showMyAccountMenu}>Mi Cuenta</DropdownItem>
+                    <DropdownItem onClick={() => logOut()}>Cerrar Sesion</DropdownItem>
                 </DropdownMenu>
             </Dropdown>
                 <p className='text-white font-medium text-md'>{user?.name}</p>

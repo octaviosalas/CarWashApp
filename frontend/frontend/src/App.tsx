@@ -11,7 +11,7 @@ function App() {
 
 
   useEffect(() => {
-      document.body.style.backgroundColor = '#FFFFFF';
+      document.body.style.backgroundImage = '#FFFFFF';
   }, [location.pathname]);
   
   const {user} = userStore()

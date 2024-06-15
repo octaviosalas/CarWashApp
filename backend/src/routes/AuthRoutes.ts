@@ -2,7 +2,7 @@ import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist, validateUserNotExist, validateEmailExist, validateAccountNotExist, checkIfUserPasswordIsCorrect } from "../middlewares/AuthValidations"
-import { createNewAcount, deleteUserAccount, confirmAccountWithToken, login, lossMyPassword, findTokenToRecoverPassword, changePassowrd, updateUserData, updateUserPassword } from "../controllers/AuthControllers"
+import { createNewAcount, deleteUserAccount, confirmAccountWithToken, login, lossMyPassword, findTokenToRecoverPassword, changePassowrd, updateUserData, updateUserPassword, disableAccount } from "../controllers/AuthControllers"
 
 const router = Router()
 
@@ -99,6 +99,7 @@ router.put("/changeUserPassword",
 )
 
 router.put("/updatePassword/:userId", 
+        param("userId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),  
         body("password").notEmpty().withMessage("La contraseña es obligatoria"),
         body("newPassword").notEmpty().withMessage("La nueva contraseña es obligatoria"),
         body("confirmedPassword").notEmpty().withMessage("La confirmacion de contraseña es obligatoria"),
@@ -109,8 +110,16 @@ router.put("/updatePassword/:userId",
             return true
         }),
         handleInputErrors,
+        validateUserExist,
         checkIfUserPasswordIsCorrect,
         updateUserPassword
+)
+
+
+router.put("/disableAccount/:userId", 
+        param("userId").isMongoId().withMessage("El Id del usuario al que intentas asignar un cliente no es valido"),  
+        validateUserExist,
+        disableAccount
 )
 
 export default router

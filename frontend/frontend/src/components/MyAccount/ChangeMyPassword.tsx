@@ -77,7 +77,7 @@ const ChangeMyPassword = () => {
            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 mt-2"> Contraseña actual </label>
                 <div className="mt-1">
                     <input
-                        type="text"
+                        type="password"
                         required
                         className="block w-96 rounded-md border py-1.5 text-gray-900 shadow-sm"
                         value={password}
@@ -89,7 +89,7 @@ const ChangeMyPassword = () => {
            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 mt-2"> Nueva Contraseña </label>
                 <div className="mt-1">
                     <input
-                        type="text"
+                        type="password"
                         required
                         className="block w-96 rounded-md border py-1.5 text-gray-900 shadow-sm"
                         value={newPassword}
@@ -101,7 +101,7 @@ const ChangeMyPassword = () => {
            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 mt-2"> Repetir Nueva Contraseña </label>
                 <div className="mt-1">
                     <input
-                        type="text"
+                        type="password"
                         required
                         className="block w-96 rounded-md border py-1.5 text-gray-900 shadow-sm"
                         value={confirmedPassword}
