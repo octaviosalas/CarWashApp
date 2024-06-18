@@ -128,8 +128,8 @@ const ServiceDetail = ({serviceData, update}: Props) => {
                            </div>
                        </div>
                       ) : load === false && withOutJobs === true && viewDetail ? ( 
-                        <div className='bg-red-500 text-center justify-center w-full rounded-lg h-12 mt-6'>
-                           <p className='font-medium items-center text-center text-white mt-2'>Este servicio no ha sido utilizado en el mes actual</p>                        
+                        <div className='bg-red-500 text-center justify-center w-3/4 rounded-lg h-12 mt-6 border'>
+                           <p className='font-medium items-center text-center text-white mt-2 w-full'>Este servicio no ha sido utilizado en el mes actual</p>                        
                         </div>
                       ) : null
                      

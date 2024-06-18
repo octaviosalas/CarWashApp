@@ -18,9 +18,6 @@ interface Props {
 }
 
 const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props) => {
-
-    console.log("Cliente data", detail)
-
  
     const [load, setLoad] = useState<boolean>(false)
     const [showAddVehicle, setShowAddVehicle] = useState<boolean>(false)
@@ -58,12 +55,12 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
       setShowEditClient(false)
      }
 
-     useEffect(() => { 
-      setLoad(true)
-      if(detail) { 
-        setLoad(false)
-      }
-     }, [detail])
+      useEffect(() => { 
+        setLoad(true)
+        if(detail) { 
+          setLoad(false)
+        }
+      }, [detail])
 
 
  

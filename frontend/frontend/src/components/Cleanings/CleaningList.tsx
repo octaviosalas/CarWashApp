@@ -24,7 +24,7 @@ const CleaningList = () => {
     const [monthsJobs, setMonthsJobs] = useState<JobType[]>([])
     const [thisWeekJobs, setThisWeekJobs] = useState<JobType[]>([])
     const [userClients, setUserClients] = useState<ClientType[]>([])
-    const [loading, setLoading] = useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(false)
     const user = userStore(state => state.user)
     const [typeOfJobsSelected, setTypeOfJobsSelected] = useState<string>("")
 
@@ -73,7 +73,6 @@ const CleaningList = () => {
       setMonthsJobs(thisMonthJobs)
       setThisWeekJobs(jobsThisWeek)
       setLoading(false)
-
     };
 
     const fetchClients = async () => {
@@ -84,7 +83,7 @@ const CleaningList = () => {
     useEffect(() => {   
         fetchJobs(); 
         fetchClients(); 
-        setLoading(false)
+       
     }, []);
 
     const filterJobsByInput = (value: string) => { 

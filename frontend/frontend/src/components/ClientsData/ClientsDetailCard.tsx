@@ -14,10 +14,9 @@ interface Props {
    clientsData: ClientType[];
    update: () => void,
    filter: (value: string) => void,
-   loading: boolean
 }
 
-const ClientsDetailCard = ({clientsData, loading, update, filter}: Props) => {
+const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
 
     const [clientSelected, setClientSelected] = useState<ClientType>()
     const [showNewClient, setShowNewClient] = useState<boolean>(false)
@@ -36,7 +35,7 @@ const ClientsDetailCard = ({clientsData, loading, update, filter}: Props) => {
     }
 
     const selectClientAndGetVehicles = async  (item: ClientType) => { 
-      setLoad(true)
+       setLoad(true)
        setClientSelected(item)
        try {
             const {status, data} = await apiBackendUrl.get(`/vehicles/clientVehicles/${item?._id}/${user?._id}`)
@@ -55,10 +54,6 @@ const ClientsDetailCard = ({clientsData, loading, update, filter}: Props) => {
       filter(e.target.value); 
     };
 
-    useEffect(() => { 
-      console.log("loadinggggggg", loading)
-    }, [loading])
-
   return (
 
     <div className='flex gap-4 h-full'>
@@ -73,17 +68,10 @@ const ClientsDetailCard = ({clientsData, loading, update, filter}: Props) => {
                       value={inputValue}
                       />
                   </div>
-
-               {loading ?
-
-                 <div className='flex items-center justify-center mt-6 2xl:mt-24'>
-                    <Loading/>
-                 </div> 
-
-                 :
-                  clientsData.length === 0 && loading === false ? ( 
+           
+                 { clientsData.length === 0  ? ( 
                     <div className='flex items-center justify-center mt-6 2xl:mt-24'>
-                        <p className='text-zinc-500 text-md'>No tenes clientes registrados</p>
+                        <p className='text-zinc-500 text-md font-medium'>No tenes clientes registrados</p>
                     </div>
 
                  ) : ( 

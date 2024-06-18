@@ -30,6 +30,7 @@ const ServicesList = () => {
             }
           } catch (error) {
             console.log(error)
+            setLoad(false)
           }
       }
 
