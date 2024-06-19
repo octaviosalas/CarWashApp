@@ -7,6 +7,8 @@ import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
+import QuestionBeforeDeleteClient from './QuestionBeforeDeleteClient'
+import QuestionBeforeDelete from '../Cleanings/QuestionBeforeDelete'
 
 
 interface Props { 
@@ -50,7 +52,7 @@ const DeleteClient = ({detail, goBack, update}: Props) => {
           <p className='text-md mt-3'>Ten en cuenta que se eliminaran los lavados, vehiculos y cobros correspondientes a este cliente</p>
        </div>
        <div className='mt-4 2xl:mt-8 flex justify-center items-center gap-4 2xl:gap-8'>
-         <Button className='bg-blue-500 text-white font-medium text-sm w-1/4' onClick={() => deleteClient()}>Eliminar</Button>
+         <QuestionBeforeDeleteClient detail={detail} update={update}/>
          <Button className='bg-zinc-400 text-white font-medium text-sm w-1/4'  onClick={() => goBack()}>Cancelar</Button>
        </div>
        {load ? <div className='flex items-center justify-center mt-4 mb-2'> <Loading /> </div> : null}

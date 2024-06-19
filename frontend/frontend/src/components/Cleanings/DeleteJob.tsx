@@ -8,6 +8,8 @@ import Loading from '../Spinner/Loading'
 import axios from 'axios'
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
+import QuestionBeforeDelete from './QuestionBeforeDelete'
+
 
 interface Props { 
     detail: JobType,
@@ -67,6 +69,8 @@ const DeleteJob = ({detail, goBack, updateJobs, restart}: Props) => {
                 <div className='flex gap-6 items-center mt-6'>
                    <Button className='bg-blue-500 font-medium text-white w-56' onClick={() => deleteJob()}>Eliminar</Button>
                    <Button className='bg-gray-400 font-medium text-md w-52 text-white'  onClick={() => goBack()}>Cancelar</Button>
+                   <QuestionBeforeDelete detail={detail} update={updateJobs}/>
+                   
                </div>
                {load ? <div className='flex flex-col items-center justify-center mt-4 mb-2'> <Loading/>  </div> : null}
             </div>
