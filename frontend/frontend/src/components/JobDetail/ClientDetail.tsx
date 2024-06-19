@@ -60,8 +60,10 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
 
      useEffect(() => { 
       setLoad(true)
+      console.log("true")
       if(detail) { 
         setLoad(false)
+        console.log("false")
       }
      }, [detail])
 

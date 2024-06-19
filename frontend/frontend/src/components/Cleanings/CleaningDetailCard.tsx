@@ -27,6 +27,7 @@ interface Props {
     yesterdayJobs: JobType[];
     monthsJobs: JobType[];
     thisWeekJobs: JobType[];
+    thisYearJobs: JobType[];
     userClientsData: ClientType[];
     updateJobs: () => void;
     filter: (value: string) => void; 
@@ -34,7 +35,9 @@ interface Props {
     typeOfJobsSelected: string
 }
 
-const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, paid, every, todayJobs, yesterdayJobs, monthsJobs, thisWeekJobs, pendingCollections, changeTypeOfJob, typeOfJobsSelected, updateJobs, filter}: Props) => {
+const CleaningDetailCard = 
+   ({jobsData, userClientsData, finished, inProcess, paid, every, todayJobs, 
+    yesterdayJobs, monthsJobs, thisWeekJobs, thisYearJobs, pendingCollections, changeTypeOfJob, typeOfJobsSelected, updateJobs, filter}: Props) => {
 
     const [jobSelected, setJobSelected] = useState<JobType | undefined>()
     const [showNewJob, setShowNewJob] = useState<boolean>(false)
@@ -93,7 +96,7 @@ const CleaningDetailCard = ({jobsData, userClientsData, finished, inProcess, pai
                         <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "yesterday" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(yesterdayJobs, "yesterday")}>Solo Ayer</p>
                         <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisMonth" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(monthsJobs, "thisMonth")}>Este Mes</p>
                         <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisWeek" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(thisWeekJobs, "thisWeek")}>Esta Semana</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "paid" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(paid, "paid")}>Este Año</p>
+                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisYear" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(thisYearJobs, "thisYear")}>Este Año</p>
                     </div> 
                     : 
                     <div className='flex w-full justify-start items-center gap-4 2xl:gap-12 mt-4 ml-1'>

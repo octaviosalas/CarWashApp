@@ -46,9 +46,9 @@ const MyAccountCard = () => {
                {
                  showChangeData ? <ChangeMyData/> 
                  : showChangePassword ? ( 
-                    <ChangeMyPassword/>
+                    <ChangeMyPassword goBack={changeData}/>
                  ) : showDeleteAccount ? ( 
-                      <DeleteAccount/>
+                      <DeleteAccount goBack={changeData}/>
                  ) : null
                }
            </div>

@@ -13,12 +13,17 @@ interface ColumnsTypes {
     label: string
 }
 
+interface tableDataType {
+    ClientType: ClientType;
+    [key: string]: any;
+
+  }
+
 const ClientTableData = ({client}: Props) => {
 
 
-    const [tableData, setTableData] = useState<ClientType>();
+    const [tableData, setTableData] = useState<tableDataType>();
     const [columns, setColumns] = useState<ColumnsTypes[]>([]);
-    const [selectionBehavior, setSelectionBehavior] = React.useState<string>("toggle");
     const [showTable, setShowTable] = useState<boolean>(false);
 
 
@@ -74,7 +79,7 @@ const ClientTableData = ({client}: Props) => {
                     columnAutoWidth={true} 
                     columnSpacing={10}  
                     aria-label="Selection behavior table example with dynamic content"   
-                    selectionBehavior={selectionBehavior} 
+                
                     className="w-full mt-2  max-h-[350px] 2xl:max-h-[600px] h-auto text-center shadow-left-right shadow-lg shadow-top shadow-left-right overflow-y-auto  rounded-xl "
                   >
                     <TableHeader columns={columns}>
@@ -87,7 +92,7 @@ const ClientTableData = ({client}: Props) => {
                         <TableRow key={item?._id}>
                         {columns.map((column) => (
                          <TableCell key={column.key} className='text-left text-sm 2xl:text-md'>
-                            {column.key === "facturacion"? transformPrice(item[column.key]) : item[column.key]}
+                            {item[column.key]}
                        </TableCell>
                          ))}
                        </TableRow>

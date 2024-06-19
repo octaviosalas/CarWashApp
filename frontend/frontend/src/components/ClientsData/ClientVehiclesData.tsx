@@ -36,7 +36,6 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
                 const sortedData = data.sort((a: JobType, b: JobType) => new Date(b.date).getTime() - new Date(a.date).getTime());
                 const lastWash = sortedData[0]
                 setLastWashed(lastWash); 
-                console.log("lastWash", lastWash);
                 setLoad(false)
                 setViewLastWashed(true)
             } else if (status === 200 && data === undefined) { 

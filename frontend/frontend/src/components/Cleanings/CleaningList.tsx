@@ -21,6 +21,7 @@ const CleaningList = () => {
     const [pendingJobs, setPendingJobs] = useState<JobType[]>([])
     const [todayJobs, setTodayJobs] = useState<JobType[]>([])
     const [yesterdayJobs, setYesterdayJobs] = useState<JobType[]>([])
+    const [yearJobs, setYearJobs] = useState<JobType[]>([])
     const [monthsJobs, setMonthsJobs] = useState<JobType[]>([])
     const [thisWeekJobs, setThisWeekJobs] = useState<JobType[]>([])
     const [userClients, setUserClients] = useState<ClientType[]>([])
@@ -37,14 +38,17 @@ const CleaningList = () => {
       const paidJobsCollections = jobs.filter((job) => job.paid === true)
       const jobsFinished = jobs.filter((job) => job.status === "completed")
       const jobsInProcess = jobs.filter((job) => job.status === "pending")
+
       const jobsToday = jobs.filter((job) => {
         const jobDate = new Date(job.date);
         return jobDate.toDateString() === date.toDateString();
       });  
+
       const jobsYesterday = jobs.filter((job) => {
         const jobDate = new Date(job.date);
         return jobDate.toDateString() === yesterday.toDateString();
       });  
+
       const thisMonthJobs = jobs.filter((job) => { 
         const date = new Date(job.date);
         const actualYear = new Date().getFullYear();
@@ -64,6 +68,12 @@ const CleaningList = () => {
             return jobDate >= firstDayOfWeek && jobDate <= lastDayOfWeek;
         });
 
+        const jobsThisYear = jobs.filter((job) => {
+          const jobDate = new Date(job.date);
+          const currentYear = new Date().getFullYear();
+          return jobDate.getFullYear() === currentYear;
+        });
+
       setPendingCollections(pendingJobsCollections)
       setPaidJobs(paidJobsCollections)
       setFinishedJobs(jobsFinished)
@@ -72,6 +82,7 @@ const CleaningList = () => {
       setYesterdayJobs(jobsYesterday)
       setMonthsJobs(thisMonthJobs)
       setThisWeekJobs(jobsThisWeek)
+      setYearJobs(jobsThisYear)
       setLoading(false)
 
     };
@@ -122,10 +133,12 @@ const CleaningList = () => {
 
           <CleaningDetailCard  
             filter={filterJobsByInput} inProcess={pendingJobs} 
-            finished={finishedJobs}  jobsData={everyJobsList} pendingCollections={pendingCollections}  
-            paid={paidJobs} every={originalEveryJobsList} todayJobs={todayJobs} yesterdayJobs={yesterdayJobs} 
-            monthsJobs={monthsJobs} thisWeekJobs={thisWeekJobs} userClientsData={userClients} updateJobs={fetchJobs} 
-            changeTypeOfJob={changeTypeOfJob} typeOfJobsSelected={typeOfJobsSelected}/>}
+            finished={finishedJobs}  jobsData={everyJobsList} 
+            pendingCollections={pendingCollections}  paid={paidJobs} 
+            every={originalEveryJobsList} todayJobs={todayJobs} 
+            yesterdayJobs={yesterdayJobs}  monthsJobs={monthsJobs} thisYearJobs={yearJobs}
+            thisWeekJobs={thisWeekJobs} userClientsData={userClients} 
+            updateJobs={fetchJobs}  changeTypeOfJob={changeTypeOfJob} typeOfJobsSelected={typeOfJobsSelected}/>}
 
     </div>
   )

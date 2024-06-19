@@ -83,7 +83,7 @@ const DayEstadistics = () => {
                   <TableEstadistics data={jobsOrdersByTypeOfService}/>
                 </div>  
                 : 
-                <div className='flex items-center justify-center '>
+                <div className='flex items-center justify-center mt-12 2xl:mt-24 '>
                     <p className='text-zinc-500'>No hay servicios utilizados en el dia </p>    
                 </div>
                 }

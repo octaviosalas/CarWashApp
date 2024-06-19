@@ -14,7 +14,11 @@ interface NewPasswordType {
   confirmedPassword: string
 }
 
-const ChangeMyPassword = () => {
+interface Props { 
+  goBack: () => void
+}
+
+const ChangeMyPassword = ({goBack}: Props) => {
 
   const [load, setLoad] = useState<boolean>(false)
   const [password, setPassword] = useState<string>("")
@@ -111,7 +115,7 @@ const ChangeMyPassword = () => {
        </div>
        <div className='mt-6 flex gap-6 w-full  items-start justify-start'>
           <Button className="bg-blue-500 text-white text-md w-96" onClick={() => sendDataAndChangePassword()}>Confirmar</Button>
-          <Button className="bg-gray-300 text-white text-md w-96" onClick={() => cancel()}>Cancelar</Button>
+          <Button className="bg-gray-300 text-white text-md w-96" onClick={() => goBack()}>Cancelar</Button>
        </div>
 
        {load ? <div className='flex items-center justify-center mt-12'> <Loading /> </div>: null}

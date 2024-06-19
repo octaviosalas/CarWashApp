@@ -36,7 +36,7 @@ const ClientsDetailCard = ({clientsData, loading, update, filter}: Props) => {
     }
 
     const selectClientAndGetVehicles = async  (item: ClientType) => { 
-      setLoad(true)
+       setLoad(true)
        setClientSelected(item)
        try {
             const {status, data} = await apiBackendUrl.get(`/vehicles/clientVehicles/${item?._id}/${user?._id}`)
@@ -55,9 +55,7 @@ const ClientsDetailCard = ({clientsData, loading, update, filter}: Props) => {
       filter(e.target.value); 
     };
 
-    useEffect(() => { 
-      console.log("loadinggggggg", loading)
-    }, [loading])
+
 
   return (
 

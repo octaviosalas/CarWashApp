@@ -28,7 +28,8 @@ interface ColumnsTypes {
 interface tableDataType { 
    cantidad: number,
    servicio: string,
-   facturacion: number
+   facturacion: number,
+   [key: string]: any;
 }
 
 const TableEstadistics = ({data}: Props) => {
@@ -101,7 +102,7 @@ const TableEstadistics = ({data}: Props) => {
                         <TableRow key={item.servicio}>
                         {columns.map((column) => (
                             <TableCell key={column.key} className='text-left text-sm 2xl:text-md'>
-                              {item[column.key] as string}
+                               {column.key === "facturacion"? transformPrice(item[column.key]) : item[column.key]}
                             </TableCell>
                         ))}
                        </TableRow>
