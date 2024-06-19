@@ -10,7 +10,7 @@ const ClientsList = () => {
 
     const [myClients, setMyClients] = useState<ClientType[]>([])
     const [originalClients, setOriginalClients] = useState<ClientType[]>([])
-    const [loading, setLoading] = useState<boolean>(true)
+    const [loading, setLoading] = useState<boolean>(false)
     const user = userStore(state => state.user)
 
     const fetchClients = async () => {
@@ -18,14 +18,11 @@ const ClientsList = () => {
       const clients : ClientType[] = await getMyClients(user?._id);
       setMyClients(clients); 
       setOriginalClients(clients)
-      setTimeout(() => { 
-        setLoading(false)
-      }, 4000)
+      setLoading(false)
     };
 
     useEffect(() => {
         fetchClients(); 
-        setLoading(false)
     }, []);
 
     const filterClientsByInput = (value: string) => { 
@@ -43,7 +40,12 @@ const ClientsList = () => {
 
   return (
     <div className='h-full'>
-       <ClientsDetailCard loading={loading} clientsData={myClients} update={fetchClients} filter={filterClientsByInput}/>
+       {loading ? 
+          <div className='flex flex-col items-center justify-center mt-24 2xl:mt-40'> 
+              <Loading/> 
+          </div> :
+        <ClientsDetailCard  clientsData={myClients} update={fetchClients} filter={filterClientsByInput}/>
+      }
     </div>
   )
 }

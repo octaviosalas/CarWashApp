@@ -148,13 +148,20 @@ const Register = () => {
               </div>
             </div>
 
-            <div className='mt-6'>
+            <div className='flex flex-col items-center justify-centermt-6'>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={() => createAccount()}
               >
                 Crear Cuenta
+              </button>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm mt-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={() => navigate("/login")}
+                >
+                Ya tengo cuenta
               </button>
             </div>
  
