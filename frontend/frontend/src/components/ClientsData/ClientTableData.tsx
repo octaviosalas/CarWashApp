@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Table,TableHeader,TableColumn,TableBody,TableRow,TableCell} from "@nextui-org/react";
-import transformPrice from '../../functions/TransformDateHour/TransformPrice';
 import { ClientType } from 'types/ClientsTypes';
+import Loading from '../Spinner/Loading'
 
 interface Props { 
     client: ClientType
@@ -16,8 +16,7 @@ interface ColumnsTypes {
 interface tableDataType {
     ClientType: ClientType;
     [key: string]: any;
-
-  }
+}
 
 const ClientTableData = ({client}: Props) => {
 

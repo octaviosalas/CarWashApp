@@ -38,15 +38,19 @@ export const createNewAcount = async (req: Request, res: Response) => {
 export const confirmAccountWithToken = async (req: Request, res: Response) => { 
 
     const {token} = req.body
+    console.log("Token recibido", token)
+    console.log("typeOfToken", typeof(token))
     console.log(token)
 
     try {
         const verifyToken = await TokenModel.findOne({token: token})
+        console.log("Token encontrado", verifyToken)
 
         if(!verifyToken) { 
-
+ 
             const error = new Error("El Token es incorrecto. Intenta nuevamente. En caso de haber pasado los 15 minutos, intenta iniciar sesion nuevamente para recibir un token nuevo")
             res.status(202).json({error: error.message})
+            console.log("Token NO encontrado")
 
         } else { 
             const getUserTokenOwner = await UserModel.findById(verifyToken.user)

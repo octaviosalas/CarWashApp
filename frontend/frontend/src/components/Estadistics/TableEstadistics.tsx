@@ -74,7 +74,7 @@ const TableEstadistics = ({data}: Props) => {
       } else {
           setShowTable(false);
       }
-  }, [tableData, columns]);
+   }, [tableData, columns]);
 
 
     useEffect(() => { 

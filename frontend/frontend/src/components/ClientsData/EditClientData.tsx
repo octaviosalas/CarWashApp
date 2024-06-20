@@ -82,14 +82,14 @@ const EditClientData = ({detail, goBack, update}: Props) => {
                 <div className='flex items-center mt-6 gap-24'>
                      <div className='flex flex-col justify-start text-start items-start'>
                         <p className='text-sm text-black font-medium'>Nombre y Apellido</p>
-                        <input type="text" name="price" id="price" className=" mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                        <input type="text" name="price" id="price" className=" mt-1s w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                          value={name} 
                          onChange={handleChangeName}
                         />
                      </div>
                      <div className='flex flex-col justify-start text-start items-start'>
                         <p className='text-sm text-black font-medium'>Dni</p>
-                        <input type="number" name="price" id="price" className="block mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none " 
+                        <input type="number" name="price" id="price" className="block mt-1s  w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none " 
                         value={dni}
                         onChange={handleChangeDni}
                         />
@@ -99,14 +99,14 @@ const EditClientData = ({detail, goBack, update}: Props) => {
                  <div className='flex items-center mt-3 2xl:mt-6 gap-24'>
                      <div className='flex flex-col justify-start text-start items-start'>
                         <p className='text-sm text-black font-medium'>Email</p>
-                        <input type="text" name="price" id="price" className="block mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none "
+                        <input type="text" name="price" id="price" className="block mt-1s  w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none "
                         value={email}
                         onChange={handleChangeEmail}
                         />
                      </div>
                      <div className='flex flex-col justify-start text-start items-start'>
                         <p className='text-sm text-black font-medium'>Telefono</p>
-                        <input type="number" name="price" id="price" className="block mt-1s w-40 xl:w-52 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none "
+                        <input type="number" name="price" id="price" className="block mt-1s  w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none "
                         value={telephone}
                         onChange={handleChangeTelephone}
                          />

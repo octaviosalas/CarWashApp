@@ -9,7 +9,7 @@ export interface TokenType extends Document {
 
 const TokenSchema: Schema = new Schema ({ 
    token: { 
-    type: String,
+    type: Number,
     required: true,
    },
    user: { 

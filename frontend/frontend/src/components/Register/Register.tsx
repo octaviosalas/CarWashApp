@@ -60,22 +60,20 @@ const Register = () => {
 
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-2 2xl:py-6 lg:px-8 mt-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-32 w-32 2xl:h-64 2xl:w-96"
-            src="https://i.pinimg.com/originals/ab/61/85/ab618567515f75d1b5ffb840e48b5862.png"
-            alt="Your Company"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+               <img className="mx-auto h-12 w-32 lg:w-96 lg:h-28 2xl:h-64 2xl:w-96" src="https://i.pinimg.com/originals/ab/61/85/ab618567515f75d1b5ffb840e48b5862.png" alt="Your Company" />
+             </div>
+          <h2 className="mt-6 2xl:mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Crear Usuario
           </h2>
         </div>
 
-        <div className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
  
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 mt-2">
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900 mt-0 2xl:mt-2">
                 Nombre
               </label>
               <div className="mt-1">
@@ -94,7 +92,7 @@ const Register = () => {
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email 
               </label>
-              <div className="mt-2">
+              <div className="mt-1">
                 <input
                   type="text"
                   required
@@ -113,7 +111,7 @@ const Register = () => {
                 </label>
                
               </div>
-              <div className="mt-2">
+              <div className="mt-1">
                 <input
                   id="password"
                   name="password"
@@ -134,7 +132,7 @@ const Register = () => {
                 </label>
                
               </div>
-              <div className="mt-2">
+              <div className="mt-1">
                 <input
                   id="password"
                   name="password"
@@ -148,7 +146,8 @@ const Register = () => {
               </div>
             </div>
 
-            <div className='flex flex-col items-center justify-centermt-6'>
+          {!load ?  
+           <div className='flex flex-col items-center justify-center mt-2 2xl:mt-6'>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -163,9 +162,13 @@ const Register = () => {
                 >
                 Ya tengo cuenta
               </button>
+            </div> 
+            : 
+            <div className='flex justify-center items-center mt-2'>
+              <Loading />
             </div>
+            }
  
-          {load ? <div className='flex items-center justify-center mt-4'> <Loading/> </div> : null}
 
         </div>
     </div>

@@ -114,11 +114,12 @@ const EditJobForm = ({detail, clients, goBack, updateJobs}: Props) => {
 
         <div className='flex flex-col justify-start text-start items-start mt-4'>
             <p className='text-sm text-black font-medium'>Cliente</p>
-            <Select className='w-3/4 rounded-xl border border-blue-600 mt-1' label="Selecciona uno de tus clientes" defaultSelectedKeys={[clientName]}>
+            <Select radius="none" color="primary" className='w-3/4  mt-1 text-white font-medium' label="Selecciona uno de tus clientes" defaultSelectedKeys={[clientName]}>
                {clients.map((cc: ClientType) => ( 
-                 <SelectItem key={cc.name}onClick={() => findClientVehicles(cc._id)}>{cc.name}</SelectItem>
+                 <SelectItem className='bg-blue-500 text-white font-medium' key={cc.name}onClick={() => findClientVehicles(cc._id)}>{cc.name}</SelectItem>
                ))}
              </Select>
+             
         </div>
 
          {loadVehicles ? 

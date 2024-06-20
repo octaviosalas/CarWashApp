@@ -91,11 +91,11 @@ const JobDetail = ({ detail, clients, updateJobs, restart }: Props) => {
                                 : <p className="bg-blue-500 text-white font-medium text-center text-md w-52">Abonado</p>}
                             </div>
                             <div className="flex flex-col items-start text-start mt-2">
-                                <p className="text-md font-medium text-black">Cliente</p>
+                                <p className="text-md font-medium text-black underline">Cliente</p>
                                 <p className="">{detail.client.name.toUpperCase()}</p>
                             </div>
                             <div className="flex flex-col items-start text-start mt-3">
-                                <p className="text-md font-medium text-black">{detail.vehicle.typeOfVehicle}</p>
+                                <p className="text-md font-medium text-black underline">{detail.vehicle.typeOfVehicle}</p>
                                 <p>{detail.vehicle.description}</p>
                             </div>
                             <div className="flex flex-col items-start text-start mt-3">

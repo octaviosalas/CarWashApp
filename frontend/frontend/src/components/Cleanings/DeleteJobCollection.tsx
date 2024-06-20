@@ -9,7 +9,7 @@ import { CollectionsType } from 'types/CollectionsType'
 import handleError from '../../utils/AxiosErrorFragment'
 import transformPrice from '../../functions/TransformDateHour/TransformPrice'
 import formatDate from '../../functions/TransformDateHour/TransformDate'
-
+import CollectionDetailTableData from "./CollectionDetailTableData"
 
 
 
@@ -59,7 +59,6 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
         setLoad(true)
         try {
             const {data, status} = await apiBackendUrl.get(`/jobs/jobCollection/${detail._id}/${user?._id}`)
-            console.log(status, data)
             if(status === 200) { 
                 setCollectionData(data)
                 setLoad(false)
@@ -70,8 +69,6 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
         }
     }
 
-    
-
   return (
     <div className='w-full '>
         <div className='flex flex-col items-center justify-center w-full '>
@@ -80,20 +77,17 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
              </div>
              <div className='flex items-center justify-center gap-8 mt-4'>
                  <Button className='bg-blue-500 text-white text-md font-medium w-52' onClick={() => deleteCollection()}>Eliminar cobro</Button>
-                 <Button className='bg-blue-500 text-white text-md font-medium w-52' onClick={() => viewCollectionData()}>Ver cobro</Button>
+                 {!showCollectionData ? 
+                  <Button className='bg-blue-500 text-white text-md font-medium w-52' onClick={() => viewCollectionData()}>Ver cobro</Button> : 
+                  <Button className='bg-blue-500 text-white text-md font-medium w-52' onClick={() => setShowCollectionData(false)}>Ocultar Cobro</Button>}
              </div>
              {load ? <div className='flex mt-4 items-center justify-center'> <Loading/> </div> : null}
-
             
              {showCollectionData && load === false ? 
              <div className='flex w-full  flex-col justify-center items-center mt-6'>
-                 <div className='w-full bg-blue-500 text-white font-medium h-12 mt-6 rounded-lg'>
-                      <p className='mt-3'>Detalle del cobro</p>
-                 </div>
-                 <div className='flex flex-col justify-start items-start mt-2'>
-                    <p><span className='font-medium'>Monto: </span>{transformPrice(collectionData?.amount)}</p>
-                    <p><span className='font-medium'>Fecha: </span>{formatDate(collectionData?.date)}</p>
-                    <p><span className='font-medium'>Forma de Pago: </span>{collectionData?.paymentMethod}</p>
+                
+                 <div className='flex flex-col justify-start items-start mt-2 w-full'>
+                   <CollectionDetailTableData detail={collectionData}/>
                  </div>
              </div> : null}
 

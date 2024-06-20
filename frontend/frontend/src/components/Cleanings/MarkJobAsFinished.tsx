@@ -135,10 +135,10 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
                 </div> 
             </div>
         ) : ( 
-            <div className='w-full'>
+            <div className='w-full flex flex-col items-center jusitfy-center'>
             <div className="flex flex-col items-center justify-center w-full"> 
                 <div className='flex flex-col items-center justify-center bg-red-500 w-full h-12 rounded-lg'>
-                    <p className='font-medium text-white text-md'>El lavado ya se encuentra finalizado y el cliente fue notificado por correo electronico</p>
+                    <p className='font-medium text-white text-md'>El lavado se encuentra finalizado y el cliente fue notificado por correo electronico</p>
                 </div>
                 <div className='flex items-center gap-4 mt-6'>
                     <Button className='bg-gray-400 text-white font-medium text-sm w-52' onClick={() => goBack()}>Volver</Button>

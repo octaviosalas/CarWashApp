@@ -49,7 +49,6 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
             const {data} = await apiBackendUrl.get(`/clients/clientData/${clientId}/${user?._id}`) 
             const response = data.clientVehicles
             const userServices = data.services
-            console.log("userservices", userServices)
             if(response) { 
                 setClientSelectedVehicles(response)
                 setUserServices(userServices)
@@ -58,7 +57,6 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
                 console.log("sin response")
                 setLoad(false)
             }
-            console.log("Vehiclos del cliente", response)
         } catch (error) {
             console.log(error)
         }

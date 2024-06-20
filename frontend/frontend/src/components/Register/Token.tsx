@@ -44,8 +44,9 @@ const Token = () => {
     }
 
     const sendToken = async () => { 
+      console.log(typeof token)
       try {
-        if(token === 0) { 
+        if(token === undefined ) { 
             toast.error("El token no puede ser vacio", {
               style: { backgroundColor: 'white', color: 'blue' },
               pauseOnHover: false,
@@ -84,7 +85,7 @@ const Token = () => {
 
 
   return (
-    <div className='flex flex-col items-center justify-center mt-64 w-full'>
+    <div className='flex flex-col items-center justify-center mt-24 2xl:mt-36 w-full'>
          <div>
             <img
                 className="mx-auto h-36 w-96"
