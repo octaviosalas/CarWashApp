@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@nextui-org/react';
 import apiBackendUrl from '../../lib/axios';
 import {toast} from "react-toastify"
-import axios from 'axios';
-import { errorRegisterMissedDataType } from 'types/UserTypes'
 import { useNavigate } from 'react-router-dom';
-import Loading from '../Spinner/Loading';
 import handleError from '../../utils/AxiosErrorFragment';
 
 interface TokenType  { 

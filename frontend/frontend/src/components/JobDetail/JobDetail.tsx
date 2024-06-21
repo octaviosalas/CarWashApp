@@ -1,7 +1,7 @@
 import transformPrice from "../../functions/TransformDateHour/TransformPrice";
 import { JobType } from "types/JobsTypes"
 import NavItemActions from "../NavItemActions/NavItemActions";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { ServiceType } from "types/ServicesTypes";
 import formatDate from "../../functions/TransformDateHour/TransformDate";
 import formatHourToText from "../../functions/TransformDateHour/TransformHour";

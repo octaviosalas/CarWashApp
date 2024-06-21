@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import MainApp from './components/Main/MainApp';
 import { useEffect } from 'react';
 import Register from './components/Register/Register';

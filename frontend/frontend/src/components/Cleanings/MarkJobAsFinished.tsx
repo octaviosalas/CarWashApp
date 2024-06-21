@@ -1,5 +1,5 @@
 import { Button } from '@nextui-org/react'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { JobType } from 'types/JobsTypes'
 import apiBackendUrl from '../../lib/axios'
 import axios from 'axios'

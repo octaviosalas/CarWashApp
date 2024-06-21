@@ -7,8 +7,6 @@ import Loading from '../Spinner/Loading'
 import { userStore } from '../../store/store'
 import { CollectionsType } from 'types/CollectionsType'
 import handleError from '../../utils/AxiosErrorFragment'
-import transformPrice from '../../functions/TransformDateHour/TransformPrice'
-import formatDate from '../../functions/TransformDateHour/TransformDate'
 import CollectionDetailTableData from "./CollectionDetailTableData"
 
 

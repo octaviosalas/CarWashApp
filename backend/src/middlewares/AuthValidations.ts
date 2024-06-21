@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction } from "express"
-import mongoose from "mongoose"
 import UserModel from "../models/User"
 import { comprarePassword } from "../utils/HashPassword"
 

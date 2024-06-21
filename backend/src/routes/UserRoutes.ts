@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {body, param} from "express-validator"
+import { param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
 import { getUserClients, getMyBilling, getMonthlyJobs, getDayJobs,  getEveryJobs} from "../controllers/UserControllers"

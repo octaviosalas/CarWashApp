@@ -9,7 +9,6 @@ import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import {ClientType } from 'types/ClientsTypes'
 import { newClientVehicleType } from 'types/VehiclesTypes'
-import axios from 'axios'
 import arrow from "../../images/arrowBack.png"
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'

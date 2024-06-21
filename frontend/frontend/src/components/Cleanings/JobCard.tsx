@@ -1,4 +1,3 @@
-import React from 'react'
 import { JobType } from 'types/JobsTypes'
 import car from "../../images/car.png"
 import moto from "../../images/moto.png"

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express"
-import ServicesModel, {ServicesType} from "../models/Services"
+import ServicesModel from "../models/Services"
 
 export const validateServiceNotExist = async (req: Request, res: Response, next: NextFunction) => { 
      

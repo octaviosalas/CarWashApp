@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import VehicleModel from "../models/Vehicles";
 import ClientModel from "../models/Clients";
-import UserModel from "../models/User";
 import CollectionModel from "../models/Collections";
 import JobsModel from "../models/Jobs";
 

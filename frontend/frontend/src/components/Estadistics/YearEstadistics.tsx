@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import  {useEffect, useState} from 'react'
 import apiBackendUrl from '../../lib/axios'
 import { userStore } from '../../store/store'
 import Loading from '../Spinner/Loading'
@@ -8,7 +8,6 @@ import { JobType } from 'types/JobsTypes';
 import axios from 'axios'
 import {toast} from "react-toastify"
 import { getCurrentYear } from '../../functions/TransformDateHour/HourAndDate';
-import services from "../../images/servicess.jpg"
 import wash from "../../images/wash.png"
 import money from "../../images/money.png"
 import TableEstadistics from './TableEstadistics';

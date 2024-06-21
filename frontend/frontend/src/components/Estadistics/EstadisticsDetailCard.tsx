@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { Button } from '@nextui-org/react'
+import  { useState } from 'react'
 import Loading from '../Spinner/Loading'
 import DayEstadistics from './DayEstadistics'
 import MonthEstadistics from './MonthEstadistics'

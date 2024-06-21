@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { JobType } from 'types/JobsTypes'
 import arrowBack from "../../images/arrowBack.png"
 import { Button } from '@nextui-org/react'
 import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
-import axios from 'axios'
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
 import QuestionBeforeDelete from './QuestionBeforeDelete'

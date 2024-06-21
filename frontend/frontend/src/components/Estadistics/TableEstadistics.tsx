@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import  { useEffect, useState, useRef } from 'react'
 import {Table,TableHeader,TableColumn,TableBody,TableRow,TableCell} from "@nextui-org/react";
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
 

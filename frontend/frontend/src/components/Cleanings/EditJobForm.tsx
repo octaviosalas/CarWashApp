@@ -1,14 +1,13 @@
 import { JobType } from 'types/JobsTypes'
 import { ClientType } from 'types/ClientsTypes'
 import arrowBack from "../../images/arrowBack.png"
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { userStore } from '../../store/store'
 import { Button, Select, SelectItem } from '@nextui-org/react'
 import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
 import { ClientVehiclesType } from 'types/VehiclesTypes'
-import axios from 'axios'
 import handleError from '../../utils/AxiosErrorFragment'
 
 interface Props { 

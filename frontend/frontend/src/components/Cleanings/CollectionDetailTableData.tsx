@@ -1,4 +1,3 @@
-import React from 'react'
 import {useEffect, useState } from 'react'
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/react";
 import { CollectionsType } from '../../types/CollectionsType'

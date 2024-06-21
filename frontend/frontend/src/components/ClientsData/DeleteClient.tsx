@@ -8,7 +8,6 @@ import Loading from '../Spinner/Loading'
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
 import QuestionBeforeDeleteClient from './QuestionBeforeDeleteClient'
-import QuestionBeforeDelete from '../Cleanings/QuestionBeforeDelete'
 
 
 interface Props { 

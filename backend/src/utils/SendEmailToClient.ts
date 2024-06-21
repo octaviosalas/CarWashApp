@@ -1,4 +1,4 @@
-import { EmailType, NewEmailType } from "../models/Emails";
+import {  NewEmailType } from "../models/Emails";
 import EmailModel from "../models/Emails";
 import nodemailer from "nodemailer"
 

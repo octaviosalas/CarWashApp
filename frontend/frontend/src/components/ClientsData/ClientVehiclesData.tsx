@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { ClientVehiclesType } from 'types/VehiclesTypes'
 import carBlack from "../../images/carBlack.png"
 import camioneta from "../../images/camioneta.png"

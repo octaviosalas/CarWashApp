@@ -1,7 +1,5 @@
-import React from 'react'
 import Loading from "../Spinner/Loading";
 import { useState } from 'react'
-import { useEffect } from 'react'
 import EstadisticsDetailCard from './EstadisticsDetailCard';
 
 

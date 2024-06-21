@@ -1,11 +1,6 @@
 import { Button } from '@nextui-org/react'
-import apiBackendUrl from '../../lib/axios'
 import { useState } from 'react'
-import { userStore } from '../../store/store'
-import handleError from '../../utils/AxiosErrorFragment'
 import Loading from '../Spinner/Loading'
-import { useNavigate } from 'react-router-dom'
-import {toast} from "react-toastify"
 import QuestionBeforeDelente from './QuestionBeforeDelete'
 
 interface Props { 

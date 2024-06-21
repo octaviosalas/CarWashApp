@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import apiBackendUrl from "../../lib/axios";
 import {toast} from "react-toastify"
 import alertIcon from "../../images/alertIcon.png"
+import Loading from "../Spinner/Loading";
 
 const QuestionBeforeDelente = () =>  {
   const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
@@ -26,6 +27,7 @@ const QuestionBeforeDelente = () =>  {
       });
       navigate("/login")
       setLoad(false)
+      onClose()
       }
     } catch (error) {
       handleError(error, setLoad)
@@ -54,7 +56,8 @@ const QuestionBeforeDelente = () =>  {
                     <Button className="bg-red-500 text-white font-medium text-md w-72" onClick={() => disableMyAccount()}>Dar de baja mi cuenta</Button>            
                     <Button className="bg-gray-300 text-white font-medium text-md w-72" onClick={onClose}>Cancelar</Button>
                 </div>
-              </ModalBody>           
+              </ModalBody>       
+              {load ? <div className="flex items-center justify-center mt-4 mb-2"> <Loading/> </div> : null}    
             </>
           )}
         </ModalContent>

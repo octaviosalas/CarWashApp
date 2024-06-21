@@ -1,13 +1,5 @@
 import { JobType } from 'types/JobsTypes'
-import formatDate from '../../functions/TransformDateHour/TransformDate';
-import formatHourToText from '../../functions/TransformDateHour/TransformHour';
-import car from "../../images/car.png"
-import moto from "../../images/moto.png"
-import camioneta from "../../images/camioneta.png"
-import email from "../../images/email.png"
-import notified from "../../images/notified.png"
 import fil from "../../images/fil.png"
-import transformPrice from '../../functions/TransformDateHour/TransformPrice';
 import JobDetail from '../JobDetail/JobDetail';
 import { useState } from 'react';
 import AddNewJobButton from './AddNewJobButton';

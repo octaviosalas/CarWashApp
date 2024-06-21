@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import { Button, Select, SelectItem } from '@nextui-org/react'
 import { ClientType } from 'types/ClientsTypes'
 import apiBackendUrl from '../../lib/axios'

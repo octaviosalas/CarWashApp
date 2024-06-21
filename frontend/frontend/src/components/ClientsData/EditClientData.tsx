@@ -6,7 +6,6 @@ import arrow from "../../images/arrowBack.png"
 import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import Loading from '../Spinner/Loading'
-import axios from 'axios'
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
 

@@ -1,5 +1,3 @@
-import finallyJobFlag from "../../images/finallyJobFlag.png"
-import payJob from "../../images/payJob.png"
 import deleteJob from "../../images/deleteJob.png"
 import editjob from "../../images/editJob.png"
 import plus from "../../images/plus.png"

@@ -1,4 +1,3 @@
-import Navbar from '../Navbar/Navbar'
 import CleaningList from '../Cleanings/CleaningList'
 import { userStore } from '../../store/store'
 

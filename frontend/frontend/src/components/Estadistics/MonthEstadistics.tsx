@@ -1,5 +1,5 @@
 import apiBackendUrl from '../../lib/axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Loading from '../Spinner/Loading';
 import { actualMonthName, actualMonthNow } from '../../functions/TransformDateHour/HourAndDate';
 import wash from "../../images/wash.png"

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import {Table,TableHeader,TableColumn,TableBody,TableRow,TableCell} from "@nextui-org/react";
 import { ClientType } from 'types/ClientsTypes';
-import Loading from '../Spinner/Loading'
 
 interface Props { 
     client: ClientType

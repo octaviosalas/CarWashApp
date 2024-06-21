@@ -4,7 +4,6 @@ import { Button } from '@nextui-org/react'
 import motorBike from "../../images/motorBike.png"
 import carBlack from "../../images/carBlack.png"
 import camioneta from "../../images/camioneta.png"
-import Loading from '../Spinner/Loading'
 import apiBackendUrl from '../../lib/axios'
 import {toast} from "react-toastify"
 import { newClientType } from 'types/ClientsTypes'

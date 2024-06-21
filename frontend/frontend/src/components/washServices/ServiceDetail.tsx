@@ -1,5 +1,5 @@
 import NavbarServices from '../NavItemActions/NavbarServices'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ServiceType } from 'types/ServicesTypes'
 import EditService from './EditService'
 import DeleteService from './DeleteService'

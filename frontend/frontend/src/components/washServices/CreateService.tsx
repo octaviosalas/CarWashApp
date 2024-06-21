@@ -1,10 +1,9 @@
 import { Button, Input, Spinner } from '@nextui-org/react'
 import apiBackendUrl from '../../lib/axios'
-import React, { ChangeEventHandler } from 'react'
+import React from 'react'
 import { useState } from 'react'
 import { newServiceType } from 'types/ServicesTypes'
 import axios from 'axios'
-import Loading from '../Spinner/Loading'
 import { userStore } from '../../store/store'
 
 interface Props { 

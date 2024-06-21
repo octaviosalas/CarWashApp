@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import apiBackendUrl from "../../lib/axios"
 import { ServiceType } from "types/ServicesTypes";

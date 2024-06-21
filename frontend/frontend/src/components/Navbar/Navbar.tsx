@@ -1,6 +1,5 @@
-import Services from '../washServices/Services'
 import { useNavigate } from 'react-router-dom';
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
 import { userStore } from '../../store/store';
 
 interface Props { 

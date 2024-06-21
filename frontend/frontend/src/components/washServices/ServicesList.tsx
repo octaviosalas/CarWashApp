@@ -1,4 +1,3 @@
-import React from 'react'
 import apiBackendUrl from "../../lib/axios"
 import { ServiceType } from "types/ServicesTypes";
 import Loading from "../Spinner/Loading";
@@ -12,7 +11,6 @@ const ServicesList = () => {
     const [withOutServices, setWithOutServices] = useState<boolean>(false)
     const [services, setServices] = useState<ServiceType[]>([])
     const [load, setLoad] = useState<boolean>(false)
-    const [showCreateNew, setShowCreateNew] = useState<boolean>(false)
     const user = userStore(state => state.user)
 
     const getMyServices = async () => {

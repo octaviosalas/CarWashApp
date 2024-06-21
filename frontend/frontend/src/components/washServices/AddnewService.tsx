@@ -3,7 +3,6 @@ import { Button } from '@nextui-org/react'
 import apiBackendUrl from '../../lib/axios'
 import { useState } from 'react'
 import { newServiceType } from 'types/ServicesTypes'
-import axios from 'axios'
 import Loading from '../Spinner/Loading'
 import {toast} from "react-toastify"
 import { userStore } from '../../store/store'

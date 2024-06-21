@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ServiceType } from 'types/ServicesTypes'
 import Loading from '../Spinner/Loading'
 import { Button } from '@nextui-org/react'

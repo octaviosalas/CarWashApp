@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getDate } from '../../functions/TransformDateHour/HourAndDate'
 import apiBackendUrl from '../../lib/axios'
 import { JobType } from 'types/JobsTypes'

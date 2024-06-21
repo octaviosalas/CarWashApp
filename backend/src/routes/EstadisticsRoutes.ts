@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {body, param} from "express-validator"
+import { param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist, validateUserAccountIsConfirmed } from "../middlewares/AuthValidations"
 import {getDayEstadistic, getMonthEstadistic, getYearEstadistic} from "../controllers/EstadisticsControllers"

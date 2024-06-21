@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Button, Select, SelectItem } from '@nextui-org/react'
 import arrowBack from "../../images/arrowBack.png"
 import transformPrice from '../../functions/TransformDateHour/TransformPrice'

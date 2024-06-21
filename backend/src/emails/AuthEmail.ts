@@ -1,4 +1,3 @@
-import { transporter } from "../config/nodemailer";
 import nodemailer from "nodemailer"
 
 type Props = { 
