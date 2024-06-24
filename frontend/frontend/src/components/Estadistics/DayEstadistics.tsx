@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { getDate } from '../../functions/TransformDateHour/HourAndDate'
 import apiBackendUrl from '../../lib/axios'
 import { JobType } from 'types/JobsTypes'
-import { CollectionsType } from 'types/CollectionsType'
 import Loading from '../Spinner/Loading'
 import transformPrice from "../../functions/TransformDateHour/TransformPrice"
 import transformDate from "../../functions/TransformDateHour/TransformDate"
@@ -28,12 +27,13 @@ interface agroupType {
 const DayEstadistics = () => {
 
     const user = userStore(state => state.user)
-    const [date, setDate] = useState<Date>(getDate())
+    const date = getDate()
+
     const [load, setLoad] = useState<boolean>(false)
     const [jobsData, setJobsData] = useState<JobType[]>([])
-    const [dayCollections, setDayCollections] = useState<CollectionsType[] | []>([])
     const [amountFactured, setAmountFactured] = useState<number>(0)
     const [jobsOrdersByTypeOfService, setJobsOrdersByTypeOfService] = useState<ServicesArray[]>([])
+
 
 
     const geDayData = async () => { 
@@ -42,7 +42,6 @@ const DayEstadistics = () => {
             const {data, status} = await apiBackendUrl.get(`/estadistics/todayEstadistics/${user?._id}/${date}`)
             if(status === 200) { 
                 setJobsData(data.jobs)
-                setDayCollections(data.collectons)
                 setAmountFactured(data.amount)
                 setJobsOrdersByTypeOfService(data.orderByServices)
             }

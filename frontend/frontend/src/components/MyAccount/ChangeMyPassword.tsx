@@ -39,11 +39,7 @@ const ChangeMyPassword = ({goBack}: Props) => {
     setConfirmedPassword(e.target.value)
   }
 
-  const cancel = () => { 
-    setPassword("")
-    setConfirmedPassword("")
-    setNewPassword("")
-  }
+
 
   const sendDataAndChangePassword = async () => { 
       setLoad(true)

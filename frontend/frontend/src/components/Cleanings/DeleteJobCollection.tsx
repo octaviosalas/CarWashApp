@@ -23,7 +23,6 @@ const DeleteJobCollection = ({detail, updateJobs, goBack, restart}: Props) => {
 
   
     const [load, setLoad] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>("")
     const [collectionData, setCollectionData] = useState<CollectionsType | undefined>()
     const [showCollectionData, setShowCollectionData] = useState<boolean>(false)
     const user = userStore(state => state.user)

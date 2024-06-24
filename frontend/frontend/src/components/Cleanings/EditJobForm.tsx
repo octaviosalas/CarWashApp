@@ -27,15 +27,15 @@ type newJobData = {
 const EditJobForm = ({detail, clients, goBack, updateJobs}: Props) => {
 
   const [amount, setAmount] = useState<number>(detail.amount)
-  const [clientName, setClientName] = useState<string>(detail.client.name)
   const [clientId, setClientId] = useState<string>(detail.client._id)
   const [clientSelectedVehicles, setClientSelectedVehicles] = useState<ClientVehiclesType[]>([])
   const [load, setLoad] = useState<boolean>(false)
   const [loadVehicles, setLoadVehicles] = useState<boolean>(false)
   const [clientWithOutVehicles, setClientWithOutVehicles] = useState<boolean>(false)
   const user = userStore(state => state.user)
-  const [vehicleSelected, setVehicleSelected] = useState<string>(detail.vehicle._id);
   const [newVehicleSelected, setNewVehicleSelected] = useState<string>("");
+
+  const clientName : string = detail.client.name
 
 
   const handleChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => { 

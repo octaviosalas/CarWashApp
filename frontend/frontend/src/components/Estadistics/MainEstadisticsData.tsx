@@ -1,4 +1,3 @@
-import React from 'react'
 import EstadisticsList from './EstadisticsList'
 
 const MainEstadisticsData = () => {

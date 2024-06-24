@@ -7,8 +7,6 @@ import money from "../../images/money.png"
 import axios from 'axios';
 import {toast} from "react-toastify"
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
-import { CollectionsType } from 'types/CollectionsType';
-import { JobType } from 'types/JobsTypes';
 import { userStore } from '../../store/store';
 import TableEstadistics from './TableEstadistics';
 
@@ -31,8 +29,6 @@ const MonthEstadistics = () => {
 
   const user = userStore(state => state.user)
   const [load, setLoad] = useState<boolean>(false)
-  const [everyJobs, setEveryJobs] = useState<JobType[] | []>()
-  const [everyCollections, setEveryCollections] = useState<CollectionsType[] | []>()
   const [totalAmount, setTotalAmount] = useState<number>(0)
   const [quantityJobs, setQuantityJobs] = useState<number>(0)
   const [jobsOrdersByTypeOfService, setJobsOrdersByTypeOfService] = useState<ServicesArray[]>([])
@@ -42,9 +38,7 @@ const MonthEstadistics = () => {
      setLoad(true)
       try {
         const {status, data} = await apiBackendUrl.get(`/estadistics/monthEstadistics/${user?._id}`)
-          if(status === 200) { 
-            setEveryCollections(data.collections)
-            setEveryJobs(data.jobs)
+          if(status === 200) {          
             setTotalAmount(data.totalAmount)
             setQuantityJobs(data.quantityJobs)
             setJobsOrdersByTypeOfService(data.jobsOrderByType)

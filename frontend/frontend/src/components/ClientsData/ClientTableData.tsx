@@ -8,19 +8,15 @@ interface Props {
 
 interface ColumnsTypes { 
     allowsSorting: boolean,
-    key: string,
+    key: keyof ClientType;
     label: string
 }
 
-interface tableDataType {
-    ClientType: ClientType;
-    [key: string]: any;
-}
 
 const ClientTableData = ({client}: Props) => {
 
 
-    const [tableData, setTableData] = useState<tableDataType>();
+    const [tableData, setTableData] = useState<ClientType | undefined>(undefined);
     const [columns, setColumns] = useState<ColumnsTypes[]>([]);
     const [showTable, setShowTable] = useState<boolean>(false);
 
@@ -28,7 +24,7 @@ const ClientTableData = ({client}: Props) => {
         const createTable = async (client: ClientType) => { 
         try {
             setTableData(client)
-                const propiedades = Object.keys(client).filter(propiedad =>  propiedad !== '_id' && propiedad !== '__v' && propiedad !== "clientOf");
+                const propiedades = Object.keys(client).filter(propiedad =>  propiedad !== '_id' && propiedad !== '__v' && propiedad !== "clientOf")as (keyof ClientType)[];
                 const columnObjects = propiedades.map(propiedad => ({
                     key: propiedad,
                     label: propiedad.charAt(0).toUpperCase() + propiedad.slice(1),
@@ -73,29 +69,26 @@ const ClientTableData = ({client}: Props) => {
    
     <div className='w-full flex items-center justify-center mt-2'>
           {showTable  ? 
-               <Table 
-                    columnAutoWidth={true} 
-                    columnSpacing={10}  
-                    aria-label="Selection behavior table example with dynamic content"   
-                
+               <Table    
+                    aria-label="Selection behavior table example with dynamic content"                  
                     className="w-full mt-2  max-h-[350px] 2xl:max-h-[600px] h-auto text-center shadow-left-right shadow-lg shadow-top shadow-left-right overflow-y-auto  rounded-xl "
-                  >
+                >
                     <TableHeader columns={columns}>
                         {(column) => (
                             <TableColumn key={column.key} className="text-left bg-blue-500 text-white text-sm 2xl:text-md h-10"> {column.label}  </TableColumn>
                         )}
                     </TableHeader>
-                    <TableBody items={[tableData]}>
-                      {(item) => (
-                        <TableRow key={item?._id}>
-                        {columns.map((column) => (
-                         <TableCell key={column.key} className='text-left text-sm 2xl:text-md'>
-                            {item[column.key]}
-                       </TableCell>
-                         ))}
-                       </TableRow>
-                      )}
-                        </TableBody> 
+                    <TableBody items={tableData ? [tableData] : []}>
+                            {(item) => (
+                            <TableRow key={item?._id}>
+                                {columns.map((column) => (
+                                <TableCell key={column.key} className='text-left text-sm 2xl:text-md'>
+                                     {item ? item[column.key] as string : ''}
+                             </TableCell>
+                            ))}
+                         </TableRow>
+                        )}
+                    </TableBody>
                   </Table> : <p>Sin datos para mostrar</p>}
          </div>
     </>

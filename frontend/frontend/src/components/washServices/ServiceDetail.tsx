@@ -21,7 +21,6 @@ const ServiceDetail = ({serviceData, update}: Props) => {
       const [showEditService, setShowEditService] = useState<boolean>(false)
       const [showDeleteService, setShowDeleteService] = useState<boolean>(false)
       const [load, setLoad] = useState<boolean>(false)
-      const [detail, setDetail] = useState<ServiceType[]>([])
       const [total, setTotal] = useState<number>()
       const [quantity, setQuantity] = useState<number>()
       const [withOutJobs, setWithOutJobs] = useState<boolean>(false)
@@ -54,7 +53,6 @@ const ServiceDetail = ({serviceData, update}: Props) => {
               if(status === 200 && data.detail.length > 0) { 
                 console.log(data)
                 setWithOutJobs(false)
-                setDetail(data.detail)
                 setTotal(data.totalAmount)
                 setQuantity(data.totalJobs)
                 setLoad(false)

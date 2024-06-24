@@ -4,6 +4,7 @@ import apiBackendUrl from '../../lib/axios';
 import {toast} from "react-toastify"
 import { useNavigate } from 'react-router-dom';
 import handleError from '../../utils/AxiosErrorFragment';
+import Loading from '../Spinner/Loading';
 
 interface TokenType  { 
    token: number | undefined
@@ -41,7 +42,7 @@ const Token = () => {
     }
 
     const sendToken = async () => { 
-      console.log(typeof token)
+      setLoad(true)
       try {
         if(token === undefined ) { 
             toast.error("El token no puede ser vacio", {
@@ -49,8 +50,8 @@ const Token = () => {
               pauseOnHover: false,
               autoClose: 1500
           });
+          setLoad(false)
         } else { 
-          setLoad(true)
           const tokenData : TokenType = ({ 
             token: token
           })
@@ -100,6 +101,9 @@ const Token = () => {
          <div className='mt-6'>
             <Button className='bg-blue-500 text-white font-medium text-md w-72 h-12 rounded-lg' onClick={() => sendToken()}>Confirmar mi Cuenta</Button>
          </div>
+
+         {load ? <Loading /> : null}
+         
         {tryAgain ?
          <div className='mt-6'>
              <p className='text-smn text-blue-600 font-medium underline cursor-pointer' onClick={() => navigate("/login")}>Iniciar sesion y recibir nuevo Token</p>

@@ -58,11 +58,14 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
         }
     }
 
-    useEffect(() => { 
+    useEffect(() => {
+        setLoad(true) 
        if(patente.length === 0 || description.length === 0 || typeOfVehicle.length === 0) { 
         setShowVehicleData(false)
+        setLoad(false) 
        } else { 
         setShowVehicleData(true)
+        setLoad(false) 
        }
     }, [patente, description, typeOfVehicle])
 
@@ -98,12 +101,6 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
         }
     }
 
- 
-
- 
-
-
-
   return (
     <div className='ml-4 border-t mt-2 2xl:mt-6'>
         <div className='flex justify-start items-start mt-2'>
@@ -135,7 +132,7 @@ const AddNewClientFormVehicle = ({newClientData, comeBack, update, clean}: Props
                 </select>
             </div>
         </div>
-        {showVehicleData ?
+        {showVehicleData && !load ?
          <div className='flex justify-start items-start mt-6 gap-2'>
             <div>
                 {typeOfVehicle === "Auto" ? 

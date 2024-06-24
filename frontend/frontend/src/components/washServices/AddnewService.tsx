@@ -17,9 +17,6 @@ const AddnewService = ({update, goBack}: Props) => {
 
     const [service, setService] = useState<string>("")
     const [price, setPrice] = useState<number>(0)
-    const [succesMessage, setSuccesMessage] = useState<boolean>(false)
-    const [badMessage, setBadMessage] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>("")
     const [load, setLoad] = useState<boolean>(false)
     const user = userStore(state => state.user)
 
@@ -89,23 +86,9 @@ const AddnewService = ({update, goBack}: Props) => {
           <Button className="bg-gray-400 text-white font-medium text-sm w-96 h-10" onClick={() => goBack()}>Cancelar</Button>
        </div>
 
-        {load ? <div className='flex items-center justify-center mt-4 mb-2'> <Loading/> </div>: null}
+        {load ? <div className='w-full flex items-center justify-center mt-6 2xl:mt-12 mb-2 '> <Loading/> </div>: null}
 
-        {badMessage ? 
-            <div className='mt-6 mb-2 flex items-center justify-center'>
-                <p className='text-white bg-red-500 w-full text-center font-medium text-md'>{message}</p>
-            </div>
-            :
-            null
-        }
-
-        {succesMessage ? 
-            <div className='mt-6 mb-2 flex items-center justify-center'>
-                <p className='text-white bg-blue-500 w-full text-center font-medium text-md'>{message}</p>
-            </div>
-            :
-            null
-        }
+       
 
     </div>
     </div>

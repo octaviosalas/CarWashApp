@@ -33,10 +33,9 @@ const MarkJobAsFinished = ({detail, goBack, updateJobs, restart}: Props) => {
     const [load, setLoad] = useState<boolean>(false)
     const [badMessage, setBadMessage] = useState(false)
     const [message, setMessage] = useState<string>("")
-    const [date, setDate] = useState(getDate())
-    const user = userStore(state => state.user)
 
-    console.log(detail)
+    const user = userStore(state => state.user)
+    const date = getDate()
 
 
     const jobFinished = async () => { 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {ClientType} from "../../types/ClientsTypes"
 import ClientDetail from '../JobDetail/ClientDetail';
 import wsp from "../../images/whatsapp.png"
@@ -94,16 +94,25 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
                    ))}
               </div>
                  )
-                 }
+                }
 
               </div> : <Loading/>}
            
 
            <div className='w-4/5  h-full'>
-               {showNewClient ? 
+               {showNewClient ? ( 
                 <AddNewClientForm update={update} goBack={goBack}/>
-                :
-                <ClientDetail detail={clientSelected} clientVehicles={clientVehicles} update={update} updateVehicles={selectClientAndGetVehicles}/>}
+               ) : load === true && !showNewClient  ? ( 
+                 <div className='flex items-center justify-center mt-24 2xl:mt-48'>
+                    <Loading/>
+                 </div> 
+               ) : ( 
+              <ClientDetail detail={clientSelected} clientVehicles={clientVehicles} update={update} updateVehicles={selectClientAndGetVehicles}/>
+               )
+               }
+                
+                
+                
            </div>
     </div>
    

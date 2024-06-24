@@ -11,8 +11,7 @@ import { getDate, getYesterdayDate } from '../../functions/TransformDateHour/Hou
 
 const CleaningList = () => {
 
-    const [date, setDate] = useState<Date>(getDate())
-    const [yesterday, setYesterday] = useState<Date>(getYesterdayDate())
+ 
     const [everyJobsList, setEveryJobsList] = useState<JobType[]>([])
     const [originalEveryJobsList, setOriginalEveryJobsList] = useState<JobType[]>([])
     const [pendingCollections, setPendingCollections] = useState<JobType[]>([])
@@ -28,6 +27,9 @@ const CleaningList = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const user = userStore(state => state.user)
     const [typeOfJobsSelected, setTypeOfJobsSelected] = useState<string>("")
+
+    const date = getDate()
+    const yesterday = getYesterdayDate()
 
     const fetchJobs = async () => {
       setLoading(true)

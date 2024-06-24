@@ -1,12 +1,6 @@
 import { Button } from '@nextui-org/react'
-import { useState} from 'react'
 import { ClientType } from 'types/ClientsTypes'
 import arrow from "../../images/arrowBack.png"
-import apiBackendUrl from '../../lib/axios'
-import {toast} from "react-toastify"
-import Loading from '../Spinner/Loading'
-import { userStore } from '../../store/store'
-import handleError from '../../utils/AxiosErrorFragment'
 import QuestionBeforeDeleteClient from './QuestionBeforeDeleteClient'
 
 
@@ -18,28 +12,10 @@ interface Props {
 
 const DeleteClient = ({detail, goBack, update}: Props) => {
 
-    const [load, setLoad] = useState<boolean>(false)
-    const user = userStore(state => state.user)
+ 
+   
 
-    const deleteClient = async () => { 
-        setLoad(true)
-        try {
-            const {data, status} = await apiBackendUrl.delete(`/clients/deleteClient/${detail?._id}/${user?._id}`)
-            if(status === 200) { 
-                setLoad(false)
-                toast.success(data, {
-                    style: { backgroundColor: 'white', color: 'blue' },
-                    pauseOnHover: false,
-                    autoClose: 1500
-                });
-                update()
-                goBack()
-            }
-        } catch (error) {
-            console.log(error)
-           handleError(error, setLoad)
-        }
-    }
+   
 
   return (
     <div>
@@ -54,7 +30,7 @@ const DeleteClient = ({detail, goBack, update}: Props) => {
          <QuestionBeforeDeleteClient detail={detail} update={update}/>
          <Button className='bg-zinc-400 text-white font-medium text-sm w-1/4'  onClick={() => goBack()}>Cancelar</Button>
        </div>
-       {load ? <div className='flex items-center justify-center mt-4 mb-2'> <Loading /> </div> : null}
+      
     </div>
   )
 }

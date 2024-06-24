@@ -15,10 +15,8 @@ const ServicesDetailCard = ({servicesData, update}: Props) => {
 
     const [serviceSelected, setServiceSelected] = useState<ServiceType>()
     const [showNewService, setShowNewService] = useState<boolean>(false)
-    const [showServiceDetail, setShowServiceDetail] = useState<boolean>(false)
 
     const selectServiceAndShowData = (item: ServiceType) => { 
-        setShowServiceDetail(true)
         setServiceSelected(item)
     }
 

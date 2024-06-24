@@ -1,4 +1,4 @@
-import  { useEffect, useState, useRef } from 'react'
+import  { useEffect, useState } from 'react'
 import {Table,TableHeader,TableColumn,TableBody,TableRow,TableCell} from "@nextui-org/react";
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
 
@@ -38,7 +38,7 @@ const TableEstadistics = ({data}: Props) => {
     const [tableData, setTableData] = useState<tableDataType[]>([]);
     const [columns, setColumns] = useState<ColumnsTypes[]>([]);
     const [showTable, setShowTable] = useState<boolean>(false);
-    const tableRef = useRef(null);
+
 
 
     const createTable = async () => { 
@@ -87,8 +87,6 @@ const TableEstadistics = ({data}: Props) => {
     <div className='w-full flex items-center justify-center mt-2'>
           {showTable ? 
                <Table 
-                    columnAutoWidth={true} 
-                    columnSpacing={10}  
                     aria-label="Selection behavior table example with dynamic content"   
                     className="w-full mt-2  max-h-[350px] 2xl:max-h-[600px] h-auto text-center shadow-left-right shadow-lg shadow-top shadow-left-right overflow-y-auto  rounded-xl "
                   >

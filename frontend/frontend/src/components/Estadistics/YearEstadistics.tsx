@@ -3,8 +3,6 @@ import apiBackendUrl from '../../lib/axios'
 import { userStore } from '../../store/store'
 import Loading from '../Spinner/Loading'
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
-import { CollectionsType } from 'types/CollectionsType';
-import { JobType } from 'types/JobsTypes';
 import axios from 'axios'
 import {toast} from "react-toastify"
 import { getCurrentYear } from '../../functions/TransformDateHour/HourAndDate';
@@ -29,9 +27,7 @@ type ServicesArray = {
 const YearEstadistics = () => {
 
      const {user} = userStore()
-     const [load, setLoad] = useState<boolean>(false)
-     const [everyJobs, setEveryJobs] = useState<JobType[] | []>()
-     const [everyCollections, setEveryCollections] = useState<CollectionsType[] | []>()
+     const [load, setLoad] = useState<boolean>(false)   
      const [totalAmount, setTotalAmount] = useState<number>(0)
      const [quantityJobs, setQuantityJobs] = useState<number>(0)
      const [jobsOrdersByTypeOfService, setJobsOrdersByTypeOfService] = useState<ServicesArray[]>([])
@@ -44,8 +40,6 @@ const YearEstadistics = () => {
           const {status, data} = await apiBackendUrl.get(`/estadistics/yearEstadistics/${user?._id}`)
           console.log("estadisticas status, data:", status, data)
             if(status === 200) { 
-              setEveryCollections(data.collections)
-              setEveryJobs(data.jobs)
               setTotalAmount(data.totalAmount)
               setQuantityJobs(data.quantityJobs)
               setJobsOrdersByTypeOfService(data.jobsOrderByType)

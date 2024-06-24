@@ -1,9 +1,8 @@
 import CleaningList from '../Cleanings/CleaningList'
-import { userStore } from '../../store/store'
 
 const MainCleaningData = () => {
 
-  const user = userStore(state => state.user)
+ 
 
   return (
     <div>

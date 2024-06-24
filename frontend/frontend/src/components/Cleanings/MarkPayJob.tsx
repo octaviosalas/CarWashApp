@@ -43,11 +43,10 @@ const MarkPayJob = ({goBack, updateJobs, detail, restart}: Props) => {
     const [loadLink, setLoadLink] = useState(false)
     const [showManualPayment, setShowManualPayment] = useState(false)
     const [showLinkPayment, setShowLinkPayment] = useState(false)
-    const [badMessage, setBadMessage] = useState(false)
-    const [message, setMessage] = useState<string>("")
-    const [date, setDate] = useState(getDate())
     const [preferenceId, setPreferenceId] = useState<string>("")
+
     const user = userStore(state => state.user)
+    const date = getDate()
 
     const showManual = () => { 
         setShowManualPayment(true)
@@ -67,7 +66,7 @@ const MarkPayJob = ({goBack, updateJobs, detail, restart}: Props) => {
             price: detail.amount
         })
         try {
-            const response = await axios.post(`http://localhost:4000/create_preference/${detail?._id}/${user._id}`, data)
+            const response = await axios.post(`http://localhost:4000/create_preference/${detail?._id}/${user?._id}`, data)
             const {id} = response.data
             return id
         } catch (error) {
@@ -173,9 +172,6 @@ const MarkPayJob = ({goBack, updateJobs, detail, restart}: Props) => {
           </div>
         }
           
-        
-
-           {badMessage ? <div className='mt-4 flex items-center justify-center'> <p className='text-white bg-red-600 text-center'>{message}</p> </div> : null}
     </div>
   )
 }

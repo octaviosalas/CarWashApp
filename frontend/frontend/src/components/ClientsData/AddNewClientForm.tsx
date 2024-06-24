@@ -22,7 +22,6 @@ const AddNewClientForm = ({update, goBack}: Props) => {
     const [email, setEmail] = useState<string>("")
     const [telephone, setTelephone] = useState<number>()
     const [load, setLoad] = useState<boolean>(false)
-    const [missedClientData, setMissedClientData] = useState<boolean>(false)
     const [addVehicleStep, setAddVehicleStep] = useState<boolean>(false)
     const user = userStore(state => state.user)
 
@@ -51,10 +50,7 @@ const AddNewClientForm = ({update, goBack}: Props) => {
     const addVehicle = () => {
         if(name.length > 0 &&  dni!== undefined  && email.length > 0 && telephone!== undefined) { 
             setAddVehicleStep(true)
-            setMissedClientData(false)
-            
         } else { 
-            setMissedClientData(true)
             setAddVehicleStep(false)
             toast.error("Debes completar todos los campos", {
                 style: { backgroundColor: 'white', color: 'red' },

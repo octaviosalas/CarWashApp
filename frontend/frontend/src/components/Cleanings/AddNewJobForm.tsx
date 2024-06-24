@@ -29,22 +29,20 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
     const [clientSelectedVehicles, setClientSelectedVehicles] = useState<ClientVehiclesType[]>([])
     const [userServices, setUserServices] = useState<ServiceType[]>([])
     const [vehicleSelected, setVehicleSelected] = useState<ClientVehiclesType>();
-    const [vehicleSelectedName, setVehicleSelectedName] = useState<string>("");
     const [load, setLoad] = useState<boolean>(false);
     const [servicesSelected, setServicesSelected] = useState<ServiceType[]>([]);
-    const [date, setDate] = useState<Date>(getDate())
-    const [hour, setHour] = useState<string>(getHour().toString())
     const [loading, setLoading] = useState<boolean>(false)
     const [showAddVehicle, setShowAddVehicle] = useState<boolean>(false)
 
 
     const user = userStore(state => state.user)
+    const date = getDate()
+    const hour = getHour().toString()
 
     const findClientVehicles = async (clientId: string, cc: ClientType) => { 
         setLoad(true)
         setClientSelected(clientId)
         setClientSelectedData(cc)
-        console.log("SOY EL CC", cc)
         try {
             const {data} = await apiBackendUrl.get(`/clients/clientData/${clientId}/${user?._id}`) 
             const response = data.clientVehicles
@@ -64,7 +62,6 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
 
     const chooseVehicle = async (vehicle: ClientVehiclesType) => { 
         setVehicleSelected(vehicle)
-        setVehicleSelectedName(vehicle.description)
     }
 
     const addService = (item: ServiceType) => {

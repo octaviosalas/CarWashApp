@@ -8,7 +8,7 @@ import { userStore } from '../../store/store';
 
 const ServicesList = () => {
 
-    const [withOutServices, setWithOutServices] = useState<boolean>(false)
+   
     const [services, setServices] = useState<ServiceType[]>([])
     const [load, setLoad] = useState<boolean>(false)
     const user = userStore(state => state.user)
@@ -20,10 +20,8 @@ const ServicesList = () => {
             const response = data
             if(response.length > 0) { 
               setServices(response)
-              setWithOutServices(false)
               setLoad(false)
             } else { 
-              setWithOutServices(true)
               setLoad(false)
             }
           } catch (error) {

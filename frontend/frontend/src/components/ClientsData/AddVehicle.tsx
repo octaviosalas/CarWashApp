@@ -17,7 +17,7 @@ interface Props {
     cancel: () => void,
     detail: ClientType | undefined,
     update: () => void,
-    updateVehicles: (item: ClientType) => Promise<void>;
+    updateVehicles?: (item: ClientType) => Promise<void>;
     showArrow: string
 }
 
@@ -69,7 +69,7 @@ const AddVehicle = ({cancel, detail, update, updateVehicles, showArrow}: Props) 
                     autoClose: 1500
                 });
                 update()
-                if(detail !== undefined) { 
+                if(detail !== undefined && updateVehicles) { 
                     updateVehicles(detail)
                 }
                 cancel()

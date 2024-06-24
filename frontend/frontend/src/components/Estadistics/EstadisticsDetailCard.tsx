@@ -1,5 +1,4 @@
 import  { useState } from 'react'
-import Loading from '../Spinner/Loading'
 import DayEstadistics from './DayEstadistics'
 import MonthEstadistics from './MonthEstadistics'
 import YearEstadistics from './YearEstadistics'
@@ -7,7 +6,7 @@ import YearEstadistics from './YearEstadistics'
 const EstadisticsDetailCard = () => {
 
  
-    const [showData, setShowData] = useState(true)
+
     const [showDayEstadistic, setShowDayEstadistic] = useState(false)
     const [showMonthEstadistic, setShowMonthEstadistic] = useState(false)
     const [showYearEstadistic, setShowYearEstadistic] = useState(false)
@@ -36,7 +35,7 @@ const EstadisticsDetailCard = () => {
 
   return (
     <div className='flex gap-4 h-full w-full'>
-    {showData ? 
+   
         <div className='flex flex-col w-1/5 '>
             
              <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[725px] overflow-y-auto w-full'>  
@@ -56,7 +55,7 @@ const EstadisticsDetailCard = () => {
                              </div>           
                      </div>  
              </div>
-       </div> : <Loading/>}
+       </div> 
 
        <div className='w-4/5 h-full flex flex-col items-center justify-center'>
 

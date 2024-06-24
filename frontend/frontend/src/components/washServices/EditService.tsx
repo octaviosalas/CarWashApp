@@ -3,9 +3,10 @@ import React, {useState} from 'react'
 import { ServiceType } from 'types/ServicesTypes'
 import arrow from "../../images/arrowBack.png"
 import apiBackendUrl from '../../lib/axios'
-import axios from 'axios'
 import {toast} from "react-toastify"
 import { userStore } from '../../store/store'
+import handleError from '../../utils/AxiosErrorFragment'
+import Loading from '../Spinner/Loading'
 
 interface Props { 
     detail: ServiceType | undefined,
@@ -37,12 +38,14 @@ const EditService = ({detail, goBack, update}: Props) => {
     }
 
     const editServiceData = async () => { 
+        setLoad(true)
         if(name.length === 0 || price <= 0) { 
             toast.error("Debes completar todos los campos", {
                 style: { backgroundColor: 'white', color: 'blue' },
                 pauseOnHover: false,
                 autoClose: 1500
             });
+            setLoad(false)
         } else { 
             setLoad(true)
             const newDataService : newServiceData = ({
@@ -62,19 +65,7 @@ const EditService = ({detail, goBack, update}: Props) => {
                     goBack()
                 }
             } catch (error) {
-                if (axios.isAxiosError(error)) {
-                    if (error.response) {
-                        toast.error(error.response.data, {
-                            style: { backgroundColor: 'white', color: 'red' },
-                            pauseOnHover: false,
-                            autoClose: 2500
-                        });
-                    setLoad(false)
-                } else {
-                    console.log('Unexpected error:', error);
-                    setLoad(false)
-                }
-              }
+               handleError(error, setLoad)
             }
         }
     }
@@ -105,6 +96,7 @@ const EditService = ({detail, goBack, update}: Props) => {
            <Button className= "bg-blue-500 text-white font-medium tex-md w-96" onClick={() => editServiceData()}>Guardar Cambios</Button>
            <Button className= "bg-gray-400 text-white font-medium tex-md w-96">Cancelar</Button>
         </div>
+        {load ? <div className='flex items-center justify-center mt-6 2xl:mt-12'> <Loading/> </div> : null}
     </div>
   )
 }

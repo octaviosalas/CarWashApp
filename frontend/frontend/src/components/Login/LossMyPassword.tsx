@@ -4,7 +4,7 @@ import apiBackendUrl from "../../lib/axios";
 import handleError from "../../utils/AxiosErrorFragment";
 import Loading from "../Spinner/Loading";
 import { toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
+
 
 interface EmailType { 
     email: string
@@ -22,7 +22,7 @@ interface NewUserDataType {
 
 const LossMyPassword = () => {
 
-  const navigate = useNavigate()
+  
   const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
   const [showTokendInput, setShowTokenInput] = useState<boolean>(false)
   const [showChangePassowrdInputs, setShowChangePassowrdInputs] = useState<boolean>(false)
@@ -32,7 +32,7 @@ const LossMyPassword = () => {
   const [succesMessage, setSuccesMessage] = useState<boolean>(false)
   const [newPassword, setNewPassword] = useState<string>("")
   const [confirmedPassword, setConfirmedPassword] = useState<string>("")
-  const [processFinished, setProcessFinished] = useState<boolean>(false)
+
 
 
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => { 
@@ -112,7 +112,6 @@ const LossMyPassword = () => {
         console.log("data", data)
         console.log("status", status)
         if(status === 200) { 
-          setProcessFinished(true)
           toast.success(data, {
             style: { backgroundColor: 'white', color: 'red' },
             pauseOnHover: false,

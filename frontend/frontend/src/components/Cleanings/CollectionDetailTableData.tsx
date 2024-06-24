@@ -6,7 +6,7 @@ import formatDate from '../../functions/TransformDateHour/TransformDate';
 
 interface ColumnsTypes { 
     allowsSorting: boolean,
-    key: string,
+    key: keyof CollectionsType,
     label: string
 }
 
@@ -14,14 +14,12 @@ interface Props {
     detail: CollectionsType | undefined,
 }
 
-interface tableDataType {
-    CollectionsType
-}
+
 
 const CollectionDetailTableData = ({detail}: Props) => {
 
-    const [load, setLoad] = useState<boolean>(false)
-    const [tableData, setTableData] = useState<tableDataType>();
+  
+    const [tableData, setTableData] = useState<CollectionsType | undefined>(undefined);
     const [columns, setColumns] = useState<ColumnsTypes[]>([]);
     const [showTable, setShowTable] = useState<boolean>(false);
 
@@ -37,14 +35,16 @@ const CollectionDetailTableData = ({detail}: Props) => {
 
 
     useEffect(() => {
-        createTable(detail);
+        if (detail) {
+            createTable(detail);
+        }
     }, [detail])
 
 
     const createTable = async (detail: CollectionsType) => { 
         try {
             setTableData(detail)
-                const propiedades = Object.keys(detail).filter(propiedad =>  propiedad !== '_id' && propiedad !== '__v' && propiedad !== "jobReference" && propiedad !== "client" && propiedad !== "user");
+                const propiedades = Object.keys(detail).filter(propiedad =>  propiedad !== '_id' && propiedad !== '__v' && propiedad !== "jobReference" && propiedad !== "client" && propiedad !== "user")as (keyof CollectionsType)[];
                 const columnObjects = propiedades.map(propiedad => ({
                     key: propiedad,
                     label: propiedad.charAt(0).toUpperCase() + propiedad.slice(1),
@@ -71,31 +71,37 @@ const CollectionDetailTableData = ({detail}: Props) => {
   return (
     <div className='w-full flex items-center justify-center'>
         {showTable  ? 
-               <Table     
-                    aria-label="Selection behavior table example with dynamic content"             
-                    className="w-3/4 mt-2 max-h-[350px] 2xl:max-h-[600px] h-auto text-center shadow-left-right shadow-lg shadow-top shadow-left-right overflow-y-auto  rounded-xl "
-                  >
-                    <TableHeader columns={columns}>
-                        {(column) => (
-                            <TableColumn key={column.key} className="text-left bg-blue-500 text-white text-sm 2xl:text-md h-10"> {column.label}  </TableColumn>
-                        )}
-                    </TableHeader>
-                    <TableBody items={[tableData]}>
-                      {(item) => (
-                        <TableRow key={item?._id}>
-                        {columns.map((column) => (
-                         <TableCell key={column.key} className='text-left text-sm 2xl:text-md'>
-                            {column.key === "amount" ? ( 
-                                transformPrice(item[column.key])
-                            ) : column.key === "date" ? ( 
-                                formatDate(item[column.key])
-                            ) : item[column.key]}
-                       </TableCell>
-                         ))}
-                       </TableRow>
-                      )}
-                        </TableBody> 
-                  </Table> : <p>Sin datos para mostrar</p>}
+                <Table
+                aria-label="Selection behavior table example with dynamic content"
+                className="w-3/4 mt-2 max-h-[350px] 2xl:max-h-[600px] h-auto text-center shadow-left-right shadow-lg shadow-top shadow-left-right overflow-y-auto rounded-xl"
+            >
+                <TableHeader columns={columns}>
+                    {(column) => (
+                        <TableColumn key={column.key} className="text-left bg-blue-500 text-white text-sm 2xl:text-md h-10">
+                            {column.label}
+                        </TableColumn>
+                    )}
+                </TableHeader>
+                <TableBody items={tableData ? [tableData] : []}>
+                    {(item) => (
+                        item && (
+                            <TableRow key={item._id}>
+                                {columns.map((column) => (
+                                    <TableCell key={column.key} className='text-left text-sm 2xl:text-md'>
+                                        {column.key === "amount" ? (
+                                            transformPrice(item[column.key] as number)
+                                        ) : column.key === "date" ? (
+                                            formatDate(item[column.key])
+                                        ) : (
+                                            item[column.key] as string
+                                        )}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        )
+                    )}
+                </TableBody>
+            </Table> : <p>Sin datos para mostrar</p>}
     </div>
   )
 }

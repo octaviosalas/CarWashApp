@@ -20,7 +20,6 @@ interface Props {
 const ClientVehiclesData = ({clientVehicles}: Props) => {
 
 
-    const [loadVehicles, setLoadVehicles] = useState<boolean>(false)
     const [viewLastWashed, setViewLastWashed] = useState<boolean>(false)
     const [lastWashed, setLastWashed] = useState<JobType>()
     const [load, setLoad] = useState<boolean>(false)
