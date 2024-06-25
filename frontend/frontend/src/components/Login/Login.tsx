@@ -64,7 +64,7 @@ const Login = () => {
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-8">
 
              <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-               <img className="mx-auto h-20 w-32 lg:w-72 lg:h-32 2xl:h-64 2xl:w-96" src="https://i.pinimg.com/originals/ab/61/85/ab618567515f75d1b5ffb840e48b5862.png" alt="Your Company" />
+               <img className="mx-auto h-20 w-32 lg:w-72 lg:h-32 2xl:h-80 2xl:w-96" src="https://i.pinimg.com/originals/ab/61/85/ab618567515f75d1b5ffb840e48b5862.png" alt="Your Company" />
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"> Iniciar Sesion </h2>
              </div>
 

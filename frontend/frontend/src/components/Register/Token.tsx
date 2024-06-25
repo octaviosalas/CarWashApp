@@ -92,7 +92,8 @@ const Token = () => {
             />
          </div>
          <div className='mt-12 flex flex-col items-center justify-center'>
-             <h4 className='text-xl'>Hemos enviado al correo electronico de registro un token que expirara en 15 minutos.</h4>
+              <h4 className='text-xl text-blue-600 font-medium'> Hemos enviado un token de confirmación a tu correo electrónico. Este token caducará en 15 minutos.  </h4>
+              <h4 className='text-md'> Por favor, verifica tu bandeja de entrada y sigue las instrucciones para completar tu registro. Gracias </h4>
              <h1 className='font-black text-4xl mt-4'>{formatTime(timeLeft)}</h1>
          </div>
          <div className='flex flex-col items-center justify-center mt-6 w-1/4'>

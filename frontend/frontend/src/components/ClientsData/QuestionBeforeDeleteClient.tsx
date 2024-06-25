@@ -13,7 +13,7 @@ interface Props {
     update: () => void;
 }
 
-const QuestionBeforeDeleteClient: React.FC<Props> = ({detail, update}) => {
+const QuestionBeforeDeleteClient: React.FC<Props> = ({detail, update}: Props) => {
 
     const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
     const user = userStore(state => state.user)
