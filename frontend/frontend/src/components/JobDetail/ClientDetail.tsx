@@ -104,16 +104,20 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                     ) : clientVehicles.length === 0  && showAddVehicle === false && load === false ? ( 
 
                         <div className="flex flex-col items-center justify-center w-full">
-                        <p className="font-medium text-black text-md">Este cliente no tiene vehiculos cargados</p>
-                        <Button className="bg-blue-500 hover:bg-blue-300 hover:text-black text-white font-medium w-2/4 mt-4" onClick={() => setShowAddVehicle(true)}>Agregar Vehiculo</Button>
-                     </div> 
+                           <p className="font-medium text-black text-md">Este cliente no tiene vehiculos cargados</p>
+                           <Button className="bg-blue-500 hover:bg-blue-300 hover:text-black text-white font-medium w-2/4 mt-4" onClick={() => setShowAddVehicle(true)}>Agregar Vehiculo</Button>
+                        </div> 
 
-                    ) :  clientVehicles.length !== 0 && showAddVehicle === false && load === false ? ( 
+                    ) : clientVehicles.length !== 0 && showAddVehicle === false && load === false ? ( 
 
                          <ClientVehiclesData clientVehicles={clientVehicles}/>
 
                      ) : null
                    }
+
+                   {/* <div className="flex items-center w-full border mt-4 h-12 bg-blue-500 text-white rounded-lg">
+                      <p className="text-white font-medium text-lg ml-2">Ver Historico del Cliente</p>
+                   </div> */}
                   
 
 

@@ -70,7 +70,7 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
                             }
                         </div>
                         <div className='flex flex-col'>
-                            <p className='text-blue-500 font-medium cursor-pointer hover:text-blue-300' onClick={() => getLastWashed(cc._id)}>{cc.description}</p>
+                            <p className='text-blue-500 font-medium cursor-pointer hover:text-blue-300' title="Ver ultimo Lavado" onClick={() => getLastWashed(cc._id)}>{cc.description}</p>
                             <p className='font-medium'>{cc.patent}</p>
                         </div>
                     </div>
