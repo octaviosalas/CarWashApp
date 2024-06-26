@@ -9,6 +9,7 @@ import EditClientData from "../ClientsData/EditClientData";
 import DeleteClient from "../ClientsData/DeleteClient";
 import Loading from "../Spinner/Loading";
 import ClientTableData from "../../components/ClientsData/ClientTableData";
+import ClientHistoric from "../ClientsData/ClientHistoric";
 
 interface Props { 
     detail: ClientType | undefined
@@ -115,9 +116,7 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                      ) : null
                    }
 
-                   {/* <div className="flex items-center w-full border mt-4 h-12 bg-blue-500 text-white rounded-lg">
-                      <p className="text-white font-medium text-lg ml-2">Ver Historico del Cliente</p>
-                   </div> */}
+                    {clientVehicles.length !== 0 ? <ClientHistoric detail={detail}/> : null}
                   
 
 

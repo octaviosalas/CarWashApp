@@ -26,25 +26,26 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
     const user = userStore(state => state.user)
 
     const getLastWashed = async (vehicleId: string) => { 
-        setLoad(true)
-        setViewLastWashed(false)
-        console.log("ejecuto funcion")
-        try {
-            const {status, data} = await apiBackendUrl.get(`/vehicles/getLastWashed/${vehicleId}/${user?._id}`)
-            if(status === 200 && data) { 
-                const sortedData = data.sort((a: JobType, b: JobType) => new Date(b.date).getTime() - new Date(a.date).getTime());
-                const lastWash = sortedData[0]
-                setLastWashed(lastWash); 
-                setLoad(false)
+       
+            setLoad(true)
+            setViewLastWashed(false)
+            console.log("ejecuto funcion")
+            try {
+                const {status, data} = await apiBackendUrl.get(`/vehicles/getLastWashed/${vehicleId}/${user?._id}`)
+                if(status === 200 && data) { 
+                    const sortedData = data.sort((a: JobType, b: JobType) => new Date(b.date).getTime() - new Date(a.date).getTime());
+                    const lastWash = sortedData[0]
+                    setLastWashed(lastWash); 
+                    setLoad(false)
+                    setViewLastWashed(true)
+                } else if (status === 200 && data === undefined) { 
+                    console.log("nada", status)
+                }
+            } catch (error) {
+                console.log(error)
                 setViewLastWashed(true)
-            } else if (status === 200 && data === undefined) { 
-                console.log("nada", status)
-            }
-        } catch (error) {
-            console.log(error)
-            setViewLastWashed(true)
-            handleError(error, setLoad)
-        }
+                handleError(error, setLoad)
+            }     
     }
 
     useEffect(() => { 
@@ -52,9 +53,9 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
     }, [clientVehicles])
 
   return (
-    <div className='w-full flex flex-col mt-4 2xl:mt-0'>
-         <div className='w-full bg-blue-500 flex items-center justify-start text-start h-12 rounded-md'>
-              <h4 className='font-medium text-white text-lg ml-2'>Vehiculos</h4>
+    <div className='w-full flex flex-col mt-6 2xl:mt-0'>
+         <div className='w-full bg-blue-500 flex items-center justify-start text-start h-10 2xl:h-12 rounded-md'>
+              <h4 className='font-medium text-white text-md 2xl:text-lg ml-2'>Vehiculos</h4>
          </div>
         {clientVehicles ? 
          <div className='flex  justify-start items-start ml-4 mt-6 gap-12 2xl:gap-24'>
@@ -84,10 +85,11 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
                 <Loading/>
             </div> : load === false && viewLastWashed === true &&  lastWashed !== undefined ? ( 
                 <> 
-                    <div className='w-full bg-blue-500 flex items-center justify-start text-start h-12 rounded-md mt-4'>
+                    <div className='w-full bg-blue-500 flex items-center justify-between text-start h-12 rounded-md mt-4'>
                         <h4 className='font-medium text-white text-lg ml-2'>Ultimo Lavado - <span className='text-md'>{lastWashed.vehicle.description}</span></h4>
+                        <p className='text-white font-medium text-md mr-4 cursor-pointer' onClick={() => setViewLastWashed(false)}>X</p>
                     </div>
-                    <div className='flex flex-col items-start justify-start w-full mt-2'>
+                    <div className='flex flex-col items-start justify-start w-full mt-2 ml-2'>
                         <p className='font-medium text-black text-md'>Fecha: {formatDate(lastWashed.date)}</p> 
                         <p className='font-medium text-black text-md'>Horario: {formatHourToText(lastWashed.hour)}</p>
                         <p className='font-medium text-black text-md'>Total Lavado: {transformPrice(lastWashed.amount)}</p>
@@ -96,8 +98,9 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
          ) : load === false && viewLastWashed === false && load === false ?  (
             null
          ) :  
-         <div className='w-full bg-red-500 flex items-center justify-center text-center h-12 rounded-md mt-4'>
+         <div className='w-full bg-red-500 flex items-center justify-between text-center h-12 rounded-md mt-4'>
               <h4 className='font-medium text-white text-lg ml-2'>No hay lavados registrados para este vehiculo</h4>
+              <p className='text-white font-medium mr-3 cursor-pointer' onClick={() => setViewLastWashed(false)}>X</p>
          </div>
         }
     </div>

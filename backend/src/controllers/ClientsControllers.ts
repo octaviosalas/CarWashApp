@@ -161,3 +161,29 @@ export const deleteClient = async (req: Request, res: Response) => { //AGREGAR E
         res.status(500).json({ message: "Error al obtener los vehículos del cliente.", error });
     }
 };
+
+export const getClientHistoricJobs = async (req:Request, res: Response) => { 
+    const {userId, clientId} = req.params
+    try {
+        const findClientJobs = await JobsModel.find({client: clientId, user: userId}).populate({ 
+            path:"vehicle",
+            model: VehicleModel,
+            select: "description patent"
+        })
+        if(findClientJobs) { 
+            const filterData = findClientJobs.map((clientJobs) => { 
+                return { 
+                    date: clientJobs.date,
+                    hour: clientJobs.hour,
+                    vehicle: clientJobs.vehicle,
+                    service: clientJobs.typeOfJob,
+                    amount: clientJobs.amount
+                }
+            })
+            res.status(200).send(filterData)
+        }
+    } catch (error) {
+        res.status(500).send("Error!")
+    }
+}
+

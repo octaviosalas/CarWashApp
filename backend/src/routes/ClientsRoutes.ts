@@ -3,7 +3,7 @@ import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
 import { validateClientNotExist, validateClientExist, validateClientNotExistWithVehicle } from "../middlewares/ClientValidation"
-import { createClient, getClientDataWithVehicles, updateClientData, createClientWithVehicle, deleteClient } from "../controllers/ClientsControllers"
+import { createClient, getClientDataWithVehicles, updateClientData, createClientWithVehicle, deleteClient, getClientHistoricJobs } from "../controllers/ClientsControllers"
 import { validateUserAccountIsConfirmed } from "../middlewares/AuthValidations"
 
 const router = Router()
@@ -61,7 +61,13 @@ router.delete("/deleteClient/:clientId/:userId",
    deleteClient
 )
 
-
+router.get("/clientHistoricJobs/:clientId/:userId",
+   param("userId").isMongoId().withMessage("El Id del usuario del que intentas obtener lavados no es valido"), 
+   param("clientId").isMongoId().withMessage("El Id del cliente que intentas obtener lavados no es valido"), 
+   validateClientExist,
+   validateUserExist,
+   getClientHistoricJobs
+)
 
 
 
