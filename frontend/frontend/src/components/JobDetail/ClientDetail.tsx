@@ -9,7 +9,6 @@ import EditClientData from "../ClientsData/EditClientData";
 import DeleteClient from "../ClientsData/DeleteClient";
 import Loading from "../Spinner/Loading";
 import ClientTableData from "../../components/ClientsData/ClientTableData";
-import ClientHistoric from "../ClientsData/ClientHistoric";
 
 interface Props { 
     detail: ClientType | undefined
