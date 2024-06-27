@@ -11,13 +11,17 @@ import formatHourToText from '../../functions/TransformDateHour/TransformHour'
 import transformPrice from '../../functions/TransformDateHour/TransformPrice'
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
+import ClientHistoric from './ClientHistoric'
+import { ClientType } from 'types/ClientsTypes'
+import { ServiceType } from 'types/ServicesTypes'
 
 
 interface Props { 
     clientVehicles: ClientVehiclesType[]
+    detail: ClientType | undefined
 }
 
-const ClientVehiclesData = ({clientVehicles}: Props) => {
+const ClientVehiclesData = ({clientVehicles, detail}: Props) => {
 
 
     const [viewLastWashed, setViewLastWashed] = useState<boolean>(false)
@@ -29,9 +33,9 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
        
             setLoad(true)
             setViewLastWashed(false)
-            console.log("ejecuto funcion")
             try {
                 const {status, data} = await apiBackendUrl.get(`/vehicles/getLastWashed/${vehicleId}/${user?._id}`)
+                console.log("Mirame aca!", data)
                 if(status === 200 && data) { 
                     const sortedData = data.sort((a: JobType, b: JobType) => new Date(b.date).getTime() - new Date(a.date).getTime());
                     const lastWash = sortedData[0]
@@ -92,17 +96,22 @@ const ClientVehiclesData = ({clientVehicles}: Props) => {
                     <div className='flex flex-col items-start justify-start w-full mt-2 ml-2'>
                         <p className='font-medium text-black text-md'>Fecha: {formatDate(lastWashed.date)}</p> 
                         <p className='font-medium text-black text-md'>Horario: {formatHourToText(lastWashed.hour)}</p>
+                       {lastWashed.typeOfJob.length === 1 ?
+                        <p className='flex font-medium text-black text-md'>Servicios: {lastWashed.typeOfJob.map((lt: ServiceType) => <p>{lt.service}</p>)}</p> : 
+                        <p className='flex font-medium text-black text-md'>  Servicios: {lastWashed.typeOfJob.map((lt: ServiceType) => lt.service).join(' - ')}</p> 
+                        }
                         <p className='font-medium text-black text-md'>Total Lavado: {transformPrice(lastWashed.amount)}</p>
                     </div>
             </>
          ) : load === false && viewLastWashed === false && load === false ?  (
             null
          ) :  
-         <div className='w-full bg-red-500 flex items-center justify-between text-center h-12 rounded-md mt-4'>
+         <div className='w-full bg-red-500 flex items-center justify-between text-center h-12 rounded-md mt-6'>
               <h4 className='font-medium text-white text-lg ml-2'>No hay lavados registrados para este vehiculo</h4>
               <p className='text-white font-medium mr-3 cursor-pointer' onClick={() => setViewLastWashed(false)}>X</p>
          </div>
         }
+           {clientVehicles.length !== 0  && !viewLastWashed ? <ClientHistoric detail={detail}/> : null}
     </div>
   )
 }

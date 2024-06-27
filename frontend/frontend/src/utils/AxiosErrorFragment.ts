@@ -20,11 +20,11 @@ const handleError = (error: unknown, setLoad: (value: boolean) => void) => {
         autoClose: 2500
     });
     setLoad(false);
-} else { 
+  } else { 
     console.log('Unexpected error:', error);
     setLoad(false)
-}
-} else {
+  }
+  } else {
     console.log('Unexpected error:', error);
   }
   setLoad(false);

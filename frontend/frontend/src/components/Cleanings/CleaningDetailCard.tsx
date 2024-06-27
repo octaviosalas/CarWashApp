@@ -84,19 +84,19 @@ const CleaningDetailCard =
 
                  {showSecondNav ? 
                     <div className='flex w-full justify-start items-center gap-6 2xl:gap-12 mt-4 ml-1'>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "today" ? 'text-white bg-blue-500' : 'text-zinc-600'}`}  onClick={() => changeTypeOfJob(todayJobs, "today")}>Solo Hoy</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "yesterday" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(yesterdayJobs, "yesterday")}>Solo Ayer</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisMonth" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(monthsJobs, "thisMonth")}>Este Mes</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisWeek" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(thisWeekJobs, "thisWeek")}>Esta Semana</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisYear" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(thisYearJobs, "thisYear")}>Este Año</p>
+                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "today" ? 'text-white bg-blue-500 p-1' : 'text-zinc-600'}`}  onClick={() => changeTypeOfJob(todayJobs, "today")}>Solo Hoy</p>
+                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "yesterday" ? 'text-white bg-blue-500 p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(yesterdayJobs, "yesterday")}>Solo Ayer</p>
+                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisMonth" ? 'text-white bg-blue-500 p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(monthsJobs, "thisMonth")}>Este Mes</p>
+                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisWeek" ? 'text-white bg-blue-500 p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(thisWeekJobs, "thisWeek")}>Esta Semana</p>
+                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "thisYear" ? 'text-white bg-blue-500 p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(thisYearJobs, "thisYear")}>Este Año</p>
                     </div> 
                     : 
                     <div className='flex w-full justify-start items-center gap-4 2xl:gap-12 mt-4 ml-1'>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "every" ? 'text-white bg-blue-500' : 'text-zinc-600'}`}  onClick={() => changeTypeOfJob(every, "every")}>Todos</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "finished" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(finished, "finished")}>Finalizados</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "inProcess" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(inProcess, "inProcess")}>Sin Finalizar</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "pendingCollections" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(pendingCollections, "pendingCollections")}>Sin Abonar</p>
-                        <p className={`text-sm cursor-pointer font-medium ${typeOfJobsSelected === "paid" ? 'text-white bg-blue-500' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(paid, "paid")}>Abonados</p>
+                        <p className={`text-sm cursor-pointer font-medium  ${typeOfJobsSelected === "every" ? 'text-white bg-blue-500 p-1' : 'text-zinc-600'}`}  onClick={() => changeTypeOfJob(every, "every")}>Todos</p>
+                        <p className={`text-sm cursor-pointer font-medium  ${typeOfJobsSelected === "finished" ? 'text-white bg-blue-500  p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(finished, "finished")}>Finalizados</p>
+                        <p className={`text-sm cursor-pointer font-medium  ${typeOfJobsSelected === "inProcess" ? 'text-white bg-blue-500  p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(inProcess, "inProcess")}>Sin Finalizar</p>
+                        <p className={`text-sm cursor-pointer font-medium  ${typeOfJobsSelected === "pendingCollections" ? 'text-white bg-blue-500 p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(pendingCollections, "pendingCollections")}>Sin Abonar</p>
+                        <p className={`text-sm cursor-pointer font-medium  ${typeOfJobsSelected === "paid" ? 'text-white bg-blue-500  p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(paid, "paid")}>Abonados</p>
                     </div>}
 
                 <div className='max-h-[350px] 2xl:max-h-[645px] 3xl:max-h-[625px] overflow-y-auto w-full'>  

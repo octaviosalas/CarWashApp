@@ -70,7 +70,7 @@ const ClientHistoric = ({detail}: Props) => {
         {load ? <div className="flex mt-6 items-center justify-center"><Loading/></div> : null}
       
         {view && load === false && !withOutHistoric ? ( 
-            <div className=" w-full mt-2 ml-2 max-h-[150px] overflow-y-auto mr-4">
+            <div className=" w-full mt-2 ml-2 max-h-[150px] overflow-y-scroll mr-4">
              {historicData.map((his : hisrtoricDataType) => ( 
                 <div className="flex gap-4 items-center mt-1">
                     <p><span className="font-medium text-zinc-500">Fecha:</span> {formatDate(his.date)} </p>

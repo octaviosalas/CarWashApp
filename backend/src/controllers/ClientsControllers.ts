@@ -135,9 +135,6 @@ export const deleteClient = async (req: Request, res: Response) => { //AGREGAR E
          const findClientVehicles = await VehicleModel.find({client: clientId, user: userId})
          const findClientJobs = await VehicleModel.find({client: clientId, user: userId})
 
-         console.log("Vehiculos encontrados", findClientVehicles)
-         console.log("Lavados encontrados",findClientJobs)
-
          if(findClientVehicles.length > 0 && findClientJobs.length === 0) { 
 
            await VehicleModel.deleteMany({client: clientId, user: userId})

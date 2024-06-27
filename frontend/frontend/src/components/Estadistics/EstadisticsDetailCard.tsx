@@ -39,19 +39,19 @@ const EstadisticsDetailCard = () => {
         <div className='flex flex-col w-1/5 '>
             
              <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[725px] overflow-y-auto w-full'>  
-                <div className={showDayEstadistic ? "w-full bg-blue-100 h-16 2xl:h-24 cursor-pointer text-lg " : 'w-full cursor-pointer hover:bg-blue-100 h-16 2xl:h-24 text-md'} onClick={() => showDay()}>
-                             <div className='flex items-start text-start justify-between'>
-                                 <p className='font-medium text-md text-blue-500 mt-9'>Reporte Diario</p>                             
+                <div className={showDayEstadistic ? "w-full bg-blue-100 h-24 cursor-pointer text-lg " : 'w-full cursor-pointer hover:bg-blue-100 h-24 text-md'} onClick={() => showDay()}>
+                             <div className='flex items-center text-start justify-between'>
+                                 <p className='font-medium text-md text-blue-500 mt-9 ml-2'>Reporte Diario</p>                             
                              </div>           
                      </div>  
                      <div className={showMonthEstadistic ? "w-full bg-blue-100 h-24 cursor-pointer text-lg" : 'w-full cursor-pointer hover:bg-blue-100 h-24 text-md'} onClick={() => showMonth()}>
-                             <div className='flex items-start text-start justify-between'>
-                                 <p className='font-medium text-md text-blue-500 mt-9'>Reporte Mensual</p>                             
+                             <div className='flex items-center text-start justify-between'>
+                                 <p className='font-medium text-md text-blue-500 mt-9 ml-2'>Reporte Mensual</p>                             
                              </div>           
                      </div>  
                      <div className={showYearEstadistic ? "w-full bg-blue-100 h-24 cursor-pointer text-lg" : 'w-full cursor-pointer hover:bg-blue-100 h-24 text-md'} onClick={() => showYear()}>
-                             <div className='flex items-start text-start justify-between'>
-                                 <p className='font-medium text-md text-blue-500 mt-9'>Reporte Anual</p>                             
+                             <div className='flex items-center text-start justify-between'>
+                                 <p className='font-medium text-md text-blue-500 mt-9 ml-2'>Reporte Anual</p>                             
                              </div>           
                      </div>  
              </div>

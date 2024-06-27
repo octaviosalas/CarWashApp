@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import VehicleModel from "../models/Vehicles";
 import ClientModel from "../models/Clients";
 import JobsModel from "../models/Jobs";
+import ServicesModel from "../models/Services";
 
 export const createNewVehicle = async (req: Request, res: Response) => { 
     
@@ -89,11 +90,17 @@ export const getLastWashed = async (req: Request, res: Response) => {
     const { vehicleId, userId } = req.params;
 
     try {
-        const getVehicleJobs = await JobsModel.find({vehicle: vehicleId}).populate({
-            path: "vehicle",
-            model: VehicleModel,
-            select: "description patent _id typeOfVehicle"
-        })
+        const getVehicleJobs = await JobsModel.find({ vehicle: vehicleId })
+            .populate({
+                path: 'vehicle',
+                model: VehicleModel,
+                select: 'description patent _id typeOfVehicle',
+            })
+            .populate({
+                path: 'typeOfJob',
+                model: ServicesModel,
+                select: 'service',
+            });
         res.status(200).json(getVehicleJobs)
     } catch (error) {
         console.log(error);

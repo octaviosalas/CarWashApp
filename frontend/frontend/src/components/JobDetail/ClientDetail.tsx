@@ -111,14 +111,10 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
 
                     ) : clientVehicles.length !== 0 && showAddVehicle === false && load === false ? ( 
 
-                         <ClientVehiclesData clientVehicles={clientVehicles}/>
+                         <ClientVehiclesData detail={detail} clientVehicles={clientVehicles}/>
 
                      ) : null
                    }
-
-                    {clientVehicles.length !== 0 ? <ClientHistoric detail={detail}/> : null}
-                  
-
 
                     {showAddVehicle ? <div className="flex items-center justify-center"> <AddVehicle showArrow="false" cancel={comeBackToDetail} detail={detail} update={update} updateVehicles={updateVehicles}/> </div> : null}
                 </div>
