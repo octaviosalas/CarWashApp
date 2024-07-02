@@ -70,12 +70,12 @@ const CleaningDetailCard =
   return (
 
     <div className='flex gap-4'>
-            <div className='flex flex-col items-start justify-start w-2/5 ml-2 '>
-                <div className='mt-2 w-full flex justify-start'>
+            <div className='flex flex-col items-start justify-start w-2/5 ml-2  '>
+                <div className='mt-2 w-full flex justify-center '>
                    <AddNewJobButton add={addNewJobNow} />
                 </div>
-                <div className='flex items-center gap-1 2xl:gap-2 mt-2'>
-                   <input type="text" name="search" placeholder='Buscar' className=" mt-1s w-64 xl:w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                <div className='flex items-center gap-5 2xl:gap-6 mt-2 w-full '>
+                   <input type="text" name="search" placeholder='Buscar' className=" mt-1s w-3/4 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={inputValue}
                     onChange={handleChangeInputValue}
                    />

@@ -25,9 +25,12 @@ const AddnewService = ({update, goBack}: Props) => {
         setService(event.target.value)
     }
 
-    const handleInputPrice = (event: React.ChangeEvent<HTMLInputElement>) => { 
-        setPrice(Number(event.target.value))
-    }
+    const handleInputPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        if (!isNaN(Number(value)) || value === '') {
+          setPrice(Number(value));
+        }
+      };
 
     const sendNewService = async () => { 
         if(service.length === 0) { 
@@ -68,22 +71,22 @@ const AddnewService = ({update, goBack}: Props) => {
              <div className='flex gap-12 items-center justify-center'>
                 <div className='flex flex-col items-start justify-start'>
                     <p className="text-black text-md font-medium">Nombre del Servicio</p> 
-                    <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                    <input type="text" name="price" id="price" className=" mt-1s w-36 xl:w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                         value={service}
                         onChange={handleInputService}
                     />
                 </div>
                 <div className='flex flex-col items-start justify-start'>
                     <p className="text-black text-md font-medium">Precio</p>
-                    <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
+                    <input type="text" name="price" id="price" className=" mt-1s  w-36 xl:w-72 2xl:w-96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                         value={price?.toString()} 
                         onChange={handleInputPrice}
                     />
                 </div>
              </div>
        <div className='flex items-center justify-center text-center mt-4 gap-2'>
-          <Button className="bg-blue-500 text-white font-medium text-sm w-96 h-10" onClick={() => sendNewService()}>Crear</Button>
-          <Button className="bg-gray-400 text-white font-medium text-sm w-96 h-10" onClick={() => goBack()}>Cancelar</Button>
+          <Button className="bg-blue-500 text-white font-medium text-sm w-36 xl:w-72 2xl:w-96 h-10" onClick={() => sendNewService()}>Crear</Button>
+          <Button className="bg-gray-400 text-white font-medium text-sm w-36 xl:w-72 2xl:w-96 h-10" onClick={() => goBack()}>Cancelar</Button>
        </div>
 
         {load ? <div className='w-full flex items-center justify-center mt-6 2xl:mt-12 mb-2 '> <Loading/> </div>: null}

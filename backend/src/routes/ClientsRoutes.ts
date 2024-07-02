@@ -10,9 +10,16 @@ const router = Router()
 
 router.post("/create/:userId",
        param("userId").isMongoId().withMessage("Estas intentando agregar un cliente desde una cuenta que no es valida"),
-       body("name").notEmpty().withMessage("El nombre del cliente es obligatorio"),
-       body("telephone").notEmpty().withMessage("El telefono del cliente es obligatorio"),
-       body("dni").notEmpty().withMessage("El DNI del cliente es obligatorio"),
+       body("name").notEmpty().withMessage("El nombre del cliente es obligatorio")
+       .matches(/^[a-zA-Z0-9 ]*$/).withMessage("El nombre del cliente no es valido"),
+       body("telephone").notEmpty().withMessage("El telefono del cliente es obligatorio")
+       .notEmpty().withMessage("El telefono del cliente es obligatorio")
+       .isInt({ min: 0 }).withMessage("El telefono debe ser un número valido sin caracteres")
+       .matches(/^\d+$/).withMessage("El telefono del cliente solo puede contener números"),
+       body("dni")
+       .notEmpty().withMessage("El DNI del cliente es obligatorio")
+       .isInt({ min: 0 }).withMessage("El DNI debe ser un número valido sin caracteres")
+       .matches(/^\d+$/).withMessage("El DNI solo puede contener números"),
        body("email").notEmpty().withMessage("El email del cliente es obligatorio"),
        body("email").isEmail().withMessage("El email del cliente no es válido"),
        handleInputErrors,

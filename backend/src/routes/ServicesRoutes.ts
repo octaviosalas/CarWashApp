@@ -8,7 +8,8 @@ import { getServices, createService, deleteService, updateService, getServicesDa
 const router = Router()
 
 router.post("/createService/:userId",
-        body("service").notEmpty().withMessage("El nombre del servicio es obligatorio"),
+        body("service").notEmpty().withMessage("El nombre del servicio es obligatorio")
+        .matches(/^[a-zA-Z\s]+$/).withMessage("El nombre del servicio solo puede contener letras"),
         body("price").notEmpty().withMessage("El precio del servicio es obligatorio"),
         param("userId").isMongoId().withMessage("El id no es valido"),
         handleInputErrors,

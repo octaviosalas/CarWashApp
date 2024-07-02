@@ -31,14 +31,14 @@ const MyAccountCard = () => {
   return (
     <div className='h-full flex gap-4'>
         <div className='flex flex-col items-start justify-start w-1/5 h-full'>
-             <div className=" w-full flex items-center justify-start text-start h-36  cursor-pointer hover:bg-blue-100" onClick={() => changeData()}>
-                  <p className="text-blue-500 font-medium text-md">Modificar mis Datos</p>
+             <div className=" w-full flex items-center justify-start text-start h-24 2xl:h-36  cursor-pointer hover:bg-blue-100" onClick={() => changeData()}>
+                  <p className="text-blue-500 font-medium text-md ml-4">Modificar mis Datos</p>
              </div>
-             <div className=" w-full flex items-center justify-start text-start h-36  cursor-pointer hover:bg-blue-100" onClick={() => changePassowrd()}>
-                <p className="text-blue-500 font-medium text-md">Cambiar Contraseña</p>
+             <div className=" w-full flex items-center justify-start text-start h-24 2xl:h-36  cursor-pointer hover:bg-blue-100" onClick={() => changePassowrd()}>
+                <p className="text-blue-500 font-medium text-md ml-4">Cambiar Contraseña</p>
              </div>
-             <div className=" w-full flex items-center justify-start text-start h-36  cursor-pointer hover:bg-blue-100" onClick={() => deleteAccountNow()}>
-                <p className="text-blue-500 font-medium text-md">Dar de baja mi cuenta</p>
+             <div className=" w-full flex items-center justify-start text-start h-24 2xl:h-36  cursor-pointer hover:bg-blue-100" onClick={() => deleteAccountNow()}>
+                <p className="text-blue-500 font-medium text-md ml-4">Dar de baja mi cuenta</p>
              </div>
         </div>
         

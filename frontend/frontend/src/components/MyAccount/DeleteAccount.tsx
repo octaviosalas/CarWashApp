@@ -16,7 +16,7 @@ const DeleteAccount = ({goBack}: Props) => {
         </div>
         <div className='flex gap-6 items-center justify-center mt-4 '>
             <QuestionBeforeDelente/>
-            <Button className="bg-gray-300 text-white font-medium text-md w-96" onClick={() => goBack()}>Cancelar</Button>
+            <Button className="bg-gray-300 text-white font-medium text-md w-36 xl:w-72 2xl:w-96" onClick={() => goBack()}>Cancelar</Button>
         </div>
        
     </div>

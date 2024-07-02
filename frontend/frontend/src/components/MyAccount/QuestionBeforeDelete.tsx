@@ -36,7 +36,7 @@ const QuestionBeforeDelente = () =>  {
 
   return (
     <>
-      <Button className="bg-blue-500 text-white font-medium text-md w-96" onPress={onOpen}>Dar de baja mi cuenta</Button>
+      <Button className="bg-blue-500 text-white font-medium text-md w-36 xl:w-72 2xl:w-96" onPress={onOpen}>Eliminar Cuenta</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size={"2xl"}>
         <ModalContent>
           {(onClose) => (
