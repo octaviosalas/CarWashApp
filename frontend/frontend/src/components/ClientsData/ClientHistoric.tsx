@@ -65,7 +65,7 @@ const ClientHistoric = ({detail}: Props) => {
         <div className="flex items-center justify-between w-full border mt-6 h-10 2xl:h-12 bg-blue-500 text-white rounded-lg">
             <p className="text-white font-medium text-lg ml-2">Historico</p>
             {!view ?<img src={eye} className="w-6 h-6 mr-2 cursor-pointer" title="Ver Historico" onClick={() => getHistoricClientData()}/> : 
-            <p className="cursor-pointer text-white font-medium text-sm 2xl:text-md mr-3" onClick={() => setView(false)}>X</p>}
+            <p className="cursor-pointer text-white font-medium text-sm 2xl:text-md mr-6" onClick={() => setView(false)}>X</p>}
         </div> 
         {load ? <div className="flex mt-6 items-center justify-center"><Loading/></div> : null}
       

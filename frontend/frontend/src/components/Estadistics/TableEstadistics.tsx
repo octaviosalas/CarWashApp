@@ -88,7 +88,7 @@ const TableEstadistics = ({data}: Props) => {
           {showTable ? 
                <Table 
                     aria-label="Selection behavior table example with dynamic content"   
-                    className="w-full mt-2  max-h-[350px] 2xl:max-h-[600px] h-auto text-center shadow-left-right shadow-lg shadow-top shadow-left-right overflow-y-auto  rounded-xl "
+                    className="w-full mt-2  max-h-[550px] 2xl:max-h-[700px] h-auto text-center shadow-left-right shadow-lg shadow-top shadow-left-right overflow-y-auto  rounded-xl "
                   >
                     <TableHeader columns={columns}>
                         {(column) => (

@@ -115,7 +115,9 @@ const ClientDetail = ({ detail, clientVehicles, update, updateVehicles }: Props)
                      ) : null
                    }
 
-                    {showAddVehicle ? <div className="flex items-center justify-center"> <AddVehicle showArrow="false" cancel={comeBackToDetail} detail={detail} update={update} updateVehicles={updateVehicles}/> </div> : null}
+                    {showAddVehicle ? 
+                      <div className="flex items-center justify-center"> <AddVehicle showArrow="false" cancel={comeBackToDetail} detail={detail} update={update} updateVehicles={updateVehicles}/> </div> :
+                     null}
                 </div>
                    </div> 
                : null}

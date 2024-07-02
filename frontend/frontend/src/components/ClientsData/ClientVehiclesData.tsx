@@ -91,7 +91,7 @@ const ClientVehiclesData = ({clientVehicles, detail}: Props) => {
                 <> 
                     <div className='w-full bg-blue-500 flex items-center justify-between text-start h-12 rounded-md mt-4'>
                         <h4 className='font-medium text-white text-lg ml-2'>Ultimo Lavado - <span className='text-md'>{lastWashed.vehicle.description}</span></h4>
-                        <p className='text-white font-medium text-md mr-4 cursor-pointer' onClick={() => setViewLastWashed(false)}>X</p>
+                        <p className='text-white font-medium text-md mr-6 cursor-pointer' onClick={() => setViewLastWashed(false)}>X</p>
                     </div>
                     <div className='flex flex-col items-start justify-start w-full mt-2 ml-2'>
                         <p className='font-medium text-black text-md'>Fecha: {formatDate(lastWashed.date)}</p> 

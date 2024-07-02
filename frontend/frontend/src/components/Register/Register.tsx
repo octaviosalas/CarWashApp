@@ -60,7 +60,7 @@ const Register = () => {
 
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-2 2xl:py-6 lg:px-8 mt-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center ">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                <img className="mx-auto h-12 w-32 lg:w-96 lg:h-28 2xl:h-64 2xl:w-96" src="https://i.pinimg.com/originals/ab/61/85/ab618567515f75d1b5ffb840e48b5862.png" alt="Your Company" />

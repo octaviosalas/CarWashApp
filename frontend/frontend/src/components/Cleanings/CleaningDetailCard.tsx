@@ -99,7 +99,7 @@ const CleaningDetailCard =
                         <p className={`text-sm cursor-pointer font-medium  ${typeOfJobsSelected === "paid" ? 'text-white bg-blue-500  p-1' : 'text-zinc-600'}`} onClick={() => changeTypeOfJob(paid, "paid")}>Abonados</p>
                     </div>}
 
-                <div className='max-h-[350px] 2xl:max-h-[645px] 3xl:max-h-[625px] overflow-y-auto w-full'>  
+                <div className='max-h-[450px] 2xl:max-h-[645px] 3xl:max-h-[745px] overflow-y-auto w-full'>  
                     {jobsData.length > 0 ? 
                         <div>
                             <JobCard jobs={jobsData} viwJobDetail={viwJobDetail}/>

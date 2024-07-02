@@ -77,7 +77,7 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
                     </div>
 
                  ) : ( 
-                  <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[670px] overflow-y-auto w-full ml-2 mt-2'>  
+                  <div className='max-h-[480px] 2xl:max-h-[745px] 3xl:max-h-[800px] overflow-y-auto w-full ml-2 mt-2'>  
                   {clientsData.map((client: ClientType) => ( 
                       <div className='mt-4 w-full cursor-pointer hover:bg-blue-100' key={client._id} onClick={() => selectClientAndGetVehicles(client)}>
                               <div className='flex items-start text-start justify-between' key={client._id}>
@@ -107,7 +107,7 @@ const ClientsDetailCard = ({clientsData, update, filter}: Props) => {
                     <Loading/>
                  </div> 
                ) : ( 
-              <ClientDetail detail={clientSelected} clientVehicles={clientVehicles} update={update} updateVehicles={selectClientAndGetVehicles}/>
+                 <ClientDetail detail={clientSelected} clientVehicles={clientVehicles} update={update} updateVehicles={selectClientAndGetVehicles}/>
                )
                }
                 

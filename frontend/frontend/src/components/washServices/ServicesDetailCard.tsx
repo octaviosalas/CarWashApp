@@ -32,7 +32,7 @@ const ServicesDetailCard = ({servicesData, update}: Props) => {
                     <div className='mt-2 w-full flex justify-start'>
                         <Button className='bg-blue-500 text-white font-medium text-md w-72' onClick={() => setShowNewService(true)}>Añadir nuevo Servicio</Button>
                     </div>
-                    <div className='max-h-[420px] 2xl:max-h-[645px] 3xl:max-h-[725px] overflow-y-auto w-full ml-2'>  
+                    <div className='max-h-[450px] 2xl:max-h-[645px] 3xl:max-h-[745px]  overflow-y-auto w-full ml-2'>  
                         {servicesData.length > 0 ? ( 
                             servicesData.map((serv: ServiceType) => ( 
                                 <div className='mt-4 w-full cursor-pointer hover:bg-blue-100 h-16 2xl:h-24' key={serv._id} onClick={() => selectServiceAndShowData(serv)}>
