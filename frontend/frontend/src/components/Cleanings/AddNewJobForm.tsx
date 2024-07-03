@@ -14,6 +14,7 @@ import arrowBack from "../../images/arrowBack.png"
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
 import AddVehicle from '../ClientsData/AddVehicle'
+//import PossibleTable from '../../possibleTable'
 
 interface Props { 
     clients: ClientType[],
@@ -197,6 +198,8 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
                                   
                               </div>
                             }
+
+                           {/* <PossibleTable services={userServices}/> */}
                         </div>
                     </div>
                   
