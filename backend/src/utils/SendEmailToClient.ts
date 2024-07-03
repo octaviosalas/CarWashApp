@@ -90,7 +90,7 @@ export const sendEmailToRecoverUserAccount = async ({email, token, name}: Verify
     from: 'salasoctavio129@gmail.com', 
     to:  email, 
     subject: "Verificación de cuenta", 
-    text:  `Hola ${name}, has creado tu cuenta exitosamente, solo queda confirmarla. Tu Token de confirmacion es ${token} y expirara en 15 minutos.`
+    text:  `Hola ${name}, has modificado exitosamente la contraseña de tu cuenta, solo queda confirmar que has sido vos. Tu Token de confirmacion es ${token} y expirara en 15 minutos.`
   };
 
   await transporter.sendMail(mailOptions);
