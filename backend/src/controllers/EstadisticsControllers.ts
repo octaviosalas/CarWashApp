@@ -8,10 +8,12 @@ export const getDayEstadistic = async (req: Request, res: Response) => {
     
     const {userId, date} = req.params
     
-    try {
+    try { 
         const findJobs = await JobsModel.find({user: userId, date: date})
         const findCollections = await CollectionModel.find({user: userId, date: date})
         const totalAmountFactured = findCollections.reduce((acc, el) => acc + el.amount, 0)
+        const totalAmountFacturedInEfective = findCollections.filter((cc) => cc.paymentMethod === "Efectivo")
+        const totalEfective = totalAmountFacturedInEfective.reduce((acc, el) => acc + el.amount, 0)
 
         const orderJobsByType = new Map();
 
@@ -30,7 +32,7 @@ export const getDayEstadistic = async (req: Request, res: Response) => {
             data: data
         }));
         
-        res.status(200).json({jobs: findJobs, collections: findCollections, amount: totalAmountFactured, orderByServices: trasformData});
+        res.status(200).json({jobs: findJobs, collections: findCollections, amount: totalAmountFactured, amountEfective: totalEfective, orderByServices: trasformData});
         
     } catch (error) {
         console.log(error)

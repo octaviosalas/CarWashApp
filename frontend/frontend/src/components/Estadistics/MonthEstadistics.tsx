@@ -2,8 +2,6 @@ import apiBackendUrl from '../../lib/axios'
 import { useEffect, useState } from 'react'
 import Loading from '../Spinner/Loading';
 import { actualMonthName, actualMonthNow } from '../../functions/TransformDateHour/HourAndDate';
-import wash from "../../images/wash.png"
-import money from "../../images/money.png"
 import axios from 'axios';
 import {toast} from "react-toastify"
 import transformPrice from '../../functions/TransformDateHour/TransformPrice';
@@ -77,16 +75,58 @@ const MonthEstadistics = () => {
                 <p className='text-white font-medium text-lg '> {actualMonthName(actualMonthNow())} </p>
              </div>
              <div className='flex gap-36 items-center mt-2 2xl:mt-6'>
-             <div className='flex flex-col justify-center items-center mt-2'>
-                    <p className='font-medium text-blue-500 text-lg'>Lavados</p>
-                    <img src={wash} className='w-16 h-16 2xl:h-24 2xl:w-24 mt-2'/>
-                    {quantityJobs > 0 ? <p className='mt-2 font-medium text-blue-500'>{quantityJobs}</p> : <p className='mt-4 2xl:mt-6'>No hay lavados registrados</p>}
+                   
+
+
+                <div className='flex flex-col jfy-center items-center mt-2 border shadow-lg p-8'> 
+                    <svg className="w-10 h-10 text-blue-600"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round" >
+                        <path d="M3 6h3" />
+                        <path d="M17 6h.01" />
+                        <rect width="18" height="20" x="3" y="2" rx="2" />
+                        <circle cx="12" cy="13" r="5" />
+                        <path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5" />
+                    </svg>
+                    <p className="mb-2 text-lg font-semibold text-blue-600 mt-2 2xl:mt-4">Lavados</p>
+                    {quantityJobs > 0 ? <p className="text-2xl font-bold text-gray-800">{quantityJobs}</p> : <p className="text-2xl font-bold text-gray-800">No hay lavados registrados</p>}                    
                 </div>
-                <div className='flex flex-col justify-center items-center mt-2'> 
-                     <p className='font-medium text-blue-500 text-lg'>Facturacion:</p>
-                     <img src={money} className='w-16 h-16 2xl:h-24 2xl:w-24 mt-2'/>
-                     {totalAmount > 0 ? <p className='mt-2 font-medium text-blue-500'>{transformPrice(totalAmount)}</p> :  <p className='mt-4 2xl:mt-6'>No se registraron cobros</p>}
+                
+                    
+
+
+
+                  <div className='flex flex-col jfy-center items-center mt-2 border shadow-lg p-8'> 
+                     <svg  className="w-10 h-10 text-blue-600" 
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round">
+                          <line x1="12" x2="12" y1="2" y2="22" />
+                          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                      </svg>
+                      <p className="mb-2 text-lg font-semibold text-blue-600 mt-2 2xl:mt-4">Facturación</p>
+                      {totalAmount > 0 ? <p className="text-2xl font-bold text-gray-800">{transformPrice(totalAmount)}</p> :  <p className="text-2xl font-bold text-gray-800">No se registraron cobros</p>}
                 </div>
+
+
+
+
+
+
+              
             </div>
             <div className='w-full flex flex-col'>
                <div className='w-full flex flex-col gap-6 mt-0 2xl:mt-4'>    

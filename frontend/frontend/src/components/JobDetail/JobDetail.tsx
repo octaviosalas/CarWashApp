@@ -117,7 +117,11 @@ const JobDetail = ({ detail, clients, updateJobs, restart }: Props) => {
                                 <p>{transformPrice(detail.amount)}</p>
                             </div>
                     </div>
+
+                    
                 : null}
+
+
 
                 <div className="w-full">
                     {showEditJobForm ? <EditJobForm detail={detail} clients={clients} goBack={goBackDetail} updateJobs={updateJobs}/> : null}
