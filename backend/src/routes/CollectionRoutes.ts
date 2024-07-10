@@ -7,10 +7,4 @@ router.post("/createOrder", createMercadoPagoOrder)
 router.get("/mp", generateLink)
 
 
-
-
-
-
-
-
 export default router;

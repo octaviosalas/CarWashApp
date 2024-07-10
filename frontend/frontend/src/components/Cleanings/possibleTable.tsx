@@ -19,7 +19,8 @@ interface Props {
     vehicleChoosen?: ClientVehiclesType,
     client: string,
     resetFormData: () => void,
-    updateJobs: () => void
+    updateJobs: () => void,
+    cancel: () => void
 }
 
 interface ColumnsTypes { 
@@ -28,7 +29,7 @@ interface ColumnsTypes {
     label: string
 }
 
-const PossibleTable = ({services, vehicleChoosen, client, updateJobs, resetFormData}: Props) => {
+const PossibleTable = ({services, vehicleChoosen, client, cancel, updateJobs, resetFormData}: Props) => {
     
             const [selectedKeys, setSelectedKeys] = React.useState(new Set(["2"]));
             const [tableData, setTableData] = useState<ServiceType[]>([]);
@@ -143,7 +144,7 @@ const PossibleTable = ({services, vehicleChoosen, client, updateJobs, resetFormD
                selectionMode="multiple"
                selectedKeys={selectedKeys}
                onSelectionChange={handleSelectionChange}
-               className="w-3/4 flex items-start justify-start mt-2"
+               className="w-3/4 flex items-start justify-start mt-2 max-h-[170px] 2xl:max-h-[400px] overflow-y-auto"
                   >
                     <TableHeader columns={columns}>
                         {(column) => (
@@ -172,7 +173,7 @@ const PossibleTable = ({services, vehicleChoosen, client, updateJobs, resetFormD
                       
                         <div className='flex items-center gap-6 mt-5'>
                             <Button className='bg-blue-500 font-medium text-white w-1/4' onClick={() => createJob()}>Confirmar</Button>
-                            <Button className='bg-gray-400 font-medium text-white  w-1/4'>Cancelar</Button>
+                            <Button className='bg-gray-400 font-medium text-white  w-1/4' onClick={() => cancel()}>Cancelar</Button>
                         </div>
 
                         {loading ? <div className="flex items-center justify-center mt-6"> <Loading/> </div> : null}

@@ -109,7 +109,7 @@ const AddNewJobForm = ({clients, updateJobs, goBack}: Props) => {
                               </div>
                                 :
                                 <div className='flex mt-6'>
-                                  <PossibleTable services={userServices} vehicleChoosen={vehicleSelected} client={clientSelected} updateJobs={updateJobs} resetFormData={resetFormData}/> 
+                                  <PossibleTable services={userServices} vehicleChoosen={vehicleSelected} client={clientSelected} updateJobs={updateJobs} resetFormData={resetFormData} cancel={goBack}/> 
                                 </div>
                             }
 

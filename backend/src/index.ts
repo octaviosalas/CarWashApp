@@ -13,6 +13,7 @@ import collectionRoutes from "./routes/CollectionRoutes"
 import estadisticsRoutes from "./routes/EstadisticsRoutes"
 import {MercadoPagoConfig, Preference} from "mercadopago"
 import { Response, Request } from "express"
+import expenseRoutes from "./routes/ExpensesRoutes"
 
 type firstBody = { 
     id: string;
@@ -51,6 +52,7 @@ app.use("/api/jobs", jobsRoutes)
 app.use("/api/vehicles", vehiclesRoutes)
 app.use("/api/services", servicesRoutes)
 app.use("/api/collections", collectionRoutes)
+app.use("/api/expenses", expenseRoutes)
 app.use("/api/estadistics", estadisticsRoutes)
 
 

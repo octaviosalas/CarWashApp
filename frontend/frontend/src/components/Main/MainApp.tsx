@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css"
 import MainServicesData from './MainServicesData';
 import MainEstadisticsData from '../Estadistics/MainEstadisticsData';
 import MainMyAccount from './MainMyAccount';
+import MainMyExpenses from './MainMyExpenses';
 
 function MainApp() {
   
@@ -14,6 +15,7 @@ function MainApp() {
      const [showServices, setShowServices] = useState<boolean>(false)
      const [showEstadistics, setShowEstadistics] = useState<boolean>(false)
      const [showMyAccount, setShowMyAccount] = useState<boolean>(false)
+     const [showMyExpenses, setShowMyExpenses] = useState<boolean>(false)
 
      const showClientsMenu = () => { 
        setShowJobs(false)
@@ -21,6 +23,7 @@ function MainApp() {
        setShowServices(false)
        setShowEstadistics(false)
        setShowMyAccount(false)
+       setShowMyExpenses(false)
      }
 
      const showJobsMenu = () => { 
@@ -29,6 +32,7 @@ function MainApp() {
       setShowServices(false)
       setShowMyAccount(false)
       setShowEstadistics(false)
+      setShowMyExpenses(false)
      }
 
      const showServicesMenu = () => { 
@@ -37,6 +41,7 @@ function MainApp() {
       setShowServices(true)
       setShowMyAccount(false)
       setShowEstadistics(false)
+      setShowMyExpenses(false)
      }
 
      const showEstadisticsMenu = () => { 
@@ -45,6 +50,7 @@ function MainApp() {
       setShowServices(false)
       setShowEstadistics(true)
       setShowMyAccount(false)
+      setShowMyExpenses(false)
      }
 
      const showMyAccountMenu = () => { 
@@ -53,14 +59,26 @@ function MainApp() {
       setShowServices(false)
       setShowEstadistics(false)
       setShowMyAccount(true)
-     }
+      setShowMyExpenses(false) 
+    }
+
+    const showMyExpensesMenu = () => { 
+        setShowJobs(false)
+        setShowClients(false)
+        setShowServices(false)
+        setShowEstadistics(false)
+        setShowMyAccount(false)
+        setShowMyExpenses(true) 
+      }
 
 
   return (
     
       <div className='flex flex-col items-center justify-center text-center '>
           <div className='w-auto '>
-              <Navbar showClients={showClientsMenu} showJobs={showJobsMenu} showServices={showServicesMenu} showEstadistics={showEstadisticsMenu} showMyAccountMenu={showMyAccountMenu}/>
+              <Navbar showClients={showClientsMenu} showJobs={showJobsMenu} 
+                      showServices={showServicesMenu} showEstadistics={showEstadisticsMenu} 
+                      showMyAccountMenu={showMyAccountMenu} showMyExpensesMenu={showMyExpensesMenu}/>
           </div>
 
          {showJobs === true ? 
@@ -73,6 +91,8 @@ function MainApp() {
                                <MainEstadisticsData/>
                        ) : showMyAccount === true ? ( 
                                <MainMyAccount/>
+                       ) : showMyExpenses === true ? ( 
+                        <MainMyExpenses/>
                        ) : null
           }
       </div>

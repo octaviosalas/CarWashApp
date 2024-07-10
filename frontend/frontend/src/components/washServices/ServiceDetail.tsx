@@ -49,9 +49,9 @@ const ServiceDetail = ({serviceData, update}: Props) => {
         setLoad(true)
           try {
             const {status, data} = await apiBackendUrl.get(`/services/servicesDataEstadistic/${user?._id}/${serviceData?._id}`)
-            console.log(data)
+         
               if(status === 200 && data.detail.length > 0) { 
-                console.log(data)
+              
                 setWithOutJobs(false)
                 setTotal(data.totalAmount)
                 setQuantity(data.totalJobs)
@@ -74,9 +74,9 @@ const ServiceDetail = ({serviceData, update}: Props) => {
 
   return (
     <div className='w-full h-full flex flex-col justify-center items-center'>
-         <div className="mt-4 w-full border-b">
+           <div className="mt-4 w-full border-b">
                    <NavbarServices showEditService={showNowEdit} showDeleteService={showNowDelete}/>
-                </div>
+            </div>
         {showService && serviceData !== undefined ? 
          <div className='flex flex-col w-full'>
             <div className='flex flex-col items-start justify-star mt-6 ml-4'>
