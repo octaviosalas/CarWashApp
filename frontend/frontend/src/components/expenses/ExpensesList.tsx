@@ -18,7 +18,7 @@ const ExpensesList = () => {
             const {data} = await apiBackendUrl.get(`/expenses/getMyExpenses/${user?._id}`) 
             const response = data
             if(response.length > 0) { 
-                setExpensesData(response)
+                setExpensesData(response.reverse())
               setLoad(false)
             } else { 
               setLoad(false)

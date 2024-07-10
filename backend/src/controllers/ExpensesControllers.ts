@@ -37,3 +37,40 @@ export const getExpenses = async (req: Request, res: Response) => {
         res.status(500).json({message:"Error", error})
     }
 }
+
+
+export const deleteExpense = async (req: Request, res: Response) => { 
+    
+    const {expenseId} = req.params
+
+    try {
+        await ExpensesModel.findByIdAndDelete(expenseId)
+        res.status(200).send("Se ha eliminado el gasto exitosamente")
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"Error", error})
+    }
+}
+
+
+export const updateData = async (req: Request, res: Response) => { 
+    
+    const {expenseId} = req.params
+
+    try {
+        const newExpenseData = await ExpensesModel.findByIdAndUpdate(expenseId, { 
+            reason: req.body.reason,
+            amount: req.body.amount,
+            observation: req.body.observation,
+            expenseType: req.body.expenseType
+        }, {new: true})
+
+        await newExpenseData.save()
+        
+        res.status(200).send("Se modificaron los datos del gasto correctamente")
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"Error", error})
+    }
+}
+

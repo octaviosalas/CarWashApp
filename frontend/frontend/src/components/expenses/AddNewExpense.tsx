@@ -6,6 +6,7 @@ import { getDate } from '../../functions/TransformDateHour/HourAndDate'
 import apiBackendUrl from '../../lib/axios'
 import { userStore } from '../../store/store'
 import handleError from '../../utils/AxiosErrorFragment'
+import Loading from '../Spinner/Loading'
 
 interface Props { 
     update: () => void,
@@ -56,6 +57,7 @@ const AddNewExpense = ({update, goBack}: Props) => {
        expenseType: typeExpense,
        observation: observation
     })
+    console.log(expenseData)
     try {
         const {data, status} = await apiBackendUrl.post(`/expenses/createExpense/${userData?._id}`, expenseData)
         if(status === 200) { 
@@ -70,7 +72,7 @@ const AddNewExpense = ({update, goBack}: Props) => {
         }
     } catch (error) {
        handleError(error, setLoad)
-    }
+    } 
   }
 
   return (
@@ -103,6 +105,7 @@ const AddNewExpense = ({update, goBack}: Props) => {
           <Button className="bg-blue-500 text-white text-md font-medium w-72" onClick={() => createNewExpense()}>Añadir</Button>
           <Button className='bg-gray-400 font-medium text-white  w-72' onClick={() => goBack()}>Cancelar</Button>
         </div>
+        {load ? <div className='flex items-center justify-center mt-6 2xl:mt-12'> <Loading/> </div> : null}
     </div>
   )
 }

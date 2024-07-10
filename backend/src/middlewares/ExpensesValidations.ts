@@ -1,4 +1,5 @@
 import type { Request, Response, NextFunction } from "express"
+import ExpensesModel from "../models/Expenses"
 
 export const validateExpenseAmount = async (req: Request, res: Response, next: NextFunction) => { 
      
@@ -14,4 +15,24 @@ export const validateExpenseAmount = async (req: Request, res: Response, next: N
         console.log(error)
         res.status(500).json("Hubo un error en el midddleware")
     }
-  }
+}
+
+export const validateExpenseExist = async (req: Request, res: Response, next: NextFunction) => { 
+     
+    const {expenseId, userId} = req.body
+  
+    try {
+        const findExpense = await ExpensesModel.find({
+            user: userId,
+            _id: expenseId
+        })
+        if(!findExpense) { 
+            res.status(404).json("No se encuentra el gasto que estas intentando eliminar")
+        } else { 
+            next()
+        }
+    } catch (error) {   
+        console.log(error)
+        res.status(500).json("Hubo un error en el midddleware")
+    }
+}

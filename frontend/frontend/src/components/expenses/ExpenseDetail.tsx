@@ -1,9 +1,6 @@
 import { ExpensesType } from '../../types/ExpensesTypes'
 import NavbarExpenses from './NavbarExpenses';
 import { useState, useEffect } from 'react';
-import { Button } from '@nextui-org/react';
-import Loading from '../Spinner/Loading';
-import EditService from 'components/washServices/EditService';
 import DeleteExpense from './DeleteExpense';
 import EditExpense from './EditExpense';
 
@@ -18,7 +15,6 @@ const ExpenseDetail = ({expenseData, update}: Props) => {
   const [showExpenseDetail, setShowExpenseDetail] = useState<boolean>(true)
   const [showEditExpense, setShowEditExpense] = useState<boolean>(false)
   const [showDeleteExpense, setShowDeleteExpense] = useState<boolean>(false)
-  const [load, setLoad] = useState<boolean>(false)
   const [viewDetail, setViewDetail] = useState<boolean>(false)
 
 
@@ -51,7 +47,7 @@ const ExpenseDetail = ({expenseData, update}: Props) => {
        <div className="mt-4 w-full border-b ">
               <NavbarExpenses showEdit={showNowEdit} showDelete={showNowDelete}/>
         </div>
-        {showExpenseDetail && expenseData !== undefined ? 
+        {showExpenseDetail && expenseData !== undefined && !showEditExpense && !showDeleteExpense? 
          <div className='flex flex-col w-full'>
             <div className='flex flex-col items-start justify-star mt-6 ml-4'>
                 <div className='flex flex-col items-start justify-start'>
@@ -74,10 +70,11 @@ const ExpenseDetail = ({expenseData, update}: Props) => {
                 </div>
             </div>             
           </div>
-             :
-             <div className='mt-24 2xl:mt-40'>
-               <p className='text-zinc-600 font-medium'>No has seleccionado ningun elemento</p>
-             </div>
+             : !showEditExpense && !showDeleteExpense && expenseData === undefined ? ( 
+                <div className='mt-24 2xl:mt-40'>
+                  <p className='text-zinc-600 font-medium'>No has seleccionado ningun elemento</p>
+                 </div>
+             ) : null        
             }
 
             {showEditExpense ? <div className="w-full"> <EditExpense detail={expenseData}  goBack={showDetail} update={update}/> </div> : null}

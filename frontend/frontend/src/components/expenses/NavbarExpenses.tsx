@@ -12,9 +12,9 @@ const NavbarExpenses = ({showEdit, showDelete}: Props) => {
       <div>
           <p className='font-medium text-black text-md'>Detalle del Gasto</p>
       </div>
-      <div className='flex items-center gap-8 mr-4'>
-          <img src={editjob} title="Editar datos del Lavado"  className='h-6 w-6 cursor-pointer' onClick={() => showEdit()}/>
-          <img src={deleteJob} title="Eliminar Lavado" className='h-6 w-6 cursor-pointer'  onClick={() => showDelete()}/>
+      <div className='flex items-center gap-6 mr-8'>
+          <img src={editjob} title="Editar datos del gasto"  className='h-6 w-6 cursor-pointer' onClick={() => showEdit()}/>
+          <img src={deleteJob} title="Eliminar gasto" className='h-6 w-6 cursor-pointer'  onClick={() => showDelete()}/>
       </div>
 </div>
   )
