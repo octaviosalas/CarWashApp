@@ -7,6 +7,9 @@ import Loading from '../Spinner/Loading'
 import CreateNewExpenseType from './CreateNewExpenseType'
 import plus from "../../images/plus.png"
 import arrowBack from "../../images/arrowBack.png"
+import deleteIcon from "../../images/deleteJob.png"
+import eyeIcon from "../../images/eyeIcon.png"
+import {Accordion, AccordionItem} from "@nextui-org/react";
 
 interface Props { 
     goBack: () => void
@@ -56,24 +59,36 @@ const MainExpensesType = ({goBack}: Props) => {
                     <p className='text-white font-medium'>No tenes tipos de gastos almacenados. Crea el primero</p>
                </div>
                <div className='flex w-full justify-start mt-12'>
-                  <CreateNewExpenseType update={expensesUserTypes} cancel={dontShowAddNew}/>
+                  <CreateNewExpenseType update={expensesUserTypes} cancel={dontShowAddNew} getExpensesType={expensesUserTypes}/>
                </div>
            </div>
          ) :  !load && userExpensesTypes.length > 0 ? ( 
                 <> 
-                   <div className='bg-blue-500 font-medium flex justify-between items-center text-white text-center w-full rounded-lg h-10 mt-4'>
-                       <p className='text-md'>Tipos de gasto</p>
-                       <img className='h-8 w-8 mr-4 cursor-pointer' title="Agregar nuevo tipo de gasto" onClick={() => setShowCreateNew(prevState => !prevState)} src={plus}/>
+                   <div className='bg-blue-500 font-medium flex justify-between items-center text-white text-center w-3/4 rounded-lg h-10 mt-4 ml-2'>
+                       <p className='text-md ml-2'>Tipos de gasto</p>
+                       <img className='h-8 w-8 mr-2 cursor-pointer' title="Agregar nuevo tipo de gasto" onClick={() => setShowCreateNew(prevState => !prevState)} src={plus}/>
                    </div>
-                   <div className='flex flex-col mt-6 justify-start items-start w-full'>
-                       {userExpensesTypes.map((us : TypeOfExpensesType) => ( 
-                          <div className='flex flex-col text-start mt-2 w-full' key={us._id}>
-                              <p className='font-medium text-black text-md border-b w-full'>{us.name}</p>
-                          </div>
-                       ))}
+                   <div className='flex flex-col mt-6 justify-start items-start w-full'>    
+                   {userExpensesTypes.map((us: TypeOfExpensesType) => ( 
+                       <div className="flex flex-col mt-2 justify-start items-start w-3/4">
+                            <Accordion variant="splitted">
+                                <AccordionItem key={us._id} aria-label={us.name}title={us.name} indicator={<img src={eyeIcon} alt="Eye Icon" width={24} height={24} />}>
+                                   <div className='flex flex-col items-start text-start justify-start w-full '>
+                                     {us.name}
+                                  </div> 
+                                </AccordionItem>                 
+                            </Accordion>
+                       </div>
+                   ))}
                    </div>
 
-                   {showCreateNew ? <div className='mt-12'> <CreateNewExpenseType update={expensesUserTypes} cancel={dontShowAddNew}/> </div> : null}
+
+                  
+
+
+                  
+
+                   {showCreateNew ? <div className='mt-12'> <CreateNewExpenseType update={expensesUserTypes} cancel={dontShowAddNew}  getExpensesType={expensesUserTypes}/> </div> : null}
                 </>
          ) : null}
     </div>

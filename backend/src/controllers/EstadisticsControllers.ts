@@ -3,6 +3,7 @@ import JobsModel from "../models/Jobs";
 import CollectionModel from "../models/Collections";
 import mongoose, { ObjectId } from 'mongoose';
 import { actualYear, actualMonth } from "../utils/DateAndHourFunctions";
+import ExpensesModel from "../models/Expenses";
 
 export const getDayEstadistic = async (req: Request, res: Response) => { 
     
@@ -31,8 +32,19 @@ export const getDayEstadistic = async (req: Request, res: Response) => {
             services: services,
             data: data
         }));
+
+        const userExpensesDay = await ExpensesModel.find({user: userId, date: date})
+        const totalAmountExpense = userExpensesDay.reduce((acc, el) => acc + el.amount, 0)
         
-        res.status(200).json({jobs: findJobs, collections: findCollections, amount: totalAmountFactured, amountEfective: totalEfective, orderByServices: trasformData});
+        res.status(200).json(
+            {jobs: findJobs, 
+                collections: findCollections, 
+                amount: totalAmountFactured, 
+                amountEfective: totalEfective, 
+                orderByServices: trasformData,
+                expensesAmount: totalAmountExpense
+            }
+        );
         
     } catch (error) {
         console.log(error)
@@ -80,6 +92,14 @@ export const getMonthEstadistic = async (req: Request, res: Response) => {
             data: data
         }));
 
+        const userExpensesMonth = await ExpensesModel.find({user: userId})
+        const filteredExpenses = userExpensesMonth.filter(dato => {
+            const fechaDato = new Date(dato.date);
+            const monthData = fechaDato.getMonth() + 1;
+            return monthData === actuallyMonth;
+        });
+        const totalMonthExpenses = filteredExpenses.reduce((acc, el) => acc + el.amount, 0)
+
 
 
         res.status(200).json({
@@ -87,7 +107,8 @@ export const getMonthEstadistic = async (req: Request, res: Response) => {
             totalAmount: totalAmountFactured,
             quantityJobs: filteredJobs.length,
             jobsOrderByType: trasformData,
-            jobs: filteredJobs
+            jobs: filteredJobs,
+            amountExpenses: totalMonthExpenses
         })
 
         
@@ -133,12 +154,21 @@ export const getYearEstadistic = async (req: Request, res: Response) => {
             data: data
         }));
 
+        const expenses = await ExpensesModel.find({ user: userId });
+        const filteredExpensesData = expenses.filter(dato => {
+            const fechaDato = new Date(dato.date);
+            const yearData = fechaDato.getFullYear();
+            return yearData === currentYear;
+        });
+        const totalExpensesAmount = filteredExpensesData.reduce((acc, el) => acc + el.amount, 0);
+
         res.status(200).json({
             collections: filteredCollections, 
             totalAmount: totalAmountFactured,
             quantityJobs: filteredJobs.length,
             jobsOrderByType: trasformData,
-            jobs: filteredJobs
+            jobs: filteredJobs,
+            totalExpensesAmount: totalExpensesAmount
         });
 
     } catch (error) {

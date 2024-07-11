@@ -30,10 +30,23 @@ const AddNewExpense = ({update, goBack}: Props) => {
   const [typeExpense, setTypeExpense] = useState<string>("")
   const [observation, setObservation] = useState<string>("")
   const [load, setLoad] = useState<boolean>(false)
+  const [expensesTypes, setExpensesTypes] = useState<TypeOfExpensesType[] | []>([])
 
   const date = getDate()
   const userData = userStore((state) => state.user)
-  const userTypeOfExpenses = userStore((state) => state.userTypeOfExpenses)
+
+  const getExpensesType = async () => { 
+    setLoad(true)
+    try {
+      const {data, status} = await apiBackendUrl.get(`/expenses/getExpensesTypes/${userData?._id}`)
+      if(status === 200) { 
+        setExpensesTypes(data)
+        setLoad(false)
+      }
+    } catch (error) {
+      handleError(error, setLoad)
+    }
+  }
 
   const handleChangeReason = (e: React.ChangeEvent<HTMLInputElement>) => { 
     setExpenseReason(e.target.value)
@@ -77,12 +90,14 @@ const AddNewExpense = ({update, goBack}: Props) => {
   }
 
   useEffect(() => { 
-    console.log(typeExpense)
-  }, [typeExpense])
+    getExpensesType()
+  }, [])
+
+ 
 
   return (
     <>
-   {userTypeOfExpenses.length > 0 ? 
+   {expensesTypes.length > 0 && !load? 
     <div className="w-full ">
           <div className='w-full flex justify-between items-center ml-4 mt-4 border-b'>
              <p className='text-md text-black font-medium'>Creando Gasto </p>
@@ -103,7 +118,7 @@ const AddNewExpense = ({update, goBack}: Props) => {
   
            <label className='mt-3'>Tipo de Gasto</label>
            <select className=" mt-1 w-80 2xl:96 h-10 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none"  value={typeExpense}  onChange={handleChangeTypeExpense}>
-              {userTypeOfExpenses?.map((us: TypeOfExpensesType) => ( 
+              {expensesTypes.map((us: TypeOfExpensesType) => ( 
                 <option value={us._id}  key={us._id}>{us.name}</option>
               ))}
            </select>
@@ -114,13 +129,13 @@ const AddNewExpense = ({update, goBack}: Props) => {
                   onChange={handleChangeObservation} value={observation} 
             />
         </div>
-        <div className='mt-4 flex gap-4 items-center justify-start'>
+        <div className='mt-4 flex gap-4 items-center justify-start ml-4'>
           <Button className="bg-blue-500 text-white text-md font-medium w-72" onClick={() => createNewExpense()}>Añadir</Button>
           <Button className='bg-gray-400 font-medium text-white  w-72' onClick={() => goBack()}>Cancelar</Button>
         </div>
         {load ? <div className='flex items-center justify-center mt-6 2xl:mt-12'> <Loading/> </div> : null}
-    </div> : 
-       <div className="w-full ">
+    </div> : expensesTypes.length === 0 && !load ? ( 
+      <div className="w-full ">
            <div className='w-full flex justify-between items-center ml-4 mt-4 border-b'>
              <p className='text-md text-black font-medium'>Creando Gasto </p>
           </div>
@@ -128,9 +143,15 @@ const AddNewExpense = ({update, goBack}: Props) => {
                <p>Para poder crear un gasto, primero debes asignar cuales seran los tipos de gasto</p>
           </div>
           <div className='mt-12'>
-            <CreateNewExpenseType update={update} cancel={goBack}/>
+            <CreateNewExpenseType update={update} cancel={goBack} getExpensesType={getExpensesType}/>
           </div>
-       </div>}
+       </div>
+    ) : load ? ( 
+            <div className='mt-24 flex items-center justify-center'>
+                <Loading/>
+            </div>
+    ) : null
+       }
     </>
   )
 }

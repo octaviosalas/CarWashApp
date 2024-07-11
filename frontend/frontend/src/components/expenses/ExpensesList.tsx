@@ -13,13 +13,13 @@ const ExpensesList = () => {
     const user = userStore(state => state.user)
 
     const getExpenses = async () => {
+      console.log("Obtengo los expenses")
         setLoad(true)
         try {
             const {data} = await apiBackendUrl.get(`/expenses/getMyExpenses/${user?._id}`) 
             const response = data
             if(response.length > 0) { 
                 setExpensesData(response.reverse())
-                console.log("LOS GASTOS", response)
               setLoad(false)
             } else { 
               setLoad(false)

@@ -12,16 +12,16 @@ interface newTypeExpense {
 
 interface Props { 
     update: () => void,
-    cancel: () => void
+    cancel: () => void,
+    getExpensesType: () => void
 }
 
-const CreateNewExpenseType = ({update, cancel}: Props) => {
+const CreateNewExpenseType = ({update, cancel, getExpensesType}: Props) => {
 
     const [name, setName] = useState<string>("")
     const [load, setLoad] = useState<boolean>(false)
     const user = userStore((state) => state.user)
 
-    const updateTypes = userStore((state) => state.fetchAndSetUserTypeOfExpenses)
 
     const createNewType = async () => { 
         setLoad(true)
@@ -38,7 +38,8 @@ const CreateNewExpenseType = ({update, cancel}: Props) => {
             });
             update()
             setLoad(false)
-            updateTypes()
+            getExpensesType()
+            cancel()
         }
        } catch (error) {
           handleError(error, setLoad)
@@ -50,7 +51,7 @@ const CreateNewExpenseType = ({update, cancel}: Props) => {
     }
 
   return (
-    <div className='w-full'>
+    <div className='w-3/4'>
         <div className='flex flex-col justify-start items-start'>
            <div className='bg-blue-500 font-medium flex justify-between items-center text-white text-center w-full rounded-lg h-10'>
                <p className='ml-2'>Crear nuevo tipo de Gasto</p>

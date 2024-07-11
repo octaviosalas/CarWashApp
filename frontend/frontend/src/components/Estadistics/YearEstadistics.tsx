@@ -28,6 +28,7 @@ const YearEstadistics = () => {
      const [load, setLoad] = useState<boolean>(false)   
      const [totalAmount, setTotalAmount] = useState<number>(0)
      const [quantityJobs, setQuantityJobs] = useState<number>(0)
+     const [amountExpenses, setAmountExpenses] = useState<number>(0)
      const [jobsOrdersByTypeOfService, setJobsOrdersByTypeOfService] = useState<ServicesArray[]>([])
 
 
@@ -41,6 +42,7 @@ const YearEstadistics = () => {
               setTotalAmount(data.totalAmount)
               setQuantityJobs(data.quantityJobs)
               setJobsOrdersByTypeOfService(data.jobsOrderByType)
+              setAmountExpenses(data.totalExpensesAmount)
               }
             setLoad(false)
           } catch (error) {
@@ -96,6 +98,7 @@ const YearEstadistics = () => {
                     <p className="mb-2 text-lg font-semibold text-blue-600 mt-2 2xl:mt-4">Lavados</p>
                     {quantityJobs > 0 ? <p className="text-2xl font-bold text-gray-800">{quantityJobs}</p> : <p className="text-2xl font-bold text-gray-800">No hay lavados registrados</p>}                    
                 </div>
+
             <div className='flex flex-col jfy-center items-center mt-2 border shadow-lg p-8'> 
                      <svg  className="w-10 h-10 text-blue-600" 
                           xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +115,27 @@ const YearEstadistics = () => {
                       </svg>
                       <p className="mb-2 text-lg font-semibold text-blue-600 mt-2 2xl:mt-4">Facturación</p>
                       {totalAmount > 0 ? <p className="text-2xl font-bold text-gray-800">{transformPrice(totalAmount)}</p> :  <p className="text-2xl font-bold text-gray-800">No se registraron cobros</p>}
+            </div>
+
+            <div className='flex flex-col jfy-center items-center mt-2 border shadow-lg p-8'>  
+                <svg  className="w-10 h-10 text-red-500" 
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round">
+                      <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
+                      <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                      <path d="M12 17.5v-11" />
+                    </svg>
+                     <p className="mb-2 text-lg font-semibold text-red-500 mt-2 2xl:mt-4">Gastos</p>
+                     <p className="text-2xl font-bold text-red-600">{transformPrice(amountExpenses)}</p>
                 </div>
+
         </div>
         <div className='w-full flex flex-col gap-6 mt-0 2xl:mt-4'>         
             {jobsOrdersByTypeOfService.length > 0 ? 

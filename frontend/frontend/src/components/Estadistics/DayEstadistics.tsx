@@ -31,6 +31,7 @@ const DayEstadistics = () => {
     const [jobsData, setJobsData] = useState<JobType[]>([])
     const [amountFactured, setAmountFactured] = useState<number>(0)
     const [efectiveAmount, setEfectiveAmount] = useState<number>(0)
+    const [expenseAmount, setExpenseAmount] = useState<number>(0)
     const [jobsOrdersByTypeOfService, setJobsOrdersByTypeOfService] = useState<ServicesArray[]>([])
 
 
@@ -44,6 +45,8 @@ const DayEstadistics = () => {
                 setAmountFactured(data.amount)
                 setEfectiveAmount(data.amountEfective)
                 setJobsOrdersByTypeOfService(data.orderByServices)
+                setExpenseAmount(data.expensesAmount)
+                console.log(data.expensesAmount)
             }
             setLoad(false)
         } catch (error) {
@@ -63,8 +66,8 @@ const DayEstadistics = () => {
             <div className='bg-blue-500 w-full border h-12 rounded-lg flex items-center text-center justify-center'>
                  <p className='text-white font-medium text-lg '> {transformDate(date.toString())} </p>
             </div>
-            <div className='flex gap-36 items-center mt-2 2xl:mt-6'>
-               <div className='flex flex-col jfy-center items-center mt-2 border shadow-lg p-8'> 
+            <div className='flex gap-6 xl:gap-12 2xl:gap-24 3xl:gap-36 items-center mt-2 2xl:mt-6'>
+               <div className='flex flex-col justify-center items-center mt-2 border shadow-lg p-8'> 
                     <svg className="w-10 h-10 text-blue-600"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -118,6 +121,24 @@ const DayEstadistics = () => {
                     </svg>
                      <p className="mb-2 text-lg font-semibold text-blue-600 mt-2 2xl:mt-4">Efectivo</p>
                      <p className="text-2xl font-bold text-gray-800">{transformPrice(efectiveAmount)}</p>
+                </div>
+                <div className='flex flex-col jfy-center items-center mt-2 border shadow-lg p-8'>  
+                <svg  className="w-10 h-10 text-red-500" 
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round">
+                      <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
+                      <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                      <path d="M12 17.5v-11" />
+                    </svg>
+                     <p className="mb-2 text-lg font-semibold text-red-500 mt-2 2xl:mt-4">Gastos</p>
+                     <p className="text-2xl font-bold text-red-600">{transformPrice(expenseAmount)}</p>
                 </div>
             </div>
             <div className='w-full flex flex-col gap-6 mt-0 2xl:mt-4'>    
