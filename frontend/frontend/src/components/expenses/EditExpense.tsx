@@ -26,7 +26,7 @@ const EditExpense = ({detail, goBack, update} : Props) => {
   const [expenseReason, setExpenseReason] = useState<string | undefined>(detail?.reason)
   const [amount, setAmount] = useState<number | undefined>(detail?.amount)
   const [observation, setObservation] = useState<string | undefined>(detail?.observation) 
-  const [expenseType, setExpenseType] = useState<string | undefined>(detail?.expenseType)
+  const [expenseType, setExpenseType] = useState<string | undefined>(detail?.expenseType.name)
   const [load, setLoad] = useState<boolean>(false)
   const user = userStore((state) => state.user)
 

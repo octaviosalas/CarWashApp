@@ -19,7 +19,7 @@ const Login = () => {
 
      const [load, setLoad] = useState<boolean>(false)
 
-     const {setUserAccountData, setUserClients, setUserServices} = userStore()
+     const {setUserAccountData, setUserClients, setUserServices, setUserTypeOfExpenses} = userStore()
 
      const navigate = useNavigate()
 
@@ -40,6 +40,8 @@ const Login = () => {
                setUserAccountData(data.userData)
                setUserServices(data.userServices)
                setUserClients(data.userClients)
+               setUserTypeOfExpenses(data.userTypeOfExpenses)
+               console.log("UserTypeExpenses", data.userTypeOfExpenses)
                navigate("/") 
             } else if (status === 202 ) { 
               console.log(status, data)

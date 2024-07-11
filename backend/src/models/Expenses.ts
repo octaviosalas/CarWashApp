@@ -6,8 +6,9 @@ export interface ExpenseType extends Document {
     user: Types.ObjectId,
     reason: string,
     observation: string,
-    expenseType: string
+    expenseType: Types.ObjectId
 }
+
 
 
 const ExpenseSchema: Schema = new Schema ({ 
@@ -28,7 +29,8 @@ const ExpenseSchema: Schema = new Schema ({
         required: true,
     },
     expenseType: { 
-        type: String,
+        type: Types.ObjectId,
+        ref: "ExpensesTypeModel",
         required: true,
     },
     observation: { 

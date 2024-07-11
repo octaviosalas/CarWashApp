@@ -19,6 +19,7 @@ const ExpensesList = () => {
             const response = data
             if(response.length > 0) { 
                 setExpensesData(response.reverse())
+                console.log("LOS GASTOS", response)
               setLoad(false)
             } else { 
               setLoad(false)

@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from "express"
 import ExpensesModel from "../models/Expenses"
+import ExpensesTypeModel from "../models/ExpensesType"
 
 export const validateExpenseAmount = async (req: Request, res: Response, next: NextFunction) => { 
      
@@ -31,6 +32,30 @@ export const validateExpenseExist = async (req: Request, res: Response, next: Ne
         } else { 
             next()
         }
+    } catch (error) {   
+        console.log(error)
+        res.status(500).json("Hubo un error en el midddleware")
+    }
+}
+
+export const validateExpenseTypeNameNotExist = async (req: Request, res: Response, next: NextFunction) => { 
+     
+    const {name} = req.body
+    const {userId} = req.params
+
+    try {
+         const normalizedName = name.toLowerCase();
+
+         const checkIt = await ExpensesTypeModel.findOne({ 
+            user: userId,
+            name: { $regex: new RegExp(`^${normalizedName}$`, 'i') }
+        });
+        
+         if(checkIt) { 
+            res.status(400).send("El tipo de gasto que estas intentando agregar ya forma parte de los que tenes almacenados")
+         } else { 
+            next()
+         }
     } catch (error) {   
         console.log(error)
         res.status(500).json("Hubo un error en el midddleware")

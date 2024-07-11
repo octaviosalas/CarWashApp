@@ -8,6 +8,7 @@ import ClientModel from "../models/Clients";
 import { sendEmailToVerifyUserAccount, sendEmailToRecoverUserAccount } from "../utils/SendEmailToClient";
 import ServicesModel from "../models/Services";
 import bcrypt from "bcrypt"
+import ExpensesTypeModel from "../models/ExpensesType";
 
 
 export const createNewAcount = async (req: Request, res: Response) => { 
@@ -106,8 +107,9 @@ export const login = async (req: Request, res: Response) => {
             } else { 
                 const userServices = await ServicesModel.find({user: user._id})
                 const userClients = await ClientModel.find({clientOf: user._id})
+                const userTypeOfExpenses= await ExpensesTypeModel.find({user: user._id})
 
-                res.status(200).json({userData: user, userServices: userServices, userClients: userClients})
+                res.status(200).json({userData: user, userServices: userServices, userClients: userClients,  userTypeOfExpenses: userTypeOfExpenses})
             }
         }
 

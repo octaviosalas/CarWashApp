@@ -28,20 +28,20 @@ const ExpensesCard = ({expenses, update}: Props) => {
     <div className='flex gap-4 h-full w-full'> 
           <div className='flex flex-col w-1/5 '>
               <div className='mt-2 w-full flex justify-start'>
-                        <Button className='bg-blue-500 text-white font-medium text-md w-72' onClick={() => setAddNew(true)}>Añadir nuevo Gasto</Button>
+                        <Button className='bg-blue-500 ml-2 text-white font-medium text-md w-72' onClick={() => setAddNew(true)}>Añadir nuevo Gasto</Button>
              </div>
               {expenses.map((exp: ExpensesType) => ( 
-                     <div className='mt-2 2xl:mt-4 w-full cursor-pointer hover:bg-blue-100' key={exp._id} onClick={() => selectExpense(exp)}>
-                        <div className='flex items-start text-start justify-start' key={exp._id}>
-                                <p className='font-medium text-md text-blue-500'>{exp.expenseType}</p>
+                     <div className='mt-2 2xl:mt-4  w-full cursor-pointer hover:bg-blue-100' key={exp._id} onClick={() => selectExpense(exp)}>
+                        <div className='flex ml-2 items-start text-start justify-start' key={exp._id}>
+                                <p className='font-medium text-md text-blue-500'>{exp.expenseType.name}</p>
                         </div>
-                        <div className='flex items-center gap-2'>                                       
+                        <div className='flex ml-2 items-center gap-2'>                                       
                             <p className='font-medium text-black text-md'>{exp.reason}</p>
                             </div>
-                            <div className='flex items-center'>                                      
+                            <div className='flex ml-2 items-center'>                                      
                                 <p className='text-red-600 font-medium text-md'>Monto:  {transformPrice(exp.amount)}</p>                                    
                             </div>                                   
-                            <div className='flex items-center mt-2 '>
+                            <div className='flex ml-2 items-center mt-2 '>
                                 <p className='font-medium text-black text-md'>Fecha: {formatDate(exp.date)}</p>
                             </div>                                
                      </div>  

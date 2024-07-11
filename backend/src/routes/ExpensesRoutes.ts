@@ -2,10 +2,27 @@ import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
-import { createExpense, getExpenses, deleteExpense, updateData } from "../controllers/ExpensesControllers"
-import { validateExpenseAmount, validateExpenseExist } from "../middlewares/ExpensesValidations"
+import { createExpense, getExpenses, deleteExpense, updateData, createNewTypeOfExpense, getTypesOfExpenses } from "../controllers/ExpensesControllers"
+import { validateExpenseAmount, validateExpenseExist, validateExpenseTypeNameNotExist } from "../middlewares/ExpensesValidations"
 
 const router = Router()
+
+router.post("/createNewTypeOfExpense/:userId",
+    param("userId").isMongoId().withMessage("El Id del usuario con el que intentas operar no es valido"),
+    body("name").notEmpty().withMessage("El nombre del tipo de gasto es obligatorio"),
+    handleInputErrors,
+    validateUserExist,
+    validateExpenseTypeNameNotExist,
+    createNewTypeOfExpense
+)
+
+router.get("/getExpensesTypes/:userId",
+    param("userId").isMongoId().withMessage("El Id del usuario con el que intentas operar no es valido"),
+    handleInputErrors,
+    validateUserExist,
+    getTypesOfExpenses
+)
+
 
 router.post("/createExpense/:userId",
     param("userId").isMongoId().withMessage("El Id del usuario con el que intentas operar no es valido"),
