@@ -31,11 +31,11 @@ const ExpensesCard = ({expenses, update}: Props) => {
   return (
     <div className='flex gap-4 h-full w-full'> 
           <div className='flex flex-col w-1/5 '>
-              <div className='mt-2 w-full flex justify-start'>
+              <div className='mt-2 w-full flex flex-col justify-start'>
                         <Button className='bg-blue-500 ml-2 text-white font-medium text-md w-72' onClick={() => setAddNew(true)}>Añadir nuevo Gasto</Button>
              </div>
            {expenses.length > 0 ?
-             <div className='max-h-[480px] 2xl:max-h-[745px] 3xl:max-h-[800px] overflow-y-auto w-full ml-2 mt-2'>  
+             <div className='max-h-[480px] 2xl:max-h-[745px] 3xl:max-h-[770px] overflow-y-auto w-full ml-2 mt-2'>  
               {expenses.map((exp: ExpensesType) => ( 
                      <div className='mt-2 2xl:mt-4  w-full cursor-pointer hover:bg-blue-100' key={exp._id} onClick={() => selectExpense(exp)}>
                         <div className='flex ml-2 items-start text-start justify-start' key={exp._id}>

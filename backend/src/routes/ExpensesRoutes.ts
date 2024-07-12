@@ -72,4 +72,12 @@ router.get("/expenseTypeData/:expenseTypeId/:userId/:date",
     getTypeResumeData
 )
 
+router.delete("/deleteType/:expenseTypeId/:userId", 
+    param("userId").isMongoId().withMessage("El Id del usuario con el que intentas operar no es valido"),
+    param("expenseTypeId").isMongoId().withMessage("El Id del tipo de gasto con el que intentas operar no es valido"),
+    handleInputErrors,
+    validateTypeOfExpenseIsUserType,
+
+)
+
 export default router

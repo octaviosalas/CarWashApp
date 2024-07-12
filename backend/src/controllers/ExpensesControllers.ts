@@ -155,6 +155,23 @@ export const getTypeResumeData = async (req: Request, res: Response) => {
         res.status(200).json({day: totalAmountDayUsed, month: totalAmountMonthUsed, year: totalAmountYearUsed})
 
     } catch (error) {
-        
+        console.log(error)
+        res.status(500).json({message:"Error", error})
     }
+}
+
+
+export const deleteTypeExpense = async (req: Request, res: Response) => { 
+   
+    const {userId, expenseTypeId} = req.params
+
+    try {
+        await ExpensesTypeModel.findOneAndDelete({_id: expenseTypeId, user: userId})
+        await ExpensesModel.deleteMany({expenseType: expenseTypeId})
+        res.status(200).send("Se ha eliminado correctamente el tipo de gasto y todos los gastos relacionados a este")
+
+   } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"Error", error})
+   }
 }

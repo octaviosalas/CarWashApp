@@ -12,6 +12,7 @@ import {Accordion, AccordionItem} from "@nextui-org/react";
 import { Selection } from '@react-types/shared'; 
 import { getDate } from '../../functions/TransformDateHour/HourAndDate'
 import transformPrice from '../../functions/TransformDateHour/TransformPrice'
+import QuestionBeforeDeleteType from './QuestionBeforeDeleteType'
 
 interface Props { 
     goBack: () => void
@@ -104,7 +105,7 @@ const MainExpensesType = ({goBack}: Props) => {
                    </div>
                    <div className='flex flex-col mt-6 justify-start items-start w-full max-h-[200px] 2xl:max-h-[450px] overflow-y-auto'>    
                    {userExpensesTypes.map((us: TypeOfExpensesType) => ( 
-                       <div className="flex flex-col mt-2 justify-start items-start w-3/4">
+                       <div className="flex items-center mt-2 justify-start  w-3/4">
                             <Accordion variant="light" selectedKeys={selectedKeys}  onSelectionChange={handleSelectionChange}>
                                 <AccordionItem key={us._id} aria-label={us.name}title={us.name} indicator={<img title="Ver detalle" src={eyeIcon} alt="Eye Icon" width={24} height={24} />} className='border-b-2' >
                                    <div className='flex flex-col items-start text-start justify-start w-full '>
@@ -122,6 +123,7 @@ const MainExpensesType = ({goBack}: Props) => {
                                   </div> 
                                 </AccordionItem>                 
                             </Accordion>
+                            <QuestionBeforeDeleteType id={us._id} update={expensesUserTypes}/>
                        </div>
                    ))}
                    </div>       
