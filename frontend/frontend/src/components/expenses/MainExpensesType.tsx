@@ -7,13 +7,17 @@ import Loading from '../Spinner/Loading'
 import CreateNewExpenseType from './CreateNewExpenseType'
 import plus from "../../images/plus.png"
 import arrowBack from "../../images/arrowBack.png"
-import deleteIcon from "../../images/deleteJob.png"
 import eyeIcon from "../../images/eyeIcon.png"
 import {Accordion, AccordionItem} from "@nextui-org/react";
+import { Selection } from '@react-types/shared'; 
+import { getDate } from '../../functions/TransformDateHour/HourAndDate'
+import transformPrice from '../../functions/TransformDateHour/TransformPrice'
 
 interface Props { 
     goBack: () => void
 }
+
+
 
 const MainExpensesType = ({goBack}: Props) => {
 
@@ -21,6 +25,12 @@ const MainExpensesType = ({goBack}: Props) => {
     const [userExpensesTypes, setUserExpensesTypes] = useState<TypeOfExpensesType[] | []>([])
     const [showCreateNew, setShowCreateNew] = useState<boolean>(false)
     const [load, setLoad] = useState<boolean>(false)
+    const [loadingTypeDetail, setLoadingTypeDetail] = useState<boolean>(false)
+    const [dayAmount, setDayAmount] = useState<number>()
+    const [monthAmount, setMonthAmount] = useState<number>()
+    const [yearAmount, setYearAmount] = useState<number>()
+
+    const actualDate = getDate()
 
 
     const expensesUserTypes = async () => { 
@@ -45,10 +55,34 @@ const MainExpensesType = ({goBack}: Props) => {
         setShowCreateNew(false)
     }
 
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set());
+    
+
+    const additionalFunction = async (expenseTypeId: string) => {
+        setLoadingTypeDetail(true)
+        try {
+            const {data, status} = await apiBackendUrl.get(`/expenses/expenseTypeData/${expenseTypeId}/${user?._id}/${actualDate}`)
+            if(status === 200) { 
+                setLoadingTypeDetail(false)
+                setDayAmount(data.day)
+                setMonthAmount(data.month)
+                setYearAmount(data.year)
+            }
+        } catch (error) {
+            handleError(error, setLoad)
+        }    
+    };
+    
+      const handleSelectionChange = (keys: Selection) => {
+        setSelectedKeys(keys);
+        const { anchorKey } = keys as any
+        additionalFunction(anchorKey);
+      };
+
   return (
     <div>
          <div className='w-full  flex justify-start mt-2'>
-           <img className='w-8 h-8 cursor-pointer' title="Volver" src={arrowBack} onClick={() => goBack()}/>
+           <img className='w-6 h-6 2xl:w-8 2xl:h-8 ml-2 cursor-pointer' title="Volver" src={arrowBack} onClick={() => goBack()}/>
         </div>
          {load ?
           <div className='mt-24 flex items-center justify-center'> 
@@ -68,26 +102,30 @@ const MainExpensesType = ({goBack}: Props) => {
                        <p className='text-md ml-2'>Tipos de gasto</p>
                        <img className='h-8 w-8 mr-2 cursor-pointer' title="Agregar nuevo tipo de gasto" onClick={() => setShowCreateNew(prevState => !prevState)} src={plus}/>
                    </div>
-                   <div className='flex flex-col mt-6 justify-start items-start w-full'>    
+                   <div className='flex flex-col mt-6 justify-start items-start w-full max-h-[200px] 2xl:max-h-[450px] overflow-y-auto'>    
                    {userExpensesTypes.map((us: TypeOfExpensesType) => ( 
                        <div className="flex flex-col mt-2 justify-start items-start w-3/4">
-                            <Accordion variant="splitted">
-                                <AccordionItem key={us._id} aria-label={us.name}title={us.name} indicator={<img src={eyeIcon} alt="Eye Icon" width={24} height={24} />}>
+                            <Accordion variant="light" selectedKeys={selectedKeys}  onSelectionChange={handleSelectionChange}>
+                                <AccordionItem key={us._id} aria-label={us.name}title={us.name} indicator={<img title="Ver detalle" src={eyeIcon} alt="Eye Icon" width={24} height={24} />} className='border-b-2' >
                                    <div className='flex flex-col items-start text-start justify-start w-full '>
-                                     {us.name}
+                                    {loadingTypeDetail ?
+                                    <div className='flex flex-col items-center justify-center'> 
+                                        <Loading/> 
+                                    </div>
+                                    : 
+                                    <div className='flex gap-4 items-center'> 
+                                        <p className='text-black font-medium'><span className='text-blue-600 font-bold text-md'>Gastado en el Dia:</span> {transformPrice(dayAmount)}</p>
+                                        <p className='text-black  font-medium'><span className='text-blue-600 font-bold text-md'>Gastado en el Mes:</span> {transformPrice(monthAmount)}</p>
+                                        <p className='text-black  font-medium'><span className='text-blue-600 font-bold text-md'>Gastado en el Año:</span> {transformPrice(yearAmount)}</p>
+                                     </div>
+                                     }
                                   </div> 
                                 </AccordionItem>                 
                             </Accordion>
                        </div>
                    ))}
-                   </div>
-
-
+                   </div>       
                   
-
-
-                  
-
                    {showCreateNew ? <div className='mt-12'> <CreateNewExpenseType update={expensesUserTypes} cancel={dontShowAddNew}  getExpensesType={expensesUserTypes}/> </div> : null}
                 </>
          ) : null}
@@ -96,3 +134,9 @@ const MainExpensesType = ({goBack}: Props) => {
 }
 
 export default MainExpensesType
+
+
+
+
+
+

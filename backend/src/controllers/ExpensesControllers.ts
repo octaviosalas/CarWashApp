@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ExpensesModel from "../models/Expenses";
 import ExpensesTypeModel from "../models/ExpensesType";
+import { actualMonth, actualYear } from "../utils/DateAndHourFunctions";
 
 export const createExpense = async (req: Request, res: Response) => { 
     
@@ -115,3 +116,45 @@ export const updateData = async (req: Request, res: Response) => {
     }
 }
 
+export const getTypeResumeData = async (req: Request, res: Response) => { 
+    
+    const {expenseTypeId, userId, date} = req.params
+    const actuallyMonth = actualMonth();
+    const currentYear = actualYear();
+
+    try {
+        const everyTypesDetectedInDay = await ExpensesModel.find({ 
+            user: userId,
+            expenseType: expenseTypeId,
+            date: date
+        })
+
+        const everyTypesDetectedInMonth = await ExpensesModel.find({ 
+            user: userId,
+            expenseType: expenseTypeId,
+        })
+
+        const totalAmountDayUsed = everyTypesDetectedInDay.reduce((acc, el) => acc + el.amount, 0)
+
+        const totalAmountMonth =  everyTypesDetectedInMonth.filter(data => { 
+            const actualDate = new Date(data.date);
+            const monthData = actualDate.getMonth() + 1;
+            return monthData === actuallyMonth
+        })
+
+        const totalAmountYear = everyTypesDetectedInMonth.filter(dato => {
+            const actualDate = new Date(dato.date);
+            const yearData = actualDate.getFullYear();
+            return yearData === currentYear;
+        });
+
+   
+        const totalAmountMonthUsed= totalAmountMonth.reduce((acc, el) => acc + el.amount, 0)
+        const totalAmountYearUsed= totalAmountYear.reduce((acc, el) => acc + el.amount, 0)
+
+        res.status(200).json({day: totalAmountDayUsed, month: totalAmountMonthUsed, year: totalAmountYearUsed})
+
+    } catch (error) {
+        
+    }
+}

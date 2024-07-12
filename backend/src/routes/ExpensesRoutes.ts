@@ -2,8 +2,8 @@ import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
-import { createExpense, getExpenses, deleteExpense, updateData, createNewTypeOfExpense, getTypesOfExpenses } from "../controllers/ExpensesControllers"
-import { validateExpenseAmount, validateExpenseExist, validateExpenseTypeNameNotExist } from "../middlewares/ExpensesValidations"
+import { createExpense, getExpenses, deleteExpense, updateData, getTypeResumeData, createNewTypeOfExpense, getTypesOfExpenses } from "../controllers/ExpensesControllers"
+import { validateExpenseAmount, validateExpenseExist, validateExpenseTypeNameNotExist, validateTypeOfExpenseIsUserType } from "../middlewares/ExpensesValidations"
 
 const router = Router()
 
@@ -22,7 +22,6 @@ router.get("/getExpensesTypes/:userId",
     validateUserExist,
     getTypesOfExpenses
 )
-
 
 router.post("/createExpense/:userId",
     param("userId").isMongoId().withMessage("El Id del usuario con el que intentas operar no es valido"),
@@ -51,7 +50,6 @@ router.delete("/deleteExpense/:expenseId/:userId",
     deleteExpense
 )
 
-
 router.put("/editData/:expenseId/:userId", 
     param("userId").isMongoId().withMessage("El Id del usuario con el que intentas operar no es valido"),
     param("expenseId").isMongoId().withMessage("El Id del usuario con el que intentas operar no es valido"),
@@ -62,6 +60,16 @@ router.put("/editData/:expenseId/:userId",
     validateUserExist,
     validateExpenseExist,
     updateData
+)
+
+router.get("/expenseTypeData/:expenseTypeId/:userId/:date", 
+    param("userId").isMongoId().withMessage("El Id del usuario con el que intentas operar no es valido"),
+    param("expenseTypeId").isMongoId().withMessage("El Id del tipo de gasto con el que intentas operar no es valido"),
+    param("date").notEmpty().withMessage("La fecha es obligatoria"),
+    handleInputErrors,
+    validateUserExist,
+    validateTypeOfExpenseIsUserType,
+    getTypeResumeData
 )
 
 export default router

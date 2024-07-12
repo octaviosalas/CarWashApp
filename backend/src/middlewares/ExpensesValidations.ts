@@ -61,3 +61,22 @@ export const validateExpenseTypeNameNotExist = async (req: Request, res: Respons
         res.status(500).json("Hubo un error en el midddleware")
     }
 }
+
+export const validateTypeOfExpenseIsUserType = async (req: Request, res: Response, next: NextFunction) => { 
+     
+    const {userId, expenseTypeId} = req.params
+
+    try {
+        
+         const check = await ExpensesTypeModel.find({user: userId, _id: expenseTypeId})
+        
+         if(!check) { 
+            res.status(400).send("El tipo de gasto que estas intentando averiguar no forma parte de los que tenes almacenados")
+         } else { 
+            next()
+         }
+    } catch (error) {   
+        console.log(error)
+        res.status(500).json("Hubo un error en el midddleware")
+    }
+}

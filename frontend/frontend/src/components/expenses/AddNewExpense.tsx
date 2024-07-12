@@ -41,6 +41,8 @@ const AddNewExpense = ({update, goBack}: Props) => {
       const {data, status} = await apiBackendUrl.get(`/expenses/getExpensesTypes/${userData?._id}`)
       if(status === 200) { 
         setExpensesTypes(data)
+        setTypeExpense(data[0]._id)
+        console.log(data[0]._id)
         setLoad(false)
       }
     } catch (error) {
@@ -102,10 +104,10 @@ const AddNewExpense = ({update, goBack}: Props) => {
           <div className='w-full flex justify-between items-center ml-4 mt-4 border-b'>
              <p className='text-md text-black font-medium'>Creando Gasto </p>
           </div>
-          <div className='ml-4 mt-0 2xl:mt-3'>
-            <img src={arrowBack} className='w-5 h-5 2xl:w-6 2xl:h-6 cursor-pointer' onClick={() => goBack()}/>
+          <div className='ml-4 mt-2 2xl:mt-3'>
+            <img src={arrowBack} className='w-6 h-6 2xl:w-8 2xl:h-8 cursor-pointer' onClick={() => goBack()}/>
           </div>
-        <div className='flex flex-col justify-start items-start mt-6 ml-4'>
+        <div className='flex flex-col justify-start items-start mt-3 2xl:mt-6 ml-4'>
             <label>Razon</label>
             <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                   onChange={handleChangeReason} value={expenseReason} 

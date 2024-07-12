@@ -61,19 +61,19 @@ const ExpenseDetail = ({expenseData, update}: Props) => {
          <div className='flex flex-col w-full'>
             <div className='flex flex-col items-start justify-star mt-6 ml-4'>
                 <div className='flex flex-col items-start justify-start'>
-                    <p className='font-bold text-black'>Razon del Gasto</p>
+                    <p className='font-medium text-black'>Razon del Gasto</p>
                     <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={expenseData?.reason} disabled
                     />
                 </div>
                 <div className='flex flex-col items-start justify-start mt-4'>
-                    <p className='font-bold text-black'>Monto Gastado</p>
+                    <p className='font-medium text-black'>Monto Gastado</p>
                     <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={expenseData?.amount} disabled
                     />
                 </div>
                 <div className='flex flex-col items-start justify-start mt-4'>
-                    <p className='font-bold text-black'>Tipo de Gasto</p>
+                    <p className='font-medium text-black'>Tipo de Gasto</p>
                     <input type="text" name="price" id="price" className=" mt-1s w-80 2xl:96 rounded-md border-1 py-1.5 pl-7 pr-20 sm:text-sm sm:leading-6 focus:outline-none" 
                     value={expenseData?.expenseType.name} disabled
                     />
