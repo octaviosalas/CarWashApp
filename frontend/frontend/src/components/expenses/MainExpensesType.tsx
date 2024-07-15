@@ -15,12 +15,13 @@ import transformPrice from '../../functions/TransformDateHour/TransformPrice'
 import QuestionBeforeDeleteType from './QuestionBeforeDeleteType'
 
 interface Props { 
-    goBack: () => void
+    goBack: () => void,
+    update: () => void
 }
 
 
 
-const MainExpensesType = ({goBack}: Props) => {
+const MainExpensesType = ({goBack, update}: Props) => {
 
     const user = userStore((state) => state.user)
     const [userExpensesTypes, setUserExpensesTypes] = useState<TypeOfExpensesType[] | []>([])
@@ -107,7 +108,7 @@ const MainExpensesType = ({goBack}: Props) => {
                    {userExpensesTypes.map((us: TypeOfExpensesType) => ( 
                        <div className="flex items-center mt-2 justify-start  w-3/4">
                             <Accordion variant="light" selectedKeys={selectedKeys}  onSelectionChange={handleSelectionChange}>
-                                <AccordionItem key={us._id} aria-label={us.name}title={us.name} indicator={<img title="Ver detalle" src={eyeIcon} alt="Eye Icon" width={24} height={24} />} className='border-b-2' >
+                                <AccordionItem key={us._id} aria-label={us.name}title={us.name} indicator={ <img title="Ver detalle" src={eyeIcon} alt="Eye Icon" width={24} height={24} />} className='border-b-2' >
                                    <div className='flex flex-col items-start text-start justify-start w-full '>
                                     {loadingTypeDetail ?
                                     <div className='flex flex-col items-center justify-center'> 
@@ -123,7 +124,8 @@ const MainExpensesType = ({goBack}: Props) => {
                                   </div> 
                                 </AccordionItem>                 
                             </Accordion>
-                            <QuestionBeforeDeleteType id={us._id} update={expensesUserTypes}/>
+                            <QuestionBeforeDeleteType id={us._id} update={expensesUserTypes} reset={update}/>
+                           
                        </div>
                    ))}
                    </div>       

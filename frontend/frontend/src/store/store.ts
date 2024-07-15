@@ -16,7 +16,7 @@ type userAccountStore = {
 }
 
 
-export const userStore = create<userAccountStore>((set, get) => ({ 
+export const userStore = create<userAccountStore>((set) => ({ 
      user: null,
      userServices: null,
      userClients: null,

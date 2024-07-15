@@ -11,10 +11,11 @@ import { toast } from "react-toastify";
 
 interface Props { 
     id: string,
-    update: () => void
+    update: () => void,
+    reset: () => void
 }
 
-const QuestionBeforeDeleteType = ({id, update}: Props) => {
+const QuestionBeforeDeleteType = ({id, update, reset}: Props) => {
 
   const {isOpen, onOpen, onOpenChange, onClose} = useDisclosure();
   const user = userStore((state) => state.user)
@@ -22,6 +23,8 @@ const QuestionBeforeDeleteType = ({id, update}: Props) => {
 
   const deleteTypeExpense= async () => { 
     setLoad(true)
+    console.log("El id del tipo de gasto", id)
+    console.log("El id del user", user?._id)
     try {
         const {data, status} = await apiBackendUrl.delete(`/expenses/deleteType/${id}/${user?._id}`)
         if(status === 200) { 
@@ -32,6 +35,7 @@ const QuestionBeforeDeleteType = ({id, update}: Props) => {
             });
             onClose()
             update()
+            reset()
             setLoad(false)
         }
     } catch (error) {

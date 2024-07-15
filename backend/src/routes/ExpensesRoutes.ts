@@ -2,7 +2,7 @@ import {Router} from "express"
 import {body, param} from "express-validator"
 import { handleInputErrors } from "../middlewares/handleInputErrors"
 import { validateUserExist } from "../middlewares/AuthValidations"
-import { createExpense, getExpenses, deleteExpense, updateData, getTypeResumeData, createNewTypeOfExpense, getTypesOfExpenses } from "../controllers/ExpensesControllers"
+import { createExpense, getExpenses, deleteExpense, updateData, getTypeResumeData, createNewTypeOfExpense, getTypesOfExpenses, deleteTypeExpense } from "../controllers/ExpensesControllers"
 import { validateExpenseAmount, validateExpenseExist, validateExpenseTypeNameNotExist, validateTypeOfExpenseIsUserType } from "../middlewares/ExpensesValidations"
 
 const router = Router()
@@ -77,7 +77,7 @@ router.delete("/deleteType/:expenseTypeId/:userId",
     param("expenseTypeId").isMongoId().withMessage("El Id del tipo de gasto con el que intentas operar no es valido"),
     handleInputErrors,
     validateTypeOfExpenseIsUserType,
-
+    deleteTypeExpense
 )
 
 export default router

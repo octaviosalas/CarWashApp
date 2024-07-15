@@ -52,7 +52,7 @@ const ExpenseDetail = ({expenseData, update}: Props) => {
   return (
      
 <div className='w-full h-full flex flex-col justify-center items-center'>
-       <div className="mt-4 w-full border-b ">
+       <div className="mt-2 w-full border-b ">
               <NavbarExpenses showEdit={showNowEdit} showDelete={showNowDelete} showExpenseType={showExpenseTypes} 
               showExpenseDetail={showExpenseDetail} showEditExpense={showEditExpense} showDeleteExpense={showDeleteExpense}
               expensesType={showExpenseType}/>
@@ -89,7 +89,7 @@ const ExpenseDetail = ({expenseData, update}: Props) => {
 
             {showEditExpense ? <div className="w-full"> <EditExpense detail={expenseData}  goBack={showDetail} update={update}/> </div> : null}
             {showDeleteExpense ? <div className="w-full"> <DeleteExpense detail={expenseData}  goBack={showDetail} update={update}/> </div> : null}
-            {showExpenseType ? <div className="w-full"> <MainExpensesType goBack={showDetail}/> </div> : null}
+            {showExpenseType ? <div className="w-full"> <MainExpensesType goBack={showDetail} update={update}/> </div> : null}
 
     </div>
 
