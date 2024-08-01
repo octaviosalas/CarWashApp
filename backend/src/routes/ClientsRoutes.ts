@@ -8,6 +8,15 @@ import { validateUserAccountIsConfirmed } from "../middlewares/AuthValidations"
 
 const router = Router()
 
+/** 
+ * @swagger
+ *   components:
+ *     schemas:
+ *       Clients:
+ * 
+ * 
+ */
+
 router.post("/create/:userId",
        param("userId").isMongoId().withMessage("Estas intentando agregar un cliente desde una cuenta que no es valida"),
        body("name").notEmpty().withMessage("El nombre del cliente es obligatorio")

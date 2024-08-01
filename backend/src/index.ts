@@ -14,6 +14,8 @@ import estadisticsRoutes from "./routes/EstadisticsRoutes"
 import {MercadoPagoConfig, Preference} from "mercadopago"
 import { Response, Request } from "express"
 import expenseRoutes from "./routes/ExpensesRoutes"
+import swaggerUi from "swagger-ui-express"
+import swaggerSpect from "./config/swagger"
 
 type firstBody = { 
     id: string;
@@ -54,6 +56,8 @@ app.use("/api/services", servicesRoutes)
 app.use("/api/collections", collectionRoutes)
 app.use("/api/expenses", expenseRoutes)
 app.use("/api/estadistics", estadisticsRoutes)
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpect))
 
 
 const client = new MercadoPagoConfig({ 
