@@ -6,14 +6,7 @@ import { getUserClients, getMyBilling, getMonthlyJobs, getDayJobs,  getEveryJobs
 
 const router = Router()
 
-/** 
- * @swagger
- *   components:
- *     schemas:
- *       Users:
- * 
- * 
- */
+
 
 router.get("/myClients/:userId", 
         param("userId").isMongoId().withMessage("El id no es valido"),

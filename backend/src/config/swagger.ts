@@ -21,7 +21,9 @@ const options : swaggerJSDoc.Options = {
             description: "Api docs"
         }
     },
-    apis: ["./src/routes/UserRoutes.ts", "./src/routes/ClientsRoutes.ts"]
+    //apis: ["./src/routes/UserRoutes.ts", "./src/routes/ClientsRoutes.ts"]
+    apis: ["./src/config/swaggerDocumentation.ts"]
+
 }
 
 const swaggerSpect = swaggerJSDoc(options)
